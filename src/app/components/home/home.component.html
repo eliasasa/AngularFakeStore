@@ -1,0 +1,15 @@
+<p>home teste!</p>
+<button (click)="imprimir($event)" [attr.arial-label]=nome>{{nome}}</button>
+<button (click)="logar($event)">Logar</button>
+
+@if (titulo) {
+    <p>{{nome}}</p>
+
+} @else {
+    <p>Não existe título</p>
+}
+
+@for (item of items; track item.id) 
+{
+    <p>{{item.nome}} => R${{item.preco}}</p>
+}
