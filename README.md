@@ -10,7 +10,7 @@ O objetivo é aplicar e expandir meus conhecimentos em frameworks modernos, expl
 - **API:** FakeStore (produtos, usuários, carrinho, etc)
 - **Objetivo:** Aprender Angular na prática, incluindo rotas, componentes, serviços, consumo de APIs, e boas práticas de frontend.
 - **Experiência prévia:** PHP (MVC, rotas, POO), HTML, CSS, JS puro.
-- **Repositório GitHub:** [AngularFakeStore](https://github.com/elias/AngularFakeStore) <!-- Atualize o link se necessário -->
+- **Repositório GitHub:** [AngularFakeStore](https://github.com/eliasasa/AngularFakeStore) <!-- Atualize o link se necessário -->
 
 ## Development server
 
