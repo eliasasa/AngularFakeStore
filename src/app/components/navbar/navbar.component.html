@@ -1,8 +1,31 @@
 <nav class="navbar navbar-dark bg-dark">
   <div class="container">
-    <a class="navbar-brand" href="#">AngularFakeStore</a>
-    <a class="nav-link text-white" routerLink="/">Home</a>
-    <a class="nav-link text-white" routerLink="/produtos">Produtos</a>
-    <a class="nav-link text-white" routerLink="/login">Login</a>
+    <div class="navbar-left" style="display: flex; align-items: center; gap: 16px; flex: 1;">
+      <a class="navbar-brand" href="/">
+        <div class="logo-container">
+          <img class="icon" src="assets/icons/logo.svg" style="--icon-size: 24px" alt="Logo">
+          <span class="logo-text">FakeStore</span>
+        </div>
+        <hr class="underline" style="--heigth: 1px; --radius: 1px">
+      </a>
+      <div class="search-container">
+        <input type="text" id="search-product-input" class="search-input" [placeholder]="placeHolderText" aria-label="Search">
+        <img class="search-icon" src="assets/icons/navbar/search-icon.svg" alt="">
+      </div>
+    </div>
+    <div class="navbar-right" style="display: flex; align-items: center; gap: 16px;">
+      @if (!isLoggedIn) {
+        <a class="nav-link text-white" routerLink="/login">
+            <img src="assets/icons/navbar/login-icon.svg" class="icon" style="--icon-size: 24px" alt="">
+          Logar
+        </a>
+      } @else {
+        <span class="user-info">
+          <img [src]="userPhoto" class="icon" alt="Foto">
+          {{ userName }}
+        </span>
+      }
+      <a class="nav-link text-white" routerLink="/produtos">Produtos</a>
+    </div>
   </div>
 </nav>

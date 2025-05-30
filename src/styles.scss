@@ -6,7 +6,7 @@
 
 html, body {
     height: 100%;
-    font-family: Arial, sans-serif;
+    font-family: 'Rubik', sans-serif;
 }
 
 :root {
@@ -20,3 +20,26 @@ body {
   color: var(--main-text);
 }
 
+
+hr {
+  border: none;
+  opacity: 1; 
+}
+
+.underline {
+  height: var(--height, 1px);
+  width: 0%;
+  margin: 0;
+  border: 1px solid transparent;
+  transition: width 0.2s, border-color 0.2s;
+  border-radius: var(--radius, 1px);
+}
+
+.icon {
+  width: var(--icon-size, 16px);
+  height: var(--icon-size, 16px);
+}
+
+.c-brand {
+  color: var(--text-brand-color);
+}

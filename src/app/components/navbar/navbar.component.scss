@@ -1,11 +1,109 @@
 @import "bootstrap/scss/functions";
 @import "bootstrap/scss/variables";
 
+.navbar {
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+.container {
+  display: flex;
+  justify-content: start;
+  column-gap: 24px;
+  align-items: center;
+  max-width: none;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  flex-direction: row;
+
+}
+
 .navbar .nav-link {
   cursor: pointer;
-  transition: color 0.2s;
+  transition: color 0.2s, transform 0.2s;
+  font-weight: 600;
   &:hover {
     color: var(--text-brand-color) !important;
-    text-decoration: underline;
+    transform: scale(1.1);
+    transition: color 0.2s, transform 0.2s;
   }
+}
+
+.logo-text {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--main-text);
+  &:hover {
+    color: var(--text-brand-color);
+  transition: color 0.2s;
+  }
+}
+
+.navbar-brand {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  margin: 0;
+  &:hover {
+    .underline {
+      width: 100%;    
+      border-color: var(--text-brand-color);
+      transition: width 0.2s, border-color 0.2s;
+    }
+  }
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  gap: 4px;
+}
+
+.search-container {
+  display: flex;
+  align-items: center;
+  width: 300px;
+  max-width: 100%;
+  position: relative;
+  transition: width 0.3s cubic-bezier(0.4,0,0.2,1);
+  &:focus-within {
+    width: 100%;
+  }
+}
+
+.search-input {
+  width: 100%;
+  height: 100%;
+  border: 2px solid var(--text-brand-color);
+  border-radius: 5px;
+  background-color: transparent;
+  padding: 8px;
+  color: white;
+  &:focus {
+    outline: none;
+    border-color: var(--text-brand-color);
+  }
+  
+}
+
+.search-input:-webkit-autofill,
+.search-input:-webkit-autofill:focus,
+.search-input:-webkit-autofill:hover,
+.search-input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 1000px transparent inset !important;
+  box-shadow: 0 0 0 1000px transparent inset !important;
+  -webkit-text-fill-color: var(--main-text) !important;
+  caret-color: var(--main-text);
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+.search-icon {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  transition: right 0.3s cubic-bezier(0.4,0,0.2,1);
 }
