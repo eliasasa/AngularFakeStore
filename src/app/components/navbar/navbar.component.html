@@ -25,7 +25,10 @@
           {{ userName }}
         </span>
       }
-      <a class="nav-link text-white" routerLink="/produtos">Produtos</a>
+      <div class="navbar-toggler">
+        <button (click)="toggleSidebarNavbar()">teste</button>
+      </div>
     </div>
   </div>
+  <app-sidebar></app-sidebar>
 </nav>

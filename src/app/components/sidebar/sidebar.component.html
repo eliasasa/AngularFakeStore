@@ -1,0 +1,15 @@
+<nav class="sidebar bg-dark sidebar-closed">
+    <div class="sidebar-header">
+        <h2>Menu</h2>
+        <button class='close-icon' (click)="toggleSidebar(false)">
+            <img src="assets/icons/geral/close-icon.svg" alt="">
+        </button>
+    </div>
+    <ul class="sidebar-menu">
+
+    </ul>
+</nav>
+@if (isOpen) {
+  <div class="sidebar-blur-overlay" (click)="toggleSidebar(false)"></div>
+}
+

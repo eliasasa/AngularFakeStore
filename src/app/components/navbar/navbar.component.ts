@@ -1,10 +1,12 @@
-import { Component, input, AfterViewInit, NgZone } from '@angular/core';
+import { Component, AfterViewInit, NgZone, ViewChild } from '@angular/core';
+import { SidebarComponent } from '../sidebar/sidebar.component';
 
 @Component({
   selector: 'app-navbar',
-  imports: [],
+  standalone: true,
+  imports: [SidebarComponent],
   templateUrl: './navbar.component.html',
-  styleUrl: './navbar.component.scss'
+  styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements AfterViewInit {
   finalPlaceholder = 'Pesquisar produtos';
@@ -13,10 +15,23 @@ export class NavbarComponent implements AfterViewInit {
   userPhoto = 'https://cdn-icons-png.flaticon.com/512/149/149071.png';
   userName = 'Usuário';
 
+  @ViewChild(SidebarComponent) sidebarComponent!: SidebarComponent;
+
   constructor(private ngZone: NgZone) {}
 
   ngAfterViewInit() {
     this.onLoad();
+  }
+
+  sidebarItems = [
+    { icon: 'assets/icons/navbar/search-icon.svg', text: 'Buscar', route: '/buscar' },
+    { icon: 'assets/icons/navbar/search-icon.svg', text: 'Produtos', route: '/produtos' },
+    { icon: 'assets/icons/navbar/search-icon.svg', text: 'Contato', route: '/contato' }
+  ];
+
+  toggleSidebarNavbar() {
+    this.sidebarComponent.toggleSidebar(true);
+    this.sidebarComponent.sidebarRenderContent(this.sidebarItems);
   }
 
   onLoad() {
