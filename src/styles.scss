@@ -18,6 +18,8 @@ html, body {
 body {
   background: var(--main-bg);
   color: var(--main-text);
+    margin-top: 55px;
+
 }
 
 
@@ -44,6 +46,12 @@ hr {
   color: var(--text-brand-color);
 }
 
+.material-icons {
+  font-size: 24px !important ;
+  color: var(--text-brand-color) !important;
+  transition: color 0.2s;
+}
+
 .sidebar-item {
   display: flex;
   align-items: center;
@@ -52,6 +60,7 @@ hr {
   text-decoration: none;
   transition: background-color 0.2s, color 0.2s;
   border-radius: 5px;
+  gap: 0.5rem;
   a {
     color: var(--main-text);
     text-decoration: none;
@@ -69,3 +78,7 @@ hr {
   }
 }
 
+.sidebar-icon {
+    width: 24px !important;
+    display: block;
+}

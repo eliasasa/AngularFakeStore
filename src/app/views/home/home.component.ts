@@ -1,11 +1,13 @@
 import { Component, inject } from '@angular/core';
 import { EnviarFormService } from '../../services/enviar-form.service';
 import { NavbarComponent } from '../../components/navbar/navbar.component';
+import { BannerComponent } from '../../components/banner/banner.component';
 
 @Component({
   selector: 'app-home',
   imports: [
     NavbarComponent,
+    BannerComponent,
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'

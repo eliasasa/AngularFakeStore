@@ -1,7 +1,8 @@
 import { Component, Input, ElementRef, HostListener } from '@angular/core';
 
 interface SidebarItem {
-    icon: string;
+    icon?: string;
+    materialIcon?: string;
     text: string;
     route: string;
 }
@@ -39,15 +40,29 @@ export class SidebarComponent {
                 for (let i = 0; i < conteudo.length; i++) {
                     const item = document.createElement('li');
                     item.classList.add('sidebar-item');
-                    const icon = document.createElement('img');
-                    icon.src = conteudo[i].icon;
-                    icon.alt = conteudo[i].text;
-                    icon.classList.add('sidebar-icon');
-                    const link = document.createElement('a');
-                    link.href = conteudo[i].route;
-                    link.textContent = conteudo[i].text;
-                    item.appendChild(icon);
-                    item.appendChild(link);
+                    item.style.cursor = 'pointer';
+                    item.onclick = () => {
+                        window.location.href = conteudo[i].route;
+                    };
+
+                    if (conteudo[i].icon) {
+                        const icon = document.createElement('img');
+                        icon.src = conteudo[i].icon as string;
+                        icon.alt = conteudo[i].text;
+                        icon.classList.add('sidebar-icon');
+                        item.appendChild(icon);
+                    } else if (conteudo[i].materialIcon) {
+                        const span = document.createElement('span');
+                        span.classList.add('material-icons');
+                        span.classList.add('sidebar-icon');
+                        span.textContent = conteudo[i].materialIcon as string;
+                        item.appendChild(span);
+                    }
+
+                    const textSpan = document.createElement('span');
+                    textSpan.textContent = conteudo[i].text;
+                    item.appendChild(textSpan);
+
                     sidebarMenu.appendChild(item);
                 }
             }

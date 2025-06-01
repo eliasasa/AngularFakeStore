@@ -24,9 +24,14 @@ export class NavbarComponent implements AfterViewInit {
   }
 
   sidebarItems = [
+    // Exemplo 1: usando imagem SVG
     { icon: 'assets/icons/navbar/search-icon.svg', text: 'Buscar', route: '/buscar' },
+    // Exemplo 2: usando Material Icon (não define 'icon', mas define 'materialIcon')
+    { materialIcon: 'analytics', text: 'Análise', route: '/analise' },
+    // Exemplo 3: usando imagem SVG
     { icon: 'assets/icons/navbar/search-icon.svg', text: 'Produtos', route: '/produtos' },
-    { icon: 'assets/icons/navbar/search-icon.svg', text: 'Contato', route: '/contato' }
+    // Exemplo 4: usando Material Icon
+    { materialIcon: 'contact_mail', text: 'Contato', route: '/contato' }
   ];
 
   toggleSidebarNavbar() {
