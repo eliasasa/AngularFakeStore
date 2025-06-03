@@ -17,6 +17,8 @@ export class NavbarComponent implements AfterViewInit {
 
   @ViewChild(SidebarComponent) sidebarComponent!: SidebarComponent;
 
+  private placeholderInterval: any;
+
   constructor(private ngZone: NgZone) {}
 
   ngAfterViewInit() {
@@ -42,6 +44,11 @@ export class NavbarComponent implements AfterViewInit {
   onLoad() {
     this.placeHolderText = "";
 
+    if (this.placeholderInterval) {
+      clearInterval(this.placeholderInterval);
+      this.placeholderInterval = null;
+    }
+
     for (let i = 0; i <= this.finalPlaceholder.length; i++) {
       setTimeout(() => {
         this.placeHolderText = this.finalPlaceholder.slice(0, i);
@@ -52,7 +59,7 @@ export class NavbarComponent implements AfterViewInit {
           const baseText = this.finalPlaceholder;
 
           this.ngZone.runOutsideAngular(() => {
-            setInterval(() => {
+            this.placeholderInterval = setInterval(() => {
               const dots = '.'.repeat(dotCount);
               this.ngZone.run(() => {
                 this.placeHolderText = baseText + dots;
@@ -68,4 +75,10 @@ export class NavbarComponent implements AfterViewInit {
       }, i * 100);
     }
   } 
+
+  ngOnDestroy() {
+    if (this.placeholderInterval) {
+      clearInterval(this.placeholderInterval);
+    }
+  }
 }
