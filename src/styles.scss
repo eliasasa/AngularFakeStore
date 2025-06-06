@@ -18,10 +18,13 @@ html, body {
 body {
   background: var(--main-bg);
   color: var(--main-text);
-    margin-top: 55px;
+  margin-top: 55px;
 
 }
 
+.main-body {
+  justify-content: flex-start;
+}
 
 hr {
   border: none;

@@ -15,3 +15,50 @@
     align-items: center;
     justify-content: center;
 }
+
+
+.indicators {
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    bottom: 10px;
+    filter: opacity(0.5);
+    transition: filter 0.3s ease;
+    .indicator {
+        width: 160px;
+        height: 16px;
+        margin: 0 12px;
+        border-radius: 5px;
+        background: #ccc;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        &.active {
+        background: var(--text-brand-color);
+            &:hover {
+                background-color: #7c57a8;
+                transform: scale(1.1);
+            }
+        }
+        &:hover {
+            background-color: #666464;
+            transform: scale(1.1);
+        }
+    }
+    &:hover {
+        filter: opacity(1);
+    }
+}
+
+.banner-image {
+    transition: opacity 0.3s ease, filter 0.3s ease;
+    opacity: 1;
+    filter: blur(0px);
+    &.fade-out {
+        opacity: 0;
+        filter: blur(4px);
+    }
+    &.fade-in {
+        opacity: 1;
+        filter: blur(0px);
+    }
+}
