@@ -1,0 +1,15 @@
+<div class="filter-row">
+  @for (filtro of filters; track filtro) {
+    <div
+      class="filter-item active"
+      role="button"
+      tabindex="0"
+      (click)="onFilterClick(filtro.value)"
+    >
+      @if (filtro.materialIcon) {
+        <span class="material-icons icon-filter">{{ filtro.materialIcon }}</span>
+      }
+      <div class="filter-title">{{ filtro.title }}</div>
+    </div>
+  }
+</div>

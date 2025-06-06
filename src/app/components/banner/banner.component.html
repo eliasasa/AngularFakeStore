@@ -1,0 +1,16 @@
+<div class="banner">
+    <div class="banner-content">
+        <a href="/products" class="banner-link">
+            <img [src]="currentSrc" alt="Banner Image" class="banner-image" [class.fade-out]="isFading" [class.fade-in]="!isFading">
+        </a>
+    </div>
+    <div class="indicators">
+        @for (img of bannerImages; let i = $index; track i) {
+            <span 
+                class="indicator" 
+                [class.active]="i === currentIndex"
+                (click)="goToImage(i)">
+            </span>
+        }
+    </div>
+</div>

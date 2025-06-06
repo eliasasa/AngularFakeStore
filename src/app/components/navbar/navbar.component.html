@@ -1,8 +1,36 @@
 <nav class="navbar navbar-dark bg-dark">
   <div class="container">
-    <a class="navbar-brand" href="#">AngularFakeStore</a>
-    <a class="nav-link text-white" routerLink="/">Home</a>
-    <a class="nav-link text-white" routerLink="/produtos">Produtos</a>
-    <a class="nav-link text-white" routerLink="/login">Login</a>
+    <div class="navbar-left" style="display: flex; align-items: center; gap: 16px; flex: 1;">
+      <a class="navbar-brand" href="/">
+        <div class="logo-container">
+          <img class="icon" src="assets/icons/logo.svg" style="--icon-size: 24px" alt="Logo">
+          <span class="logo-text">FakeStore</span>
+        </div>
+        <hr class="underline" style="--heigth: 1px; --radius: 1px">
+      </a>
+      <div class="search-container">
+        <input type="text" id="search-product-input" class="search-input" [placeholder]="placeHolderText" aria-label="Search">
+        <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="#BB86FC" d="M22 20v-1h-1v-1h-1v-1h-1v-1h-2v-1h1v-2h1V7h-1V5h-1V4h-1V3h-1V2h-2V1H7v1H5v1H4v1H3v1H2v2H1v6h1v2h1v1h1v1h1v1h2v1h6v-1h2v-1h1v2h1v1h1v1h1v1h1v1h2v-1h1v-2zm-10-5v1H8v-1H6v-1H5v-2H4V8h1V6h1V5h2V4h4v1h2v1h1v2h1v4h-1v2h-1v1z"/></svg>
+      </div>
+    </div>
+    <div class="navbar-right" style="display: flex; align-items: center; gap: 16px;">
+      @if (!isLoggedIn) {
+        <a class="nav-link text-white" routerLink="/login">
+            <img src="assets/icons/navbar/login-icon.svg" class="icon" style="--icon-size: 24px" alt="">
+          Logar
+        </a>
+      } @else {
+        <span class="user-info">
+          <img [src]="userPhoto" class="icon" alt="Foto">
+          {{ userName }}
+        </span>
+      }
+      <div class="navbar-menu">
+        <span class="material-icons" (click)="toggleSidebarNavbar()">
+          menu
+        </span>
+      </div>
+    </div>
   </div>
+  <app-sidebar></app-sidebar>
 </nav>

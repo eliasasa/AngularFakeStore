@@ -26,6 +26,7 @@
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
+              "src/assets",
               {
                 "glob": "**/*",
                 "input": "public"
@@ -104,11 +105,23 @@
             ],
             "scripts": []
           }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "src/**/*.ts",
+              "src/**/*.html"
+            ]
+          }
         }
       }
     }
   },
   "cli": {
-    "analytics": "10eaf274-e2a4-477d-8e78-a09a1fa02e5b"
+    "analytics": "10eaf274-e2a4-477d-8e78-a09a1fa02e5b",
+    "schematicCollections": [
+      "@schematics/angular"
+    ]
   }
 }

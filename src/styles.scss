@@ -6,7 +6,7 @@
 
 html, body {
     height: 100%;
-    font-family: Arial, sans-serif;
+    font-family: 'Rubik', sans-serif;
 }
 
 :root {
@@ -18,5 +18,70 @@ html, body {
 body {
   background: var(--main-bg);
   color: var(--main-text);
+  margin-top: 55px;
+
 }
 
+.main-body, .main-content {
+  justify-content: flex-start !important;
+}
+
+hr {
+  border: none;
+  opacity: 1; 
+}
+
+.underline {
+  height: var(--height, 1px);
+  width: 0%;
+  margin: 0;
+  border: 1px solid transparent;
+  transition: width 0.2s, border-color 0.2s;
+  border-radius: var(--radius, 1px);
+}
+
+.icon {
+  width: var(--icon-size, 16px);
+  height: var(--icon-size, 16px);
+}
+
+.c-brand {
+  color: var(--text-brand-color);
+}
+
+.material-icons {
+  font-size: 24px !important ;
+  color: var(--text-brand-color) !important;
+  transition: color 0.2s;
+}
+
+.sidebar-item {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  color: var(--main-text);
+  text-decoration: none;
+  transition: background-color 0.2s, color 0.2s;
+  border-radius: 5px;
+  gap: 0.5rem;
+  a {
+    color: var(--main-text);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    transition: background-color 0.2s, color 0.2s;
+  }
+  &:hover {
+    cursor: pointer;
+    background-color: rgba(255, 255, 255, 0.1);
+    a {
+      color: var(--text-brand-color);
+    }
+  }
+}
+
+.sidebar-icon {
+    width: 24px !important;
+    display: block;
+}
