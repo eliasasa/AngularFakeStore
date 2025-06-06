@@ -22,8 +22,8 @@ body {
 
 }
 
-.main-body {
-  justify-content: flex-start;
+.main-body, .main-content {
+  justify-content: flex-start !important;
 }
 
 hr {

@@ -32,7 +32,7 @@ export class BannerComponent implements AfterViewInit {
         this.ngZone.run(() => {
           this.fadeToImage((this.currentIndex + 1) % this.bannerImages.length);
         });
-      }, 5000);
+      }, 6000);
     });
   }
 
