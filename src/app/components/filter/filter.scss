@@ -22,7 +22,7 @@
     gap: 8px;
     font-weight: bold;
     border-radius: 20px;
-    &:hover {
+    &:hover, &.active {
         background-color: var(--text-brand-color);
         color: #3d3d3d;
         & > .material-icons,

@@ -8,5 +8,33 @@
     justify-content: center;
     min-height: 100vh;
     background-color: #121212;
-    color: $white; // ou 'white'
+    color: $white;
+}
+
+.categorias-container {
+    display: flex;
+    gap: 24px;
+    width: 100%;
+    padding: 24px;
+    background-color:#222222;
+    flex-direction: column;
+    margin-top: 16px;
+    margin-bottom: 16px;
+
+}
+
+.row {
+    width: 100%;
+}
+
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(6, auto);
+    justify-content: space-between;
+    row-gap: 32px;
+}
+
+.product-container {
+    height: 1080px;
+    width: 100%;
 }
