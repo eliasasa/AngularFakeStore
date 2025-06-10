@@ -13,6 +13,7 @@ html, body {
   --main-bg: #121212;
   --main-text: #fff;
   --text-brand-color: #BB86FC;
+  --brand-color: #BB86FC;
 }
 
 body {
@@ -84,4 +85,10 @@ hr {
 .sidebar-icon {
     width: 24px !important;
     display: block;
+}
+
+.logo-text {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--main-text);
 }

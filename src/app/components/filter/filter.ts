@@ -16,8 +16,27 @@ export interface FilterContent {
 export class Filter {
   @Input() filters: FilterContent[] = [];
 
+  selectedFilter: string | null = null;
+
   onFilterClick(value: string) {
-    // Aqui você pode emitir um evento ou executar uma ação
-    window.alert(`Filter clicked: ${value}`);
+    this.selectedFilter = value;
+    const filtros = document.querySelectorAll('.filter-item') || [];
+    const selecionado = document.getElementById(value);
+    if (selecionado?.classList.contains('active')) {
+        selecionado?.classList.remove('active');
+    } else {
+      filtros.forEach(elemento => {
+      if (elemento.classList.contains('active')) {
+        elemento.classList.remove('active');
+        }
+      });
+      selecionado?.classList.add('active');
+    }
+    
   }
+
+  getSelectedFilterValue() {
+    return this.selectedFilter;
+  }
+
 }
