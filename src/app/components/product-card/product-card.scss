@@ -22,7 +22,7 @@
         border-radius: 10px;
         transition: transform 0.3s ease, box-shadow 0.3s ease;
         &:hover {
-            transform: scale(1.1);
+            transform: scale(1.05);
             cursor: pointer;
             box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
         }
@@ -30,7 +30,7 @@
 }
 
 
-.btn-add, .btn-like {
+.btn-add {
     background-color:white;
     border-radius: 50%;
     aspect-ratio: 1 / 1;
@@ -40,15 +40,34 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    position: relative;
+    transition: background-color .2s;
+
     .material-icons {
         display: flex !important;
         justify-content: center;
         align-items: center;
         font-size: 20px !important;
         aspect-ratio: 1 / 1 !important;
+        transition: transform .2s;
+    }
+    &:hover {
+        background-color: #944fe4;
+        .material-icons {
+            transform: rotate(90deg);
+            color: white !important;
+        }
     }
 }
 
+input.like-checkbox {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+    margin: 0;
+    padding: 0;
+}
 
 .title-price {
     display: grid;
@@ -87,9 +106,111 @@
 }
 
 .price-product {
-    font-size:x-large;
+    font-size: x-large;
     color: white;
     b {
         color: var(--text-brand-color);
+        font-weight: 500;
     }
+}
+
+
+// btn like 
+
+.heart-container {
+  --heart-color: #BB86FC;
+  position: relative;
+  width: 26px;
+  height: 26px;
+  transition: .3s;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  &:hover {
+    background-color: var(--brand-color);
+    & > .svg-container {
+        color: white;
+    }
+  }
+}
+
+.heart-container .checkbox {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  opacity: 0;
+  z-index: 20;
+  cursor: pointer;
+}
+
+.heart-container .svg-container {
+  width: 16px;
+  height: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--brand-color);
+}
+
+.heart-container .svg-outline,
+        .heart-container .svg-filled {
+  fill: var(--heart-color);
+  position: absolute;
+}
+
+.heart-container .svg-filled {
+  animation: keyframes-svg-filled 1s;
+  display: none;
+}
+
+.heart-container .svg-celebrate {
+  position: absolute;
+  animation: keyframes-svg-celebrate .5s;
+  animation-fill-mode: forwards;
+  display: none;
+  stroke: var(--heart-color);
+  fill: var(--heart-color);
+  stroke-width: 2px;
+}
+
+.heart-container .checkbox:checked~.svg-container .svg-filled {
+  display: block
+}
+
+.heart-container .checkbox:checked~.svg-container .svg-celebrate {
+  display: block
+}
+
+@keyframes keyframes-svg-filled {
+  0% {
+    transform: scale(0);
+  }
+
+  25% {
+    transform: scale(1.2);
+  }
+
+  50% {
+    transform: scale(1);
+    filter: brightness(1.2);
+  }
+}
+
+@keyframes keyframes-svg-celebrate {
+  0% {
+    transform: scale(0);
+  }
+
+  50% {
+    opacity: 1;
+    filter: brightness(1.5);
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 0;
+    display: none;
+  }
 }

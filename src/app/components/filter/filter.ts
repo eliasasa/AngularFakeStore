@@ -22,12 +22,17 @@ export class Filter {
     this.selectedFilter = value;
     const filtros = document.querySelectorAll('.filter-item') || [];
     const selecionado = document.getElementById(value);
-    filtros.forEach(elemento => {
+    if (selecionado?.classList.contains('active')) {
+        selecionado?.classList.remove('active');
+    } else {
+      filtros.forEach(elemento => {
       if (elemento.classList.contains('active')) {
         elemento.classList.remove('active');
-      }
-    });
-    selecionado?.classList.add('active');
+        }
+      });
+      selecionado?.classList.add('active');
+    }
+    
   }
 
   getSelectedFilterValue() {

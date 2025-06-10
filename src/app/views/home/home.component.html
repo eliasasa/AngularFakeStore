@@ -9,19 +9,11 @@
         </div>
         <div class="product-container">
             <div class="card-grid">
-                <app-product-card></app-product-card>
-                <app-product-card></app-product-card>
-                <app-product-card></app-product-card>
-                <app-product-card></app-product-card>
-                <app-product-card></app-product-card>
-                <app-product-card></app-product-card>
-                <app-product-card></app-product-card>
-                <app-product-card></app-product-card>
-                <app-product-card></app-product-card>
-                <app-product-card></app-product-card>
-                <app-product-card></app-product-card>
-                <app-product-card></app-product-card>
+                @for (product of products; track product.id) {
+                    <app-product-card [product]="product"></app-product-card>
+                }
             </div>
         </div>
     </div>
 </div>
+<app-footer></app-footer>

@@ -1,9 +1,9 @@
 import { Component, ViewChild, AfterViewInit} from '@angular/core';
-import { EnviarFormService } from '../../services/enviar-form.service';
 import { NavbarComponent } from '../../components/navbar/navbar.component';
 import { BannerComponent } from '../../components/banner/banner.component';
 import { Filter, FilterContent } from '../../components/filter/filter';
 import { ProductCard } from '../../components/product-card/product-card';
+import { Footer } from '../../components/footer/footer';
 
 
 @Component({
@@ -13,6 +13,8 @@ import { ProductCard } from '../../components/product-card/product-card';
     BannerComponent,
     Filter,
     ProductCard,
+    Footer
+
   ],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
@@ -24,6 +26,20 @@ export class HomeComponent implements AfterViewInit {
     { title: 'Avaliação', value: 'avaliacao', materialIcon: 'star_rate' }
   ];
 
+  products: any[] = [];
+
+  constructor() {
+    for(let i = 1; i <= 24; i++) {
+      this.products.push(
+        {
+          id: i,
+          name: `Produto ${i}`,
+          price: i * 100,
+          imageUrl: `https://i.pravatar.cc/150?img=${i}`
+        }
+      )
+    }
+  }
 
   @ViewChild('filterComp') filterComponent!: Filter;  
 

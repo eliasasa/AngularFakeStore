@@ -18,8 +18,6 @@
     padding: 24px;
     background-color:#222222;
     flex-direction: column;
-    margin-top: 16px;
-    margin-bottom: 16px;
 
 }
 
@@ -31,10 +29,10 @@
     display: grid;
     grid-template-columns: repeat(6, auto);
     justify-content: space-between;
-    row-gap: 32px;
+    row-gap: 64px;
 }
 
 .product-container {
-    height: 1080px;
+    height: fit-content;
     width: 100%;
 }
