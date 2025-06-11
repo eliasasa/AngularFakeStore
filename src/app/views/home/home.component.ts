@@ -9,12 +9,9 @@ import { Footer } from '../../components/footer/footer';
 @Component({
   selector: 'app-home',
   imports: [
-    NavbarComponent,
     BannerComponent,
     Filter,
     ProductCard,
-    Footer
-
   ],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']

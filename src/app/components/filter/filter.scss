@@ -11,35 +11,36 @@
 }
 
 .filter-item {
-    position: relative;
-    display: flex;
-    flex-direction: row;
-    background-color: #3d3d3d;
-    color: var(--text-brand-color);
-    align-items: center;
-    transition: color 0.2s, background-color 0.2s;
-    padding: 8px 12px;
-    gap: 8px;
-    font-weight: bold;
-    border-radius: 20px;
-    &:hover, &.active {
-        background-color: var(--text-brand-color);
-        color: #3d3d3d;
-        & > .material-icons,
-        & > .icon-filter {
-            color: #3d3d3d !important;
-        }
-    }
+  user-select: none;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  background-color: #3d3d3d;
+  color: var(--text-brand-color);
+  align-items: center;
+  transition: color 0.2s, background-color 0.2s;
+  padding: 8px 12px;
+  gap: 8px;
+  font-weight: bold;
+  border-radius: 20px;
+  &:hover, &.active {
+      background-color: var(--text-brand-color);
+      color: #3d3d3d;
+      & > .material-icons,
+      & > .icon-filter {
+          color: #3d3d3d !important;
+      }
+  }
 
-    &.active::before {
-        content: "";
-        position: absolute;
-        inset: 0;
-        border-radius: inherit;
-        background-color: currentColor;
-        opacity: 0.6;
-        animation: ping 1s linear infinite;
-    }
+  &.active::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background-color: currentColor;
+      opacity: 0.6;
+      animation: ping 1s linear infinite;
+  }
 }
 @keyframes ping {
   0% {

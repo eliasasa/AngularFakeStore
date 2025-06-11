@@ -1,10 +1,11 @@
-import { Component, AfterViewInit, NgZone, ViewChild } from '@angular/core';
+import { Component, AfterViewInit, NgZone, ViewChild} from '@angular/core';
 import { SidebarComponent } from '../sidebar/sidebar.component';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [SidebarComponent],
+  imports: [SidebarComponent, RouterModule],
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss']
 })
