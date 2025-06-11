@@ -14,6 +14,14 @@ html, body {
   --main-text: #fff;
   --text-brand-color: #BB86FC;
   --brand-color: #BB86FC;
+  --hover-color: #944fe4
+}
+
+// --rgb-brand-color: rgb(187, 134, 252);
+// --rgb-hover-color: rgb(148, 79, 228);
+
+.brand-color {
+  color: var(--brand-color);
 }
 
 body {
@@ -25,6 +33,7 @@ body {
 
 .main-body, .main-content {
   justify-content: flex-start !important;
+  position: relative;
 }
 
 hr {
@@ -44,6 +53,7 @@ hr {
 .icon {
   width: var(--icon-size, 16px);
   height: var(--icon-size, 16px);
+  user-select: none;
 }
 
 .c-brand {
@@ -54,6 +64,7 @@ hr {
   font-size: 24px !important ;
   color: var(--text-brand-color) !important;
   transition: color 0.2s;
+  user-select: none;
 }
 
 .sidebar-item {
@@ -91,4 +102,13 @@ hr {
   font-size: 1.5rem;
   font-weight: bold;
   color: var(--main-text);
+}
+
+a {
+  color: var(--brand-color);
+  transition: all .3s ease;
+  &:hover {
+    cursor: pointer;
+    color: var(--hover-color);
+  }
 }
