@@ -31,6 +31,10 @@ body {
 
 }
 
+.min-h {
+    height: calc(100vh - 55px) !important;
+}
+
 .main-body, .main-content {
   justify-content: flex-start !important;
   position: relative;

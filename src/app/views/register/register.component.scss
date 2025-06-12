@@ -1,0 +1,114 @@
+.submit {
+    margin: 0 !important;
+    & > svg, & > span {
+        transition: transform .3s ease, fill .3s ease;
+    }
+}
+
+.submit:hover {
+    & > svg {
+        fill: white;
+    }
+    & > span, & > svg {
+        transform: translatex(+8px);
+    }
+}
+
+canvas {
+    display: block;
+    position: absolute;
+    max-width: 100%;
+    background: transparent;
+}
+
+.form-bg {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+
+    background: #000000;
+    --gap: 5em;
+    --line: 1px;
+    --color: rgba(255, 255, 255, 0.2);
+
+    background-image: linear-gradient(
+        -90deg,
+        transparent calc(var(--gap) - var(--line)),
+        var(--color) calc(var(--gap) - var(--line) + 1px),
+        var(--color) var(--gap)
+        ),
+        linear-gradient(
+        0deg,
+        transparent calc(var(--gap) - var(--line)),
+        var(--color) calc(var(--gap) - var(--line) + 1px),
+        var(--color) var(--gap)
+        );
+    background-size: var(--gap) var(--gap);
+}
+
+.div-step {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    width: 100%;
+}
+
+
+/* Mantenha os estilos existentes e adicione: */
+
+.btn {
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  height: 48px;
+  
+  &-primary {
+    background: linear-gradient(45deg, #BB86FC, #3700B3);
+    color: white;
+    border: none;
+    width: 100%;
+    
+    &:hover {
+      background: linear-gradient(45deg, #a66af0, #2a008f);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+  }
+  
+  &-secondary {
+    background: transparent;
+    color: #BB86FC;
+    border: 1px solid #BB86FC;
+    width: 100%;
+    
+    &:hover {
+      background: rgba(187, 134, 252, 0.1);
+      transform: translateY(-2px);
+    }
+  }
+}
+
+.d-flex {
+  display: flex;
+}
+
+.justify-content-between {
+  justify-content: space-between;
+}
+
+.mt-4 {
+  margin-top: 1.5rem;
+}
+
+/* Animações para transição de passos */
+.form > div {
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
