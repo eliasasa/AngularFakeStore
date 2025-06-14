@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { EnviarFormService } from './enviar-form.service';
+import { GlobalService } from './global-service';
 
-describe('EnviarFormService', () => {
-  let service: EnviarFormService;
+describe('GlobalService', () => {
+  let service: GlobalService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(EnviarFormService);
+    service = TestBed.inject(GlobalService);
   });
 
   it('should be created', () => {

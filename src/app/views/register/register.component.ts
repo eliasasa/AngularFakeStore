@@ -81,7 +81,7 @@ export class RegisterComponent implements AfterViewInit, OnInit {
   };
 
   nextStep() {
-    if (this.currentStep < 2) this.currentStep++;
+    if (this.currentStep < 1) this.currentStep++;
   }
 
   prevStep() {

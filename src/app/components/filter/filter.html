@@ -1,7 +1,7 @@
 <div class="filter-row">
   @for (filtro of filters; track filtro) {
     <div
-      class="filter-item"
+      class="filter-item {{filtro.class}}"
       role="button"
       tabindex="0"
       (click)="onFilterClick(filtro.value)"

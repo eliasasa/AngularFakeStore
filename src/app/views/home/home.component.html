@@ -2,14 +2,46 @@
 <div class="container categorias-container">
     <div class="row">
         <div class="filter-container">
-            <app-filter #filterComp [filters]="filters"></app-filter>
+            <app-filter 
+                #filterComp 
+                [filters]="filters" 
+                >
+            </app-filter>
         </div>
     </div>
-    <div class="product-container">
-        <div class="card-grid">
-            @for (product of products; track product.id) {
-                <app-product-card [product]="product"></app-product-card>
-            }
+    
+    <!-- Estados de carregamento e erro -->
+    @if (loading) {
+        <div class="loading-state">
+            <div class="loader">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            </div>
+            <p>Carregando produtos...</p>
         </div>
-    </div>
+    }
+    
+    @if (error && !loading) {
+        <div class="error-state">
+            <p>Não foi possível carregar os produtos</p>
+            <button mat-button (click)="loadProducts(globalService.getSharedValue())">Tentar novamente</button>
+        </div>
+    }
+    
+    @if (!loading && !error) {
+        <div class="product-container">
+            <div class="card-grid">
+                @for (product of products; track product.id) {
+                    <app-product-card [product]="{
+                      id: product.id,
+                      name: product.title,
+                      price: product.price,
+                      imageUrl: product.image
+                    }"></app-product-card>
+                }
+            </div>
+        </div>
+    }
 </div>
