@@ -49,32 +49,6 @@
         </div>
         }
 
-        <!-- Passo 3: Endereço -->
-        @if (currentStep === 2) {
-        <div class="div-step">
-            <div class="group">
-                <input required="true" class="main-input" type="text">
-                <span class="highlight-span"></span>
-                <label class="lebal-email">Cidade</label>
-            </div>
-            <div class="group">
-                <input required="true" class="main-input" type="text">
-                <span class="highlight-span"></span>
-                <label class="lebal-email">Rua</label>
-            </div>
-            <div class="group">
-                <input required="true" class="main-input" type="text">
-                <span class="highlight-span"></span>
-                <label class="lebal-email">Número</label>
-            </div>
-            <div class="group">
-                <input required="true" class="main-input" type="text">
-                <span class="highlight-span"></span>
-                <label class="lebal-email">CEP</label>
-            </div>
-        </div>
-        }
-
         <!-- Botões de navegação -->
         <div class="d-flex justify-content-between mt-4 w-100 gap-4">
             @if (currentStep > 0) {
@@ -84,7 +58,7 @@
             } @else {
             }
             
-            @if (currentStep < 2) {
+            @if (currentStep < 1) {
             <button type="button" class="btn btn-primary" (click)="nextStep()">
                 Próximo
             </button>

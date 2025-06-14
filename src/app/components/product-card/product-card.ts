@@ -7,5 +7,10 @@ import { Component, Input } from '@angular/core';
   styleUrl: './product-card.scss'
 })
 export class ProductCard {
-    @Input() product: any;
+    @Input() product!: {
+    id: number;
+    name: string;
+    price: number;
+    imageUrl: string;
+  };
 }
