@@ -23,11 +23,9 @@ export class Filter {
   selectedFilter: string | null = null;
 
   onFilterClick(value: string) {
-    // Remove a classe 'active' de todos os filtros
     const filtros = document.querySelectorAll('.filter-item') || [];
     filtros.forEach(elemento => elemento.classList.remove('active'));
     
-    // Adiciona a classe apenas ao selecionado
     const selecionado = document.getElementById(value);
     selecionado?.classList.add('active');
     

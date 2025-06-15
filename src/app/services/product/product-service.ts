@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, catchError, map, of, tap } from 'rxjs';
-import { Product } from '../../models/product/product';
+import { Product } from '../../interfaces/product/product';
 
 @Injectable({
   providedIn: 'root'
@@ -24,21 +24,19 @@ export class ProductService {
   getProductsByCategory(category?: string): Observable<Product[]> {
 
   if (!category || category === 'all') {
-    return this.getAllProducts(); // Retorna todos os produtos se nenhuma categoria for especificada
+    return this.getAllProducts();
   }
 
-  // Validação da categoria antes da requisição
   const validCategories = ['electronics', 'jewelery', "men's clothing", "women's clothing"];
   if (!validCategories.includes(category)) {
     console.warn(`Categoria inválida: ${category}. Retornando lista vazia.`);
-    return of([]); // Retorna um Observable vazio se a categoria não existir
+    return of([]);
   }
 
-  // Chamada para a API filtrando pela categoria
   return this.http.get<Product[]>(`${this.API_URL}/products/category/${category}`).pipe(
     catchError(error => {
       console.error(`Erro ao carregar produtos da categoria ${category}:`, error);
-      return of([]); // Retorna um array vazio em caso de erro
+      return of([]);
     })
   );
 }
