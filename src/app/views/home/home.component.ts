@@ -1,11 +1,12 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, inject } from '@angular/core';
 import { ProductService } from '../../services/product/product-service';
 import { GlobalService } from '../../services/global/global-service';
-import { Product } from '../../models/product/product';
+import { Product } from '../../interfaces/product/product';
 import { Subscription } from 'rxjs';
 import { BannerComponent } from '../../components/banner/banner.component';
 import { Filter } from '../../components/filter/filter';
 import { ProductCard } from '../../components/product-card/product-card';
+import { ToastService } from '../../services/toast/toast-service';
 
 @Component({
   selector: 'app-home',
@@ -14,7 +15,7 @@ import { ProductCard } from '../../components/product-card/product-card';
   imports: [
     BannerComponent,
     Filter,
-    ProductCard
+    ProductCard,
   ]
 })
 export class HomeComponent implements OnInit, OnDestroy {
@@ -36,10 +37,21 @@ export class HomeComponent implements OnInit, OnDestroy {
     public globalService: GlobalService
   ) {}
 
+  toastService = inject(ToastService);
+
+  showError() {
+    this.toastService.showToast('Ocorreu um erro!', 'erro');
+  }
+
   ngOnInit(): void {
-    this.loadProducts('all');
-    
-    // Inscreva-se nas mudanças de categoria
+    this.loadProducts(this.globalService.getSharedValue());
+    for (let i = 0; i < this.filters.length; i++) {
+      if (this.globalService.getSharedValue() === this.filters[i].value) {
+        this.filters[i] = { ...this.filters[i], class: 'active' };
+      }
+    }
+
+    // ele ouve quando o global muda
     this.categorySubscription = this.globalService.sharedValue$.subscribe(category => {
       this.loadProducts(category);
     });

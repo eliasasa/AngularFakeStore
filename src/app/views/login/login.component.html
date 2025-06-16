@@ -21,7 +21,7 @@
         <span></span>
         <span></span>
     </div>
-    <form class="form">
+    <form class="form" (submit)="logar($event)">
         <div class="w-100 text-center m-3">
             <img class="icon" src="assets/icons/logo.svg" style="--icon-size: 80px" alt="Logo">
             <p class="m-0 fw-bold fs-1">FakeStore</p>
@@ -29,18 +29,18 @@
         </div>
         
         <div class="group">
-            <input required="true" class="main-input" type="text">
+            <input required="true" required [(ngModel)]="username" class="main-input" type="text" name="username">
             <span class="highlight-span"></span>
-            <label class="lebal-email">E-mail</label>
+            <label class="lebal-email">Username</label>
         </div>
         <div class="container-1">
             <div class="group">
-            <input required="true" class="main-input" type="text">
+            <input required="true" required [(ngModel)]="password" class="main-input" type="password" name="password">
             <span class="highlight-span"></span>
             <label class="lebal-email">Senha</label>
             </div>
         </div>
-        <button class="submit">
+        <button type="submit" class="submit">
             <span class="material-icons">
                 login
             </span>
@@ -51,7 +51,6 @@
         </p>
     </form>
 </div>
-
 
 
 
