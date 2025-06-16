@@ -54,6 +54,8 @@
   background-color: var(--background-color);
   transition: all 250ms ease;
   max-width: 256px;
+  animation: toastLife 5s ease-in-out forwards;
+
 }
 
 .notification-item svg {
@@ -121,7 +123,8 @@
 /* Info */
 
 .info {
-  background-color: var(--hover-color);
+  background-color: #cbb4ff;
+  color: white;
 }
 
 .info svg {
@@ -129,15 +132,15 @@
 }
 
 .info .notification-progress-bar {
-  background-color: white;
+  background-color: #7a3dd5;
 }
 
 .info:hover {
-  background-color: var(--hover-color);
+  background-color: #ddb8ff;
 }
 
 .notification-item.info .notification-close:hover {
-  background-color: var(--brand-color);
+  background-color: #ff71b3;
 }
 
 /* Alerta */
@@ -234,5 +237,28 @@
 
   100% {
     transform: translateX(-100%);
+  }
+}
+
+// animação dele indo e voltando
+
+.notification-item.enter {
+  transform: translateX(100%);
+  animation: toastLifeEnter ease 0.5s forwards;
+}
+
+.notification-item.exit {
+  animation: toastLifeExit ease 0.5s forwards;
+}
+
+@keyframes toastLife {
+  0% {
+    transform: translateX(100%); /* Começa fora da tela pela direita */
+  }
+  5%, 95% {
+    transform: translateX(0); /* Mantém visível */
+  }
+  100% {
+    transform: translateX(100%); /* Sai pela direita */
   }
 }

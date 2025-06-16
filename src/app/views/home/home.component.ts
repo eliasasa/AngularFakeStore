@@ -6,7 +6,6 @@ import { Subscription } from 'rxjs';
 import { BannerComponent } from '../../components/banner/banner.component';
 import { Filter } from '../../components/filter/filter';
 import { ProductCard } from '../../components/product-card/product-card';
-import { ToastComponent } from '../../components/toast/toast';
 import { ToastService } from '../../services/toast/toast-service';
 
 @Component({
@@ -17,7 +16,6 @@ import { ToastService } from '../../services/toast/toast-service';
     BannerComponent,
     Filter,
     ProductCard,
-    ToastComponent
   ]
 })
 export class HomeComponent implements OnInit, OnDestroy {
@@ -42,7 +40,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   toastService = inject(ToastService);
 
   showError() {
-    this.toastService.showToast('Ocorreu um erro!', 'sucesso');
+    this.toastService.showToast('Ocorreu um erro!', 'erro');
   }
 
   ngOnInit(): void {
