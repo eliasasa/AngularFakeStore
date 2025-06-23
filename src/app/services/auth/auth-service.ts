@@ -22,8 +22,18 @@ export class AuthService {
   
     if (data.token) {
       localStorage.setItem('token', data.token);
+
+      const usersResponse = await fetch(this.API_URL + '/users');
+      const users = await usersResponse.json();
+
+      const user = users.find((u: any) => u.username === username);
+      if (user) {
+        localStorage.setItem('userId', user.id);
+      }
+
       return true;
     }
+
     return false;
     
   } catch (error) {

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Router } from '@angular/router';
 import { AuthService } from '../../services/auth/auth-service';
 import { ToastService } from '../../services/toast/toast-service';
 import { FormsModule } from '@angular/forms';
@@ -21,7 +21,7 @@ export class LoginComponent {
   constructor(
     private authService: AuthService,
     private toastService: ToastService,
-    // private router: Router // Injetar Router
+    private router: Router 
   ) {}
 
   async logar(event: Event) {
@@ -36,8 +36,9 @@ export class LoginComponent {
     
     if (success) {
       this.toastService.showToast('Login realizado com sucesso!', 'sucesso');
-      let token = localStorage.getItem('token');
-      this.toastService.showToast( token ? `Token: ${token}` : 'Token não criado', 'info');
+      this.router.navigate(['/perfil']);
+      // let token = localStorage.getItem('token');
+      // this.toastService.showToast( token ? `Token: ${token}` : 'Token não criado', 'info');
       // this.router.navigate(['/']); // Redirecionar para home
     } else {
       this.toastService.showToast('Credenciais inválidas', 'erro');

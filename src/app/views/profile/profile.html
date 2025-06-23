@@ -1,0 +1,30 @@
+
+@if (dados) {
+    <div class="w-100 d-flex flex-column profile-content">
+       <div class="video-background">
+            <iframe
+            src="https://www.youtube.com/embed/x69etlhievQ?autoplay=1&mute=1&controls=0&loop=1&playlist=x69etlhievQ&modestbranding=1&showinfo=0"
+            frameborder="0"
+            allow="autoplay; fullscreen"
+            allowfullscreen>
+            </iframe>
+        </div>
+        <div class="profile-info w-100 d-flex flex-column align-items-center g-2">
+            <img class="profile-pic" src="https://thispersondoesnotexist.com/" alt="">
+            <p><strong>{{dados.username}}</strong></p>
+        </div>
+    </div>
+    <!-- <div>
+        <p><strong>ID:</strong> {{ dados.id }}</p>
+        <p><strong>Usuário:</strong> {{ dados.username }}</p>
+        <p><strong>Email:</strong> {{ dados.email }}</p>
+        <p><strong>Nome:</strong> {{ dados.name.firstname }} {{ dados.name.lastname }}</p>
+        <p><strong>Telefone:</strong> {{ dados.phone }}</p>
+        <p><strong>Endereço:</strong> {{ dados.address.street }}, {{ dados.address.number }} - {{ dados.address.city }}, {{ dados.address.zipcode }}</p>
+        <p><strong>Geo:</strong> Latitude: {{ dados.address.geolocation.lat }}, Longitude: {{ dados.address.geolocation.long }}</p>
+    </div> -->
+}
+
+
+
+<button (click)="deslogar()">deslogar</button>
