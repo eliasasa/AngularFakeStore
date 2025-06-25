@@ -30,6 +30,9 @@ export class Profile {
     }
   }
 
+  mostrar1 = false;
+  mostrar2 = false;
+
   async carregarDadosUsuario() {
     const id = parseInt(this.idUser!, 10);
     this.dados = await this.userService.getInfoUser(id);

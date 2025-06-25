@@ -1,0 +1,78 @@
+.background {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 1;
+    position: relative;
+    background-color: var(--brand-color);
+}
+
+.bg-image img{
+    width: 100%;
+    aspect-ratio: 4 / 1;
+    object-fit: cover;
+}
+
+.profile-info {
+    position: relative;
+}
+
+.profile-pic {
+    position: absolute;
+    height: 192px;
+    aspect-ratio: 1 / 1;
+    border-radius: 50%;
+    left: 5%;
+    bottom: calc(192px / -2);
+    outline: 8px #121212 solid;
+}
+
+.profile-info {
+    margin-top: calc(192px / 2);
+    margin-left: 5%;
+    width: 192px;
+}
+
+.info-container {
+    background-color: var(--brand-color);
+    border-radius: 5px;
+    padding: 16px;
+    row-gap: 24px;
+    max-width: 100%;
+    margin: 0;
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.container-fluid {
+    padding-left: 5%;
+    padding-right: 5%;
+}
+
+.info-title {
+    font-size: 1.4rem;
+    font-weight: 500;
+    color: var(--main-text);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.conteudo {
+    height: 0;
+    visibility: hidden;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    opacity: 0;
+}
+
+.conteudo.aberto {
+    margin-top: 24px;
+    visibility: visible;
+    height: fit-content;
+    opacity: 1;
+}
+
+.profile-content {
+    min-height: var(--body-area);
+}

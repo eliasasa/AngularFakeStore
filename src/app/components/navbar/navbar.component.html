@@ -20,10 +20,14 @@
           Logar
         </a>
       } @else {
-        <span class="user-info">
+        <!-- <span class="user-info">
           <img [src]="userPhoto" class="icon" alt="Foto">
           {{ userName }}
-        </span>
+        </span> -->
+        <a class="nav-link text-white" routerLink="/perfil">
+            <img src="assets/icons/navbar/login-icon.svg" class="icon" style="--icon-size: 24px" alt="">
+          Perfil
+        </a>
       }
       <div class="navbar-menu">
         <span class="material-icons" (click)="toggleSidebarNavbar()">

@@ -14,7 +14,8 @@ html, body {
   --main-text: #fff;
   --text-brand-color: #BB86FC;
   --brand-color: #BB86FC;
-  --hover-color: #944fe4
+  --hover-color: #944fe4;
+  --body-area: calc(100vh - 55px);
 }
 
 // --rgb-brand-color: rgb(187, 134, 252);
@@ -69,6 +70,10 @@ hr {
   color: var(--text-brand-color) !important;
   transition: color 0.2s;
   user-select: none;
+}
+
+.material-icons.branco {
+  color: var(--main-text) !important;
 }
 
 .sidebar-item {
