@@ -121,3 +121,15 @@ a {
     color: var(--hover-color);
   }
 }
+
+.btn-base {
+  background-color: var(--main-text);
+  color: var(--brand-color);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

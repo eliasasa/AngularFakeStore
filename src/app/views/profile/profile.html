@@ -16,31 +16,62 @@
                 <div class="col info-container" (click)="mostrar1 = !mostrar1">
                     <div>
                         <p class="info-title m-0">
-                            <span class="material-icons branco">
-                                lock_person
-                            </span>
+                            <span class="material-icons branco">lock_person</span>
                             Dados Pessoais
                         </p>
                     </div>
-                    <div class="conteudo" [class.aberto]="mostrar1">
-                        Informações do primeiro bloco
+                    <div class="conteudo" [class.aberto]="mostrar1" (click)="$event.stopPropagation()">
+                        <div class="d-flex flex-row align-items-end">
+                            <div class="textInputWrapper">
+                                <label for="fname">Primeiro Nome</label>
+                                <input placeholder="Primeiro Nome" type="text" [value]="dados.name.firstname" id="fname" class="textInput">
+                            </div>
+                            <button class="btn-base">
+                                <span class="material-icons">
+                                    edit
+                                </span>
+                            </button>
+                        </div>
+                        <div class="d-flex flex-row align-items-end">
+                            <div class="textInputWrapper">
+                                <label for="lname">Segundo Nome</label>
+                                <input placeholder="Segundo Nome" type="text" [value]="dados.name.lastname" id="lname" class="textInput">
+                            </div>
+                            <button class="btn-base">
+                                <span class="material-icons">
+                                    edit
+                                </span>
+                            </button>
+                        </div>
+                        <div class="d-flex flex-row align-items-end">
+                            <div class="textInputWrapper">
+                                <label for="username">Username</label>
+                                <p>&#64;</p>
+                                <input placeholder="username" type="text" [value]="dados.username" id="username" class="textInput">
+                            </div>
+                            <button class="btn-base">
+                                <span class="material-icons">
+                                    edit
+                                </span>
+                            </button>
+                        </div>
+
                     </div>
                 </div>
 
                 <div class="col info-container" (click)="mostrar2 = !mostrar2">
                     <div>
                         <p class="info-title m-0">
-                            <span class="material-icons branco">
-                                explore
-                            </span>
+                            <span class="material-icons branco">explore</span>
                             Localização
                         </p>
                     </div>
-                    <div class="conteudo" [class.aberto]="mostrar2">
+                    <div class="conteudo" [class.aberto]="mostrar2" (click)="$event.stopPropagation()">
                         Informações do segundo bloco
                     </div>
                 </div>
             </div>
+
 
             
             
