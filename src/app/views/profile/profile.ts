@@ -38,9 +38,4 @@ export class Profile {
     this.dados = await this.userService.getInfoUser(id);
   }
 
-  deslogar() {
-    localStorage.clear();
-    this.toastService.showToast('Deslogado', 'sucesso');
-    this.router.navigate(['/']);
-  }
 }

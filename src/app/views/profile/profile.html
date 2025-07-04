@@ -1,91 +1,114 @@
-
-@if (dados) {
-    <div class="w-100 d-flex flex-column profile-content">
-       <div class="background">
-            <div class="bg-image">
-                <img src="./assets/images/profile/44919.jpg" alt="">
+<div class="min-h" [class.dados]="">
+    @if (dados) {
+        <div class="w-100 d-flex flex-column profile-content">
+            <div class="background">
+                <div class="bg-image">
+                    <img src="./assets/images/profile/44919.jpg" alt="">
+                </div>
+                <img class="profile-pic" src="https://i.pravatar.cc/600" alt="">
             </div>
-            <img class="profile-pic" src="https://i.pravatar.cc/600" alt="">
-        </div>
-        <div class="profile-info d-flex flex-column align-items-center g-2 pt-1">
-            <p class="fs-2 m-0"><strong>{{'@' + dados.username}}</strong></p>
-            <p class="fs-4">{{dados.name.firstname + ' ' + dados.name.lastname}}</p>
-        </div>
-        <div class="container-fluid py-5">
-            <div class="row column-gap-5 align-items-start">
-                <div class="col info-container" (click)="mostrar1 = !mostrar1">
-                    <div>
-                        <p class="info-title m-0">
-                            <span class="material-icons branco">lock_person</span>
-                            Dados Pessoais
-                        </p>
+            <div class="profile-info d-flex flex-column align-items-center g-2 pt-1">
+                <p class="fs-2 m-0"><strong>{{'@' + dados.username}}</strong></p>
+                <p class="fs-4">{{dados.name.firstname + ' ' + dados.name.lastname}}</p>
+            </div>
+            <div class="container-fluid py-5">
+                <div class="row column-gap-5 align-items-start">
+                    <div class="col info-container" (click)="mostrar1 = !mostrar1">
+                        <div>
+                            <p class="info-title m-0">
+                                <span class="material-icons branco">lock_person</span>
+                                Dados Pessoais
+                            </p>
+                        </div>
+                        <form class="conteudo" [class.aberto]="mostrar1" (click)="$event.stopPropagation()">
+                            <div class="d-flex flex-row align-items-end">
+                                <div class="textInputWrapper">
+                                    <label for="fname">Primeiro Nome</label>
+                                    <input placeholder="Primeiro Nome" type="text" [value]="dados.name.firstname" id="fname" class="textInput">
+                                </div>
+                                <button class="btn-base">
+                                    <span class="material-icons">
+                                        edit
+                                    </span>
+                                </button>
+                            </div>
+                            <div class="d-flex flex-row align-items-end">
+                                <div class="textInputWrapper">
+                                    <label for="lname">Segundo Nome</label>
+                                    <input placeholder="Segundo Nome" type="text" [value]="dados.name.lastname" id="lname" class="textInput">
+                                </div>
+                                <button class="btn-base">
+                                    <span class="material-icons">
+                                        edit
+                                    </span>
+                                </button>
+                            </div>
+                            <div class="d-flex flex-row align-items-end">
+                                <div class="textInputWrapper">
+                                    <label for="username">Username</label>
+                                    <p>&#64;</p>
+                                    <input placeholder="username" type="text" [value]="dados.username" id="username" class="textInput">
+                                </div>
+                                <button class="btn-base">
+                                    <span class="material-icons">
+                                        edit
+                                    </span>
+                                </button>
+                            </div>
+                            <div class="d-flex flex-row align-items-end">
+                                <div class="textInputWrapper">
+                                    <label for="lname">Telefone</label>
+                                    <input placeholder="Telefone" type="text" [value]="dados.phone" id="phone" class="textInput">
+                                </div>
+                                <button class="btn-base">
+                                    <span class="material-icons">
+                                        edit
+                                    </span>
+                                </button>
+                            </div>
+                            <button class="btn-base btn-roxo" type="submit">
+                                <span class="material-icons">
+                                    save
+                                </span>
+                                Salvar
+                            </button>
+                        </form>
                     </div>
-                    <div class="conteudo" [class.aberto]="mostrar1" (click)="$event.stopPropagation()">
-                        <div class="d-flex flex-row align-items-end">
-                            <div class="textInputWrapper">
-                                <label for="fname">Primeiro Nome</label>
-                                <input placeholder="Primeiro Nome" type="text" [value]="dados.name.firstname" id="fname" class="textInput">
-                            </div>
-                            <button class="btn-base">
-                                <span class="material-icons">
-                                    edit
-                                </span>
-                            </button>
-                        </div>
-                        <div class="d-flex flex-row align-items-end">
-                            <div class="textInputWrapper">
-                                <label for="lname">Segundo Nome</label>
-                                <input placeholder="Segundo Nome" type="text" [value]="dados.name.lastname" id="lname" class="textInput">
-                            </div>
-                            <button class="btn-base">
-                                <span class="material-icons">
-                                    edit
-                                </span>
-                            </button>
-                        </div>
-                        <div class="d-flex flex-row align-items-end">
-                            <div class="textInputWrapper">
-                                <label for="username">Username</label>
-                                <p>&#64;</p>
-                                <input placeholder="username" type="text" [value]="dados.username" id="username" class="textInput">
-                            </div>
-                            <button class="btn-base">
-                                <span class="material-icons">
-                                    edit
-                                </span>
-                            </button>
-                        </div>
 
+                    <div class="col info-container" (click)="mostrar2 = !mostrar2">
+                        <div>
+                            <p class="info-title m-0">
+                                <span class="material-icons branco">explore</span>
+                                Localização
+                            </p>
+                        </div>
+                        <div class="conteudo" [class.aberto]="mostrar2" (click)="$event.stopPropagation()">
+                            Informações do segundo bloco
+                        </div>
                     </div>
                 </div>
 
-                <div class="col info-container" (click)="mostrar2 = !mostrar2">
-                    <div>
-                        <p class="info-title m-0">
-                            <span class="material-icons branco">explore</span>
-                            Localização
-                        </p>
-                    </div>
-                    <div class="conteudo" [class.aberto]="mostrar2" (click)="$event.stopPropagation()">
-                        Informações do segundo bloco
-                    </div>
-                </div>
+
+                
+                
+                <!-- <p><strong>ID:</strong> {{ dados.id }}</p>
+                <p><strong>Usuário:</strong> {{ dados.username }}</p>
+                <p><strong>Email:</strong> {{ dados.email }}</p>
+                <p><strong>Nome:</strong> {{ dados.name.firstname }} {{ dados.name.lastname }}</p>
+                <p><strong>Telefone:</strong> {{ dados.phone }}</p>
+                <p><strong>Endereço:</strong> {{ dados.address.street }}, {{ dados.address.number }} - {{ dados.address.city }}, {{ dados.address.zipcode }}</p>
+                <p><strong>Geo:</strong> Latitude: {{ dados.address.geolocation.lat }}, Longitude: {{ dados.address.geolocation.long }}</p> -->
             </div>
-
-
-            
-            
-            <!-- <p><strong>ID:</strong> {{ dados.id }}</p>
-            <p><strong>Usuário:</strong> {{ dados.username }}</p>
-            <p><strong>Email:</strong> {{ dados.email }}</p>
-            <p><strong>Nome:</strong> {{ dados.name.firstname }} {{ dados.name.lastname }}</p>
-            <p><strong>Telefone:</strong> {{ dados.phone }}</p>
-            <p><strong>Endereço:</strong> {{ dados.address.street }}, {{ dados.address.number }} - {{ dados.address.city }}, {{ dados.address.zipcode }}</p>
-            <p><strong>Geo:</strong> Latitude: {{ dados.address.geolocation.lat }}, Longitude: {{ dados.address.geolocation.long }}</p> -->
         </div>
-    </div>
-}
-
-
-
-<button (click)="deslogar()">deslogar</button>
+    } @else {
+        <div class="loading-state">
+            <div class="loader">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+            <p>Carregando perfil...</p>
+        </div>
+    }
+</div>

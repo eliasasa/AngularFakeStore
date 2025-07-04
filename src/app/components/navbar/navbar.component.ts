@@ -2,6 +2,8 @@ import { Component, AfterViewInit, NgZone, ViewChild} from '@angular/core';
 import { SidebarComponent } from '../sidebar/sidebar.component';
 import { RouterModule, Router } from '@angular/router';
 import { ToastService } from '../../services/toast/toast-service';
+import { User } from '../../services/user/user';
+import { get } from 'http';
 
 @Component({
   selector: 'app-navbar',
@@ -14,8 +16,8 @@ export class NavbarComponent implements AfterViewInit {
   finalPlaceholder = 'Pesquisar produtos';
   placeHolderText = '';
   userPhoto = 'https://cdn-icons-png.flaticon.com/512/149/149071.png';
-  userName = 'Usuário';
   isLoggedIn = false;
+  username: any | null = null;
 
   @ViewChild(SidebarComponent) sidebarComponent!: SidebarComponent;
 
@@ -26,7 +28,8 @@ export class NavbarComponent implements AfterViewInit {
   constructor(
     private ngZone: NgZone, 
     private toastService: ToastService, 
-    private router: Router
+    private router: Router,
+    userService: User
   ) {
     if (typeof window !== 'undefined') {
       this.token = localStorage.getItem('token');
@@ -37,7 +40,20 @@ export class NavbarComponent implements AfterViewInit {
         this.router.navigate(['/login']);
       } else {
         this.isLoggedIn = true;
+        this.getUserInfo(this.idUser, userService);
       }
+    }
+  }
+
+  async getUserInfo(id: string, service: User) {
+    try {
+      const dados = await service.getInfoUser(parseInt(id, 10));
+      this.username = '@' +  dados.username;
+      this.sidebarItems.push(
+          { materialIcon: 'logout', text: 'Deslogar', route: '/deslogar' })
+    } catch (error) {
+      console.error('Erro ao obter informações do usuário:', error);
+      this.toastService.showToast('Erro ao obter informações do usuário', 'erro');
     }
   }
 
@@ -53,7 +69,6 @@ export class NavbarComponent implements AfterViewInit {
     // Exemplo 3: usando imagem SVG
     { icon: 'assets/icons/navbar/search-icon.svg', text: 'Produtos', route: '/produtos' },
     // Exemplo 4: usando Material Icon
-    { materialIcon: 'contact_mail', text: 'Contato', route: '/contato' }
   ];
 
   toggleSidebarNavbar() {

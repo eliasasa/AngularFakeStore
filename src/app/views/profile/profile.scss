@@ -32,8 +32,18 @@
     width: 192px;
 }
 
+.btn-base {
+  border-radius: 5px !important;
+  gap: 8px;
+  &:hover {
+    color: var(--main-text);
+  }
+  
+}
+
 .info-container {
-    background-color: var(--brand-color);
+    background-color: rgba($color: #fff, $alpha: .03);
+    // border: solid 2px var(--brand-color);
     border-radius: 5px;
     padding: 16px;
     row-gap: 24px;

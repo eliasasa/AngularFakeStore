@@ -3,6 +3,7 @@ import { HomeComponent } from './views/home/home.component';
 import { LoginComponent } from './views/login/login.component';
 import { RegisterComponent } from './views/register/register.component';
 import { Profile } from './views/profile/profile';
+import { Logout } from './components/logout/logout';
 
 export const routes: Routes = [
     {
@@ -20,6 +21,10 @@ export const routes: Routes = [
     {
       path: 'perfil',
       component: Profile
+    },
+    {
+      path: 'deslogar',
+      component: Logout
     },
     // {
     //   path: '**',
