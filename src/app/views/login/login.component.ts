@@ -17,12 +17,24 @@ import { FormsModule } from '@angular/forms';
 export class LoginComponent {
   username: string = '';
   password: string = '';
+  token: string | null = null;
+  idUser: string | null = null;
 
   constructor(
     private authService: AuthService,
     private toastService: ToastService,
     private router: Router 
   ) {}
+
+  ngOnInit() {
+    this.token = localStorage.getItem('token');
+    this.idUser = localStorage.getItem('userId');
+
+    if (this.token && this.idUser) {
+      this.toastService.showToast('Você já está logado', 'aviso');
+      this.router.navigate(['/perfil']);
+    }
+  }
 
   async logar(event: Event) {
     event.preventDefault();
@@ -33,7 +45,7 @@ export class LoginComponent {
     }
 
     const success = await this.authService.signIn(this.username, this.password);
-    
+
     if (success) {
       this.toastService.showToast('Login realizado com sucesso!', 'sucesso');
       this.router.navigate(['/perfil']);

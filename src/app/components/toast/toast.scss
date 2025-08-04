@@ -21,7 +21,7 @@
   bottom: 16px;
   right: 16px;
   z-index: 1000;
-  max-width: 256px;
+  max-width: 384px;
   width: 100%;
 
   --content-color: white;
@@ -53,7 +53,7 @@
   box-shadow: rgba(111, 111, 111, 0.2) 0px 8px 24px;
   background-color: var(--background-color);
   transition: all 250ms ease;
-  max-width: 256px;
+  max-width: 384px;
   animation: toastLife 5s ease-in-out forwards;
 
 }

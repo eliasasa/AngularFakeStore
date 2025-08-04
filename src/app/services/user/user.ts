@@ -20,4 +20,21 @@ export class User {
     }
   }
 
+  async updateUser(id: number, data: any): Promise<any> {
+    try {
+      const response = await fetch(`${this.API_URL}/users/${id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      });
+      const updatedUser = await response.json();
+      return updatedUser;
+    } catch (error) {
+      console.error('Erro ao atualizar usuário:', error);
+      return null;
+    }
+  }
+
 }

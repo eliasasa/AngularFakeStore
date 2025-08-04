@@ -90,7 +90,6 @@ export class RegisterComponent implements AfterViewInit, OnInit {
 
   onSubmit() {
     console.log('Dados enviados:', this.userData);
-    // Aqui você faria a chamada para a API FakeStore:
     // this.authService.register(this.userData).subscribe(...)
   }
 

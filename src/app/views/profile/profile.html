@@ -20,13 +20,13 @@
                                 Dados Pessoais
                             </p>
                         </div>
-                        <form class="conteudo" [class.aberto]="mostrar1" (click)="$event.stopPropagation()">
+                        <form id="infoUser" class="conteudo" [class.aberto]="mostrar1" (click)="$event.stopPropagation()" (ngSubmit)="editarInfo()">
                             <div class="d-flex flex-row align-items-end">
                                 <div class="textInputWrapper">
                                     <label for="fname">Primeiro Nome</label>
                                     <input placeholder="Primeiro Nome" type="text" [value]="dados.name.firstname" id="fname" class="textInput">
                                 </div>
-                                <button class="btn-base">
+                                <button class="btn-base" type="button">
                                     <span class="material-icons">
                                         edit
                                     </span>
@@ -37,7 +37,7 @@
                                     <label for="lname">Segundo Nome</label>
                                     <input placeholder="Segundo Nome" type="text" [value]="dados.name.lastname" id="lname" class="textInput">
                                 </div>
-                                <button class="btn-base">
+                                <button class="btn-base" type="button">
                                     <span class="material-icons">
                                         edit
                                     </span>
@@ -49,7 +49,7 @@
                                     <p>&#64;</p>
                                     <input placeholder="username" type="text" [value]="dados.username" id="username" class="textInput">
                                 </div>
-                                <button class="btn-base">
+                                <button class="btn-base" type="button">
                                     <span class="material-icons">
                                         edit
                                     </span>
@@ -57,17 +57,28 @@
                             </div>
                             <div class="d-flex flex-row align-items-end">
                                 <div class="textInputWrapper">
-                                    <label for="lname">Telefone</label>
-                                    <input placeholder="Telefone" type="text" [value]="dados.phone" id="phone" class="textInput">
+                                    <label for="phone">Telefone</label>
+                                    <input 
+                                        placeholder="Telefone (X-XXX-XXX-XXXX)" 
+                                        type="text" 
+                                        [value]="dados.phone" 
+                                        id="phone" 
+                                        name="phone"
+                                        class="textInput"
+                                        [(ngModel)]="dados.phone"
+                                        maxlength="14"
+                                        inputmode="numeric" 
+                                        (input)="formatPhone($event)"
+                                    >
                                 </div>
-                                <button class="btn-base">
+                                <button class="btn-base" type="button">
                                     <span class="material-icons">
                                         edit
                                     </span>
                                 </button>
                             </div>
                             <button class="btn-base btn-roxo" type="submit">
-                                <span class="material-icons">
+                                <span class="material-icons save">
                                     save
                                 </span>
                                 Salvar
@@ -82,9 +93,74 @@
                                 Localização
                             </p>
                         </div>
-                        <div class="conteudo" [class.aberto]="mostrar2" (click)="$event.stopPropagation()">
-                            Informações do segundo bloco
-                        </div>
+                        <form class="conteudo" [class.aberto]="mostrar2" (click)="$event.stopPropagation()">
+                            <div class="d-flex flex-row align-items-end">
+                                <div class="textInputWrapper">
+                                    <label for="city">Cidade</label>
+                                    <input placeholder="Cidade" type="text" [value]="dados.address.city" id="city" class="textInput">
+                                </div>
+                                <button class="btn-base" type="button">
+                                    <span class="material-icons">
+                                        edit
+                                    </span>
+                                </button>
+                            </div>
+                            <div class="d-flex flex-row align-items-end">
+                                <div class="textInputWrapper">
+                                    <label for="street">Rua</label>
+                                    <input placeholder="Rua" type="text" [value]="dados.address.street" id="street" class="textInput">
+                                </div>
+                                <button class="btn-base" type="button">
+                                    <span class="material-icons">
+                                        edit
+                                    </span>
+                                </button>
+                            </div>
+                            <div class="d-flex flex-row align-items-end">
+                                <div class="textInputWrapper">
+                                    <label for="number">Número</label>
+                                    <input 
+                                    placeholder="Número" 
+                                    name="number" 
+                                    type="text" 
+                                    [value]="dados.address.number" 
+                                    inputmode="numeric" 
+                                    pattern="[0-9]*" 
+                                    id="number" 
+                                    class="textInput">
+                                </div>
+                                <button class="btn-base" type="button">
+                                    <span class="material-icons">
+                                        edit
+                                    </span>
+                                </button>
+                            </div>
+                            <div class="d-flex flex-row align-items-end">
+                                <div class="textInputWrapper">
+                                    <label for="zipcode">CEP</label>
+                                    <input 
+                                        placeholder="CEP (XXXXX-XXXX)" 
+                                        type="text" 
+                                        [value]="dados.address.zipcode"
+                                        id="zipcode" 
+                                        name="zipcode"
+                                        class="textInput"
+                                        maxlength="14"
+                                    >
+                                </div>
+                                <button class="btn-base" type="button">
+                                    <span class="material-icons">
+                                        edit
+                                    </span>
+                                </button>
+                            </div>
+                            <button class="btn-base btn-roxo" type="submit">
+                                <span class="material-icons save">
+                                    save
+                                </span>
+                                Salvar
+                            </button>
+                        </form>
                     </div>
                 </div>
 

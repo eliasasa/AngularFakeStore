@@ -12,6 +12,10 @@
     object-fit: cover;
 }
 
+.save {
+  color: var(--main-text) !important;
+}
+
 .profile-info {
     position: relative;
 }
@@ -95,10 +99,7 @@
     aspect-ratio: 1 / 1;
     border-radius: 0 5px 5px 0;
     &:hover {
-    background-color: var(--hover-color);
-    .material-icons{
-      color: var(--main-text) !important;
-    }
+    cursor: default;
   }
 }
 
