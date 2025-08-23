@@ -49,9 +49,6 @@ export class LoginComponent {
     if (success) {
       this.toastService.showToast('Login realizado com sucesso!', 'sucesso');
       this.router.navigate(['/perfil']);
-      // let token = localStorage.getItem('token');
-      // this.toastService.showToast( token ? `Token: ${token}` : 'Token não criado', 'info');
-      // this.router.navigate(['/']); // Redirecionar para home
     } else {
       this.toastService.showToast('Credenciais inválidas', 'erro');
       this.toastService.showToast('Exemplo de login: johnd, m38rmF$', 'info');

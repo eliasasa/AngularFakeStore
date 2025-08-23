@@ -3,10 +3,11 @@ import { Router } from '@angular/router';
 import { ToastService } from '../../services/toast/toast-service';
 import { User } from '../../services/user/user';
 import { FormsModule, NgModel } from '@angular/forms';
+import { ProductList } from '../../components/product-list/product-list';
 
 @Component({
   selector: 'app-profile',
-  imports: [FormsModule],
+  imports: [FormsModule, ProductList],
   templateUrl: './profile.html',
   styleUrl: './profile.scss'
 })
@@ -31,28 +32,61 @@ export class Profile {
     }
   }
 
+  formatZip(event: any) {
+    const inputValue = event.target.value;
+    const onlyDigits = inputValue.replace(/\D/g, '').slice(0, 9); // máximo 9 dígitos
+
+    let formatted = '';
+    if (onlyDigits.length <= 5) {
+      formatted = onlyDigits;
+    } else {
+      formatted = `${onlyDigits.slice(0, 5)}-${onlyDigits.slice(5)}`;
+    }
+
+    this.dados.address.zipcode = formatted;
+    event.target.value = formatted; // atualiza o input
+  }
+
+  onlyNum(event: any) {
+    event.target.value = event.target.value.replace(/\D/g, '').slice(0, 11);
+  }
+
+
   formatPhone(event: any) {
-    const onlyDigits = this.dados.phone.replace(/\D/g, '');
-    const trimmed = onlyDigits.slice(0, 11);
+    const inputValue = event.target.value;
 
-    const parts = [];
-    const d = trimmed;
+    const onlyDigits = inputValue.replace(/\D/g, '').slice(0, 11);
 
-    if (d.length >= 1) parts.push(d.slice(0, 1));
-    if (d.length >= 4) parts.push(d.slice(1, 4));
-    if (d.length >= 7) parts.push(d.slice(4, 7));
-    if (d.length >= 8) parts.push(d.slice(7));
+    let formatted = '';
 
-    this.dados.phone = parts.join('-');
+    if (onlyDigits.length <= 1) {
+      formatted = onlyDigits;
+    } else if (onlyDigits.length <= 4) {
+      formatted = `${onlyDigits.slice(0, 1)}-${onlyDigits.slice(1)}`;
+    } else if (onlyDigits.length <= 7) {
+      formatted = `${onlyDigits.slice(0, 1)}-${onlyDigits.slice(1, 4)}-${onlyDigits.slice(4)}`;
+    } else {
+      formatted = `${onlyDigits.slice(0, 1)}-${onlyDigits.slice(1, 4)}-${onlyDigits.slice(4, 7)}-${onlyDigits.slice(7)}`;
+    }
+
+    this.dados.phone = formatted;
+    event.target.value = formatted;
   }
 
   editarInfo() {
+    const id = parseInt(this.idUser!, 10);
+
     const fname = (document.getElementById('fname') as HTMLInputElement).value;
     const lname = (document.getElementById('lname') as HTMLInputElement).value
     const username = (document.getElementById('username') as HTMLInputElement).value;
     const phone = (document.getElementById('phone') as HTMLInputElement).value
-    const id = parseInt(this.idUser!, 10);
     const telefoneRegex = /^[0-9]-[0-9]{3}-[0-9]{3}-[0-9]{4}$/;
+
+    const city = (document.getElementById('city') as HTMLInputElement).value;
+    const street = (document.getElementById('street') as HTMLInputElement).value;
+    const number = (document.getElementById('number') as HTMLInputElement).value;
+    const zipcode = (document.getElementById('zipcode') as HTMLInputElement).value;
+    const cepRegex = /^\d{5}-\d{4}$/;
 
     if (!fname || !lname || !username || !phone) {
       this.toastService.showToast('Nenhum dos campos deve estar vazio!', 'aviso');
@@ -64,10 +98,25 @@ export class Profile {
       return;
     }
 
+    if (!cepRegex.test(zipcode)) {
+      this.toastService.showToast('CEP inválido! Use o formato XXXXX-XXXX', 'erro');
+      return;
+    }
+
+
+    if (!city || !street || !number || !zipcode) {
+      this.toastService.showToast('Nenhum dos campos deve estar vazio!', 'aviso');
+      return
+    }
+
     this.userService.updateUser(id, {
       name: { firstname: fname, lastname: lname },
       username: username,
-      phone: phone
+      phone: phone,
+      city: city,
+      street: street,
+      number: number,
+      zipcode: zipcode
     }).then(() => {
       this.toastService.showToast('Informações atualizadas com sucesso!', 'sucesso');
       this.toastService.showToast('Este sistema é apenas demonstrativo, nenhuma alteração real foi feita.', 'info');
@@ -77,8 +126,8 @@ export class Profile {
     });
   }
 
-  mostrar1 = false;
-  mostrar2 = false;
+  mostrar1 : boolean = false;
+  mostrar2 : boolean = false;
 
   async carregarDadosUsuario() {
     const id = parseInt(this.idUser!, 10);

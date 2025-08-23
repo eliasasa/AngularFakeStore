@@ -29,9 +29,11 @@ export class AuthService {
       const user = users.find((u: any) => u.username === username);
       if (user) {
         localStorage.setItem('userId', user.id);
+        localStorage.setItem('favProducts', JSON.stringify([]));
+        localStorage.setItem('cartProducts', JSON.stringify([]));
       }
 
-      return true;
+      return true;  
     }
 
     return false;

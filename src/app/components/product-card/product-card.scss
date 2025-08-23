@@ -1,6 +1,8 @@
 .card-area {
   position: relative;
+  width: fit-content;
 }
+
 .main-card {
     max-width: 192px;
     width: 192px;
@@ -19,9 +21,23 @@
       }
     }
 }
+
 .img-product {
     position: relative;
     overflow: visible;
+    max-height: 192px;
+    width: 100%;
+    min-height: 192px;
+    display: flex; 
+    align-items: center;
+    justify-content: center;
+    background-color: #F5F5F5;
+    transition: all .3s ease;
+
+    &:hover {
+      cursor: pointer;
+    }
+    
     .button-row {
         display: flex;
         flex-direction: row;
@@ -31,16 +47,13 @@
         gap: 8px;
         width: fit-content;
     }
-    .product-image {
-        width: 100%;
-        aspect-ratio: 1 / 1;
+    .product-image {        
+        object-fit: contain;
+        align-items: center;
+        max-width: 100%;
+        max-height: 100%;
         // border-radius: 10px;
         transition: transform 0.3s ease, box-shadow 0.3s ease;
-        &:hover {
-            // transform: scale(1.05);
-            cursor: pointer;
-            box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
-        }
     }
 }
 
