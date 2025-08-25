@@ -1,9 +1,17 @@
-import { Component, AfterViewInit, NgZone, ViewChild} from '@angular/core';
+import {
+  Component,
+  OnInit,
+  AfterViewInit,
+  OnDestroy,
+  NgZone,
+  ViewChild
+} from '@angular/core';
+import { Subscription } from 'rxjs';
+import { RouterModule } from '@angular/router';
 import { SidebarComponent } from '../sidebar/sidebar.component';
-import { RouterModule, Router } from '@angular/router';
 import { ToastService } from '../../services/toast/toast-service';
 import { User } from '../../services/user/user';
-import { get } from 'http';
+import { AuthService } from '../../services/auth/auth-service';
 
 @Component({
   selector: 'app-navbar',
@@ -12,73 +20,109 @@ import { get } from 'http';
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss']
 })
-export class NavbarComponent implements AfterViewInit {
+export class NavbarComponent
+  implements OnInit, AfterViewInit, OnDestroy
+{
   finalPlaceholder = 'Pesquisar produtos';
   placeHolderText = '';
-  userPhoto = 'https://cdn-icons-png.flaticon.com/512/149/149071.png';
+  userPhoto =
+    'https://cdn-icons-png.flaticon.com/512/149/149071.png';
   isLoggedIn = false;
-  username: any | null = null;
+  username: string | null = null;
 
-  @ViewChild(SidebarComponent) sidebarComponent!: SidebarComponent;
+  @ViewChild(SidebarComponent)
+  sidebarComponent!: SidebarComponent;
+
+  sidebarItems: any[] = [];
 
   private placeholderInterval: any;
-  private token: string | null = null;
-  private idUser: string | null = null;
+  private authSub = new Subscription();
 
   constructor(
-    private ngZone: NgZone, 
-    private toastService: ToastService, 
-    private router: Router,
-    userService: User
-  ) {
-    if (typeof window !== 'undefined') {
-      this.token = localStorage.getItem('token');
-      this.idUser = localStorage.getItem('userId');
+    private auth: AuthService,
+    private userService: User,
+    private toastService: ToastService,
+    private ngZone: NgZone
+  ) {}
 
-      if (!this.token || !this.idUser) {
-        this.toastService.showToast('Você não está logado', 'aviso');
-        this.router.navigate(['/login']);
-      } else {
-        this.isLoggedIn = true;
-        this.getUserInfo(this.idUser, userService);
+  ngOnInit(): void {
+    this.buildSidebarItems();
+    this.authSub = this.auth.isLoggedIn$.subscribe(
+      async (logged) => {
+        this.isLoggedIn = logged;
+        this.buildSidebarItems();
+
+        if (logged) {
+          const id = localStorage.getItem('userId')!;
+          try {
+            const dados = await this.userService.getInfoUser(
+              +id
+            );
+            this.username = '@' + dados.username;
+          } catch {
+            this.toastService.showToast(
+              'Erro ao obter informações do usuário',
+              'erro'
+            );
+          }
+        } else {
+          this.username = null;
+        }
       }
+    );
+  }
+
+  ngAfterViewInit(): void {
+    this.animatePlaceholder();
+  }
+
+  ngOnDestroy(): void {
+    if (this.placeholderInterval) {
+      clearInterval(this.placeholderInterval);
     }
+
+    this.authSub.unsubscribe();
   }
 
-  async getUserInfo(id: string, service: User) {
-    try {
-      const dados = await service.getInfoUser(parseInt(id, 10));
-      this.username = '@' +  dados.username;
-      this.sidebarItems.push(
-          { materialIcon: 'logout', text: 'Deslogar', route: '/deslogar' })
-    } catch (error) {
-      console.error('Erro ao obter informações do usuário:', error);
-      this.toastService.showToast('Erro ao obter informações do usuário', 'erro');
-    }
-  }
-
-  ngAfterViewInit() {
-    this.onLoad();
-  }
-
-  sidebarItems = [
-    // Exemplo 1: usando imagem SVG
-    { icon: 'assets/icons/navbar/search-icon.svg', text: 'Buscar', route: '/buscar' },
-    // Exemplo 2: usando Material Icon (não define 'icon', mas define 'materialIcon')
-    { materialIcon: 'analytics', text: 'Análise', route: '/analise' },
-    // Exemplo 3: usando imagem SVG
-    { icon: 'assets/icons/navbar/search-icon.svg', text: 'Produtos', route: '/produtos' },
-    // Exemplo 4: usando Material Icon
-  ];
-
-  toggleSidebarNavbar() {
+  toggleSidebarNavbar(): void {
     this.sidebarComponent.toggleSidebar(true);
-    this.sidebarComponent.sidebarRenderContent(this.sidebarItems);
+    this.sidebarComponent.sidebarRenderContent(
+      this.sidebarItems
+    );
   }
 
-  onLoad() {
-    this.placeHolderText = "";
+  private buildSidebarItems(): void {
+    const baseItems = [
+      {
+        icon: 'assets/icons/navbar/search-icon.svg',
+        text: 'Buscar',
+        route: '/buscar'
+      },
+      {
+        materialIcon: 'analytics',
+        text: 'Análise',
+        route: '/analise'
+      },
+      {
+        icon: 'assets/icons/navbar/search-icon.svg',
+        text: 'Produtos',
+        route: '/produtos'
+      }
+    ];
 
+    if (this.isLoggedIn) {
+      baseItems.push({
+        materialIcon: 'logout',
+        text: 'Deslogar',
+        route: '/logout'
+      });
+    }
+
+    this.sidebarItems = baseItems;
+  }
+
+  private animatePlaceholder(): void {
+    this.placeHolderText = '';
     if (this.placeholderInterval) {
       clearInterval(this.placeholderInterval);
       this.placeholderInterval = null;
@@ -86,18 +130,21 @@ export class NavbarComponent implements AfterViewInit {
 
     for (let i = 0; i <= this.finalPlaceholder.length; i++) {
       setTimeout(() => {
-        this.placeHolderText = this.finalPlaceholder.slice(0, i);
+        this.placeHolderText = this.finalPlaceholder.slice(
+          0,
+          i
+        );
 
         if (i === this.finalPlaceholder.length) {
           let dotCount = 0;
           let direction = 1;
-          const baseText = this.finalPlaceholder;
+          const base = this.finalPlaceholder;
 
           this.ngZone.runOutsideAngular(() => {
             this.placeholderInterval = setInterval(() => {
               const dots = '.'.repeat(dotCount);
               this.ngZone.run(() => {
-                this.placeHolderText = baseText + dots;
+                this.placeHolderText = base + dots;
               });
 
               if (dotCount === 3) direction = -1;
@@ -108,12 +155,6 @@ export class NavbarComponent implements AfterViewInit {
           });
         }
       }, i * 100);
-    }
-  } 
-
-  ngOnDestroy() {
-    if (this.placeholderInterval) {
-      clearInterval(this.placeholderInterval);
     }
   }
 }

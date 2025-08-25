@@ -23,7 +23,7 @@ export const routes: Routes = [
       component: Profile
     },
     {
-      path: 'deslogar',
+      path: 'logout',
       component: Logout
     },
     // {

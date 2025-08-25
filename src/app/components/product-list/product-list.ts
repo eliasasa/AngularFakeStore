@@ -14,7 +14,6 @@ export class ProductList {
 
   favoriteProducts: any[] = JSON.parse(localStorage.getItem('favProducts') || '[]');
 
-  
-
+  viewdProcuts: any[] = JSON.parse(localStorage.getItem('viewProducts') || '[]');
 
 }

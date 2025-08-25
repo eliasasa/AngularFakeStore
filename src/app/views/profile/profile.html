@@ -5,12 +5,16 @@
                 <div class="bg-image">
                     <img src="./assets/images/profile/44919.jpg" alt="">
                 </div>
-                <img class="profile-pic" src="https://i.pravatar.cc/600" alt="">
+                <div class="profile-data">
+                    <img class="profile-pic" src="https://i.pravatar.cc/600" alt="">
+                    <div class="profile-info d-flex flex-column align-items-center g-2 pt-1">
+                        <p class="fs-2 m-0"><strong>{{'@' + dados.username}}</strong></p>
+                        <p class="fs-4">{{dados.name.firstname + ' ' + dados.name.lastname}}</p>
+                    </div>
+                </div>
+                
             </div>
-            <div class="profile-info d-flex flex-column align-items-center g-2 pt-1">
-                <p class="fs-2 m-0"><strong>{{'@' + dados.username}}</strong></p>
-                <p class="fs-4">{{dados.name.firstname + ' ' + dados.name.lastname}}</p>
-            </div>
+            
             <div class="container-fluid py-5">
                 <div class="row column-gap-5 align-items-start">
                     <div class="col info-container" (click)="mostrar1 = !mostrar1">

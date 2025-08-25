@@ -4,6 +4,8 @@
     aspect-ratio: 4 / 1;
     position: relative;
     background-color: var(--brand-color);
+    margin-bottom: 10%;
+
 }
 
 .bg-image img{
@@ -17,24 +19,25 @@
 }
 
 .profile-info {
-    position: relative;
+  position: relative;
+  &>.fs-4 {
+    color: var(--brand-color);
+  }
+}
+
+.profile-data {
+  position: absolute;
+  transform: translateY(-30%);
+  padding: 0 5%;
 }
 
 .profile-pic {
-    position: absolute;
     height: 192px;
     aspect-ratio: 1 / 1;
     border-radius: 50%;
-    left: 5%;
-    bottom: calc(192px / -2);
     outline: 8px #121212 solid;
 }
 
-.profile-info {
-    margin-top: calc(192px / 2);
-    margin-left: 5%;
-    width: 192px;
-}
 
 .btn-base {
   border-radius: 5px !important;

@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { ToastService } from '../../services/toast/toast-service';
 
 @Component({
   selector: 'app-product-card',
@@ -15,6 +16,10 @@ export class ProductCard implements OnInit{
     inList?: boolean;
   };
 
+  constructor(private toast: ToastService) {
+
+  }
+
   ngOnInit(): void {
     const favProducts = JSON.parse(
       localStorage.getItem('favProducts') || '[]'
@@ -27,6 +32,12 @@ export class ProductCard implements OnInit{
 
   toggleFavorite(product: any) {
     const stored = localStorage.getItem('favProducts');
+
+    if (!localStorage.getItem('userId')) {
+      this.toast.showToast('Você tem que estar logado para favoritar um produto!', 'aviso');
+      return
+    }
+
     let favProducts: any[] = stored ? JSON.parse(stored) : [];
 
     const exists = favProducts.some((item) => item.id === product.id);
