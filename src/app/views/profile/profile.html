@@ -1,5 +1,8 @@
 <div class="min-h" [class.dados]="">
-    @if (dados) {
+    @if (load) {
+        <app-load [message]="{message: 'Carregando perfil'}"></app-load>
+    }
+    @else if (dados) {
         <div class="w-100 d-flex flex-column profile-content">
             <div class="background">
                 <div class="bg-image">

@@ -4,6 +4,7 @@ import { LoginComponent } from './views/login/login.component';
 import { RegisterComponent } from './views/register/register.component';
 import { Profile } from './views/profile/profile';
 import { Logout } from './components/logout/logout';
+import { Products } from './views/products/products';
 
 export const routes: Routes = [
     {
@@ -26,6 +27,10 @@ export const routes: Routes = [
       path: 'logout',
       component: Logout
     },
+    {
+      path: 'produto/:id',
+      component: Products
+    }
     // {
     //   path: '**',
     //   component: Error  

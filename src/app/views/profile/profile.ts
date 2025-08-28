@@ -4,10 +4,15 @@ import { ToastService } from '../../services/toast/toast-service';
 import { User } from '../../services/user/user';
 import { FormsModule, NgModel } from '@angular/forms';
 import { ProductList } from '../../components/product-list/product-list';
+import { Load } from '../../components/load/load';
 
 @Component({
   selector: 'app-profile',
-  imports: [FormsModule, ProductList],
+  imports: [
+    FormsModule, 
+    ProductList,
+    Load
+  ],
   templateUrl: './profile.html',
   styleUrl: './profile.scss'
 })
@@ -15,6 +20,7 @@ export class Profile {
   private token: string | null;
   private idUser: string | null;
   dados: any = null;
+  load: boolean = true;
 
   constructor(
     private router: Router,
@@ -132,6 +138,7 @@ export class Profile {
   async carregarDadosUsuario() {
     const id = parseInt(this.idUser!, 10);
     this.dados = await this.userService.getInfoUser(id);
+    this.load = false;
   }
 
 }

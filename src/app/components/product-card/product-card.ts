@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ToastService } from '../../services/toast/toast-service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-product-card',
@@ -16,7 +17,9 @@ export class ProductCard implements OnInit{
     inList?: boolean;
   };
 
-  constructor(private toast: ToastService) {
+  constructor(private toast: ToastService,
+    private router: Router
+  ) {
 
   }
 
@@ -28,6 +31,14 @@ export class ProductCard implements OnInit{
     this.product.inList = favProducts.some(
       item => item.id === this.product.id
     );
+  }
+
+  viewProductDetails(id: number) {
+    this.router.navigate(['/produto', id])
+  }
+
+  addToCart(id: number) {
+    window.alert(`Produto carrinho: ${id}`)
   }
 
   toggleFavorite(product: any) {

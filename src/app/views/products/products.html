@@ -1,0 +1,20 @@
+<div class="product-body">
+    @if (load) {
+        <app-load [message]="{message: 'Carregando produto...'}"></app-load>
+    } @else if (success) {
+
+        <div> {{produto.title}} </div>
+        <div> {{produto.price}} </div>
+        <div> {{produto.description}} </div>
+        <img src="{{produto.image}}" alt="">
+
+        <div> {{produto.rating.rate}} </div>
+        <div> {{produto.rating.count}} </div>
+
+
+
+
+    } @else {
+        erro
+    }
+</div>
