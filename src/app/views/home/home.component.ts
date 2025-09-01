@@ -7,6 +7,7 @@ import { BannerComponent } from '../../components/banner/banner.component';
 import { Filter } from '../../components/filter/filter';
 import { ProductCard } from '../../components/product-card/product-card';
 import { ToastService } from '../../services/toast/toast-service';
+import { Load } from '../../components/load/load';
 
 @Component({
   selector: 'app-home',
@@ -16,6 +17,7 @@ import { ToastService } from '../../services/toast/toast-service';
     BannerComponent,
     Filter,
     ProductCard,
+    Load
   ]
 })
 export class HomeComponent implements OnInit, OnDestroy {

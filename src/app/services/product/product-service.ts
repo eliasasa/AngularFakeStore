@@ -23,23 +23,23 @@ export class ProductService {
 
   getProductsByCategory(category?: string): Observable<Product[]> {
 
-  if (!category || category === 'all') {
-    return this.getAllProducts();
-  }
+    if (!category || category === 'all') {
+      return this.getAllProducts();
+    }
 
-  const validCategories = ['electronics', 'jewelery', "men's clothing", "women's clothing"];
-  if (!validCategories.includes(category)) {
-    console.warn(`Categoria inválida: ${category}. Retornando lista vazia.`);
-    return of([]);
-  }
-
-  return this.http.get<Product[]>(`${this.API_URL}/products/category/${category}`).pipe(
-    catchError(error => {
-      console.error(`Erro ao carregar produtos da categoria ${category}:`, error);
+    const validCategories = ['electronics', 'jewelery', "men's clothing", "women's clothing"];
+    if (!validCategories.includes(category)) {
+      console.warn(`Categoria inválida: ${category}. Retornando lista vazia.`);
       return of([]);
-    })
-  );
-}
+    }
+
+    return this.http.get<Product[]>(`${this.API_URL}/products/category/${category}`).pipe(
+      catchError(error => {
+        console.error(`Erro ao carregar produtos da categoria ${category}:`, error);
+        return of([]);
+      })
+    );
+  }
 
   getProductsByArray(produtos: number[]): void {
   produtos.forEach(id => {
@@ -55,6 +55,11 @@ export class ProductService {
       .catch(error => {
         console.error(error);
       });
-  });
-}
+    });
+  }
+
+  getProductById(id: number): Observable<Product> {
+    return this.http.get<Product>(`${this.API_URL}/products/${id}`);
+  }
+
 }

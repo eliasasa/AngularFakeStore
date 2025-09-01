@@ -1,6 +1,17 @@
-import { Component, AfterViewInit, NgZone, ViewChild} from '@angular/core';
-import { SidebarComponent } from '../sidebar/sidebar.component';
+import {
+  Component,
+  OnInit,
+  AfterViewInit,
+  OnDestroy,
+  NgZone,
+  ViewChild
+} from '@angular/core';
+import { Subscription } from 'rxjs';
 import { RouterModule } from '@angular/router';
+import { SidebarComponent } from '../sidebar/sidebar.component';
+import { ToastService } from '../../services/toast/toast-service';
+import { User } from '../../services/user/user';
+import { AuthService } from '../../services/auth/auth-service';
 
 @Component({
   selector: 'app-navbar',
@@ -9,42 +20,109 @@ import { RouterModule } from '@angular/router';
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss']
 })
-export class NavbarComponent implements AfterViewInit {
+export class NavbarComponent
+  implements OnInit, AfterViewInit, OnDestroy
+{
   finalPlaceholder = 'Pesquisar produtos';
   placeHolderText = '';
+  userPhoto =
+    'https://cdn-icons-png.flaticon.com/512/149/149071.png';
   isLoggedIn = false;
-  userPhoto = 'https://cdn-icons-png.flaticon.com/512/149/149071.png';
-  userName = 'Usuário';
+  username: string | null = null;
 
-  @ViewChild(SidebarComponent) sidebarComponent!: SidebarComponent;
+  @ViewChild(SidebarComponent)
+  sidebarComponent!: SidebarComponent;
+
+  sidebarItems: any[] = [];
 
   private placeholderInterval: any;
+  private authSub = new Subscription();
 
-  constructor(private ngZone: NgZone) {}
+  constructor(
+    private auth: AuthService,
+    private userService: User,
+    private toastService: ToastService,
+    private ngZone: NgZone
+  ) {}
 
-  ngAfterViewInit() {
-    this.onLoad();
+  ngOnInit(): void {
+    this.buildSidebarItems();
+    this.authSub = this.auth.isLoggedIn$.subscribe(
+      async (logged) => {
+        this.isLoggedIn = logged;
+        this.buildSidebarItems();
+
+        if (logged) {
+          const id = localStorage.getItem('userId')!;
+          try {
+            const dados = await this.userService.getInfoUser(
+              +id
+            );
+            this.username = '@' + dados.username;
+          } catch {
+            this.toastService.showToast(
+              'Erro ao obter informações do usuário',
+              'erro'
+            );
+          }
+        } else {
+          this.username = null;
+        }
+      }
+    );
   }
 
-  sidebarItems = [
-    // Exemplo 1: usando imagem SVG
-    { icon: 'assets/icons/navbar/search-icon.svg', text: 'Buscar', route: '/buscar' },
-    // Exemplo 2: usando Material Icon (não define 'icon', mas define 'materialIcon')
-    { materialIcon: 'analytics', text: 'Análise', route: '/analise' },
-    // Exemplo 3: usando imagem SVG
-    { icon: 'assets/icons/navbar/search-icon.svg', text: 'Produtos', route: '/produtos' },
-    // Exemplo 4: usando Material Icon
-    { materialIcon: 'contact_mail', text: 'Contato', route: '/contato' }
-  ];
+  ngAfterViewInit(): void {
+    this.animatePlaceholder();
+  }
 
-  toggleSidebarNavbar() {
+  ngOnDestroy(): void {
+    if (this.placeholderInterval) {
+      clearInterval(this.placeholderInterval);
+    }
+
+    this.authSub.unsubscribe();
+  }
+
+  toggleSidebarNavbar(): void {
     this.sidebarComponent.toggleSidebar(true);
-    this.sidebarComponent.sidebarRenderContent(this.sidebarItems);
+    this.sidebarComponent.sidebarRenderContent(
+      this.sidebarItems
+    );
   }
 
-  onLoad() {
-    this.placeHolderText = "";
+  private buildSidebarItems(): void {
+    const baseItems = [
+      {
+        icon: 'assets/icons/navbar/search-icon.svg',
+        text: 'Buscar',
+        route: '/buscar'
+      },
+      {
+        materialIcon: 'analytics',
+        text: 'Análise',
+        route: '/analise'
+      },
+      {
+        icon: 'assets/icons/navbar/search-icon.svg',
+        text: 'Produtos',
+        route: '/produtos'
+      }
+    ];
 
+    if (this.isLoggedIn) {
+      baseItems.push({
+        materialIcon: 'logout',
+        text: 'Deslogar',
+        route: '/logout'
+      });
+    }
+
+    this.sidebarItems = baseItems;
+  }
+
+  private animatePlaceholder(): void {
+    this.placeHolderText = '';
     if (this.placeholderInterval) {
       clearInterval(this.placeholderInterval);
       this.placeholderInterval = null;
@@ -52,18 +130,21 @@ export class NavbarComponent implements AfterViewInit {
 
     for (let i = 0; i <= this.finalPlaceholder.length; i++) {
       setTimeout(() => {
-        this.placeHolderText = this.finalPlaceholder.slice(0, i);
+        this.placeHolderText = this.finalPlaceholder.slice(
+          0,
+          i
+        );
 
         if (i === this.finalPlaceholder.length) {
           let dotCount = 0;
           let direction = 1;
-          const baseText = this.finalPlaceholder;
+          const base = this.finalPlaceholder;
 
           this.ngZone.runOutsideAngular(() => {
             this.placeholderInterval = setInterval(() => {
               const dots = '.'.repeat(dotCount);
               this.ngZone.run(() => {
-                this.placeHolderText = baseText + dots;
+                this.placeHolderText = base + dots;
               });
 
               if (dotCount === 3) direction = -1;
@@ -74,12 +155,6 @@ export class NavbarComponent implements AfterViewInit {
           });
         }
       }, i * 100);
-    }
-  } 
-
-  ngOnDestroy() {
-    if (this.placeholderInterval) {
-      clearInterval(this.placeholderInterval);
     }
   }
 }

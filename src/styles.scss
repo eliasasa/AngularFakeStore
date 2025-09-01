@@ -14,7 +14,9 @@ html, body {
   --main-text: #fff;
   --text-brand-color: #BB86FC;
   --brand-color: #BB86FC;
-  --hover-color: #944fe4
+  --hover-color: #944fe4;
+  --body-area: calc(100vh - 55px);
+  --dark-gray: rgb(36, 36, 36)
 }
 
 // --rgb-brand-color: rgb(187, 134, 252);
@@ -32,7 +34,7 @@ body {
 }
 
 .min-h {
-    height: calc(100vh - 55px) !important;
+    min-height: calc(100vh - 55px) !important;
 }
 
 .main-body, .main-content {
@@ -69,6 +71,14 @@ hr {
   color: var(--text-brand-color) !important;
   transition: color 0.2s;
   user-select: none;
+}
+
+.material-icons.fs-2 {
+  font-size: 2rem !important;
+}
+
+.material-icons.branco {
+  color: var(--main-text) !important;
 }
 
 .sidebar-item {
@@ -116,3 +126,43 @@ a {
     color: var(--hover-color);
   }
 }
+
+.btn-base {
+  background-color: var(--main-text);
+  color: var(--brand-color);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  display: flex;
+  align-items: center;
+  font-weight: 600;
+  justify-content: center;
+  gap: 4px;
+}
+
+.btn-roxo {
+  background-color: var(--brand-color);
+  color: var(--main-text);
+  &:hover {
+    background-color: var(--hover-color);
+    color: var(--main-text);
+  }
+}
+
+.btn-roxo-sec {
+  background-color: transparent;
+  color: var(--hover-color);
+  border: 2px var(--hover-color) solid;
+  &:hover {
+    background-color: var(--hover-color);
+    color: var(--main-text);
+    & .material-icons {
+    color: var(--main-text) !important;
+    }
+  }
+  & .material-icons {
+    color: var(--hover-color) !important;
+  }
+}
+

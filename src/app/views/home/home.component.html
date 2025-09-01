@@ -12,15 +12,7 @@
     
     <!-- Estados de carregamento e erro -->
     @if (loading) {
-        <div class="loading-state">
-            <div class="loader">
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            </div>
-            <p>Carregando produtos...</p>
-        </div>
+        <app-load [message]="{message: 'Carregando produtos...'}"></app-load>
     }
     
     @if (error && !loading) {
@@ -38,12 +30,11 @@
                       id: product.id,
                       name: product.title,
                       price: product.price,
-                      imageUrl: product.image
+                      imageUrl: product.image,
                     }"></app-product-card>
                 }
             </div>
         </div>
     }
-    <button (click)="showError()">Mostrar Toast Erro</button>
 
 </div>

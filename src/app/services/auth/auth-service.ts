@@ -1,35 +1,67 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { isPlatformBrowser } from '@angular/common';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
 export class AuthService {
-
-  constructor() { }
-
   private readonly API_URL = 'https://fakestoreapi.com';
 
-  async signIn(username: string, password: string): Promise<any> {
-  const credentials = { username: username.trim(), password: password.trim() };
-  try {
-    const response = await fetch(this.API_URL + '/auth/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(credentials)
-    })
-    
-    const data = await response.json();
-  
-    if (data.token) {
-      localStorage.setItem('token', data.token);
-      return true;
-    }
-    return false;
-    
-  } catch (error) {
-    // console.error('Erro de autenticação:', error);
-    return false;
-  }
-}
+  private loggedIn!: BehaviorSubject<boolean>;
+  isLoggedIn$!: Observable<boolean>;
 
+  constructor(
+    @Inject(PLATFORM_ID) private platformId: Object
+  ) {
+    const isBrowser = isPlatformBrowser(this.platformId);
+
+    const token = isBrowser
+      ? localStorage.getItem('token')
+      : null;
+
+    this.loggedIn = new BehaviorSubject<boolean>(!!token);
+    this.isLoggedIn$ = this.loggedIn.asObservable();
+  }
+
+  async signIn(username: string, password: string): Promise<boolean> {
+    try {
+      const res = await fetch(`${this.API_URL}/auth/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          username: username.trim(),
+          password: password.trim()
+        })
+      });
+      const data = await res.json();
+      if (!data.token) {
+        return false;
+      }
+
+      if (isPlatformBrowser(this.platformId)) {
+        localStorage.setItem('token', data.token);
+      }
+
+      const usersRes = await fetch(`${this.API_URL}/users`);
+      const users = await usersRes.json();
+      const user = users.find((u: any) => u.username === username);
+      if (user && isPlatformBrowser(this.platformId)) {
+        localStorage.setItem('userId', String(user.id));
+        localStorage.setItem('favProducts', JSON.stringify([]));
+        localStorage.setItem('cartProducts', JSON.stringify([]));
+        localStorage.setItem('viewProducts', JSON.stringify([]));
+      }
+
+      this.loggedIn.next(true);
+      return true;
+    } catch {
+      return false;
+    }
+  }
+
+  logout(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      localStorage.clear();
+    }
+    this.loggedIn.next(false);
+  }
 }

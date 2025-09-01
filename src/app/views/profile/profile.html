@@ -1,0 +1,194 @@
+<div class="min-h" [class.dados]="">
+    @if (load) {
+        <app-load [message]="{message: 'Carregando perfil'}"></app-load>
+    }
+    @else if (dados) {
+        <div class="w-100 d-flex flex-column profile-content">
+            <div class="background">
+                <div class="bg-image">
+                    <img src="./assets/images/profile/44919.jpg" alt="">
+                </div>
+                <div class="profile-data">
+                    <img class="profile-pic" src="https://i.pravatar.cc/600" alt="">
+                    <div class="profile-info d-flex flex-column align-items-center g-2 pt-1">
+                        <p class="fs-2 m-0"><strong>{{'@' + dados.username}}</strong></p>
+                        <p class="fs-4">{{dados.name.firstname + ' ' + dados.name.lastname}}</p>
+                    </div>
+                </div>
+                
+            </div>
+            
+            <div class="container-fluid py-5">
+                <div class="row column-gap-5 align-items-start">
+                    <div class="col info-container" (click)="mostrar1 = !mostrar1">
+                        <div>
+                            <p class="info-title m-0">
+                                <span class="material-icons branco">lock_person</span>
+                                Dados Pessoais
+                            </p>
+                        </div>
+                        <form id="infoUser" class="conteudo" [class.aberto]="mostrar1" (click)="$event.stopPropagation()" (ngSubmit)="editarInfo()">
+                            <div class="d-flex flex-row align-items-end">
+                                <div class="textInputWrapper">
+                                    <label for="fname">Primeiro Nome</label>
+                                    <input placeholder="Primeiro Nome" type="text" [value]="dados.name.firstname" id="fname" class="textInput">
+                                </div>
+                                <button class="btn-base" type="button">
+                                    <span class="material-icons">
+                                        edit
+                                    </span>
+                                </button>
+                            </div>
+                            <div class="d-flex flex-row align-items-end">
+                                <div class="textInputWrapper">
+                                    <label for="lname">Segundo Nome</label>
+                                    <input placeholder="Segundo Nome" type="text" [value]="dados.name.lastname" id="lname" class="textInput">
+                                </div>
+                                <button class="btn-base" type="button">
+                                    <span class="material-icons">
+                                        edit
+                                    </span>
+                                </button>
+                            </div>
+                            <div class="d-flex flex-row align-items-end">
+                                <div class="textInputWrapper">
+                                    <label for="username">Username</label>
+                                    <p>&#64;</p>
+                                    <input placeholder="username" type="text" [value]="dados.username" id="username" class="textInput">
+                                </div>
+                                <button class="btn-base" type="button">
+                                    <span class="material-icons">
+                                        edit
+                                    </span>
+                                </button>
+                            </div>
+                            <div class="d-flex flex-row align-items-end">
+                                <div class="textInputWrapper">
+                                    <label for="phone">Telefone</label>
+                                    <input 
+                                        placeholder="Telefone (X-XXX-XXX-XXXX)" 
+                                        type="text" 
+                                        [value]="dados.phone" 
+                                        id="phone" 
+                                        name="phone"
+                                        class="textInput"
+                                        [(ngModel)]="dados.phone"
+                                        maxlength="14"
+                                        inputmode="numeric" 
+                                        (input)="formatPhone($event)"
+                                    >
+                                </div>
+                                <button class="btn-base" type="button">
+                                    <span class="material-icons">
+                                        edit
+                                    </span>
+                                </button>
+                            </div>
+                            <button class="btn-base btn-roxo" type="submit">
+                                <span class="material-icons save">
+                                    save
+                                </span>
+                                Salvar
+                            </button>
+                        </form>
+                    </div>
+
+                    <div class="col info-container" (click)="mostrar2 = !mostrar2">
+                        <div>
+                            <p class="info-title m-0">
+                                <span class="material-icons branco">explore</span>
+                                Localização
+                            </p>
+                        </div>
+                        <form class="conteudo" [class.aberto]="mostrar2" (click)="$event.stopPropagation()" (ngSubmit)="editarInfo()">
+                            <div class="d-flex flex-row align-items-end">
+                                <div class="textInputWrapper">
+                                    <label for="city">Cidade</label>
+                                    <input placeholder="Cidade" type="text" [value]="dados.address.city" id="city" class="textInput">
+                                </div>
+                                <button class="btn-base" type="button">
+                                    <span class="material-icons">
+                                        edit
+                                    </span>
+                                </button>
+                            </div>
+                            <div class="d-flex flex-row align-items-end">
+                                <div class="textInputWrapper">
+                                    <label for="street">Rua</label>
+                                    <input placeholder="Rua" type="text" [value]="dados.address.street" id="street" class="textInput">
+                                </div>
+                                <button class="btn-base" type="button">
+                                    <span class="material-icons">
+                                        edit
+                                    </span>
+                                </button>
+                            </div>
+                            <div class="d-flex flex-row align-items-end">
+                                <div class="textInputWrapper">
+                                    <label for="number">Número</label>
+                                    <input 
+                                    placeholder="Número" 
+                                    name="number" 
+                                    type="text" 
+                                    [value]="dados.address.number" 
+                                    inputmode="numeric" 
+                                    pattern="[0-9]*" 
+                                    id="number" 
+                                    (input)="onlyNum($event)"
+                                    class="textInput">
+                                </div>
+                                <button class="btn-base" type="button">
+                                    <span class="material-icons">
+                                        edit
+                                    </span>
+                                </button>
+                            </div>
+                            <div class="d-flex flex-row align-items-end">
+                                <div class="textInputWrapper">
+                                    <label for="zipcode">CEP</label>
+                                    <input 
+                                        placeholder="CEP (XXXXX-XXXX)" 
+                                        type="text" 
+                                        [value]="dados.address.zipcode"
+                                        id="zipcode" 
+                                        name="zipcode"
+                                        class="textInput"
+                                        maxlength="14"
+                                        (input)="formatZip($event)"
+                                    >
+                                </div>
+                                <button class="btn-base" type="button">
+                                    <span class="material-icons">
+                                        edit
+                                    </span>
+                                </button>
+                            </div>
+                            <button class="btn-base btn-roxo" type="submit">
+                                <span class="material-icons save">
+                                    save
+                                </span>
+                                Salvar
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+
+                
+                
+                <app-product-list></app-product-list>
+
+            </div>
+        </div>
+    } @else {
+        <div class="loading-state">
+            <div class="loader">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+            <p>Carregando perfil...</p>
+        </div>
+    }
+</div>
