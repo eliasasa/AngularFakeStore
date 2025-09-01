@@ -16,6 +16,7 @@ html, body {
   --brand-color: #BB86FC;
   --hover-color: #944fe4;
   --body-area: calc(100vh - 55px);
+  --dark-gray: rgb(36, 36, 36)
 }
 
 // --rgb-brand-color: rgb(187, 134, 252);
@@ -135,7 +136,9 @@ a {
   transition: background-color 0.3s ease, color 0.3s ease;
   display: flex;
   align-items: center;
+  font-weight: 600;
   justify-content: center;
+  gap: 4px;
 }
 
 .btn-roxo {
@@ -146,3 +149,20 @@ a {
     color: var(--main-text);
   }
 }
+
+.btn-roxo-sec {
+  background-color: transparent;
+  color: var(--hover-color);
+  border: 2px var(--hover-color) solid;
+  &:hover {
+    background-color: var(--hover-color);
+    color: var(--main-text);
+    & .material-icons {
+    color: var(--main-text) !important;
+    }
+  }
+  & .material-icons {
+    color: var(--hover-color) !important;
+  }
+}
+
