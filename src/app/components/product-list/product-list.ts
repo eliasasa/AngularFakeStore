@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ProductCard } from '../product-card/product-card';
+import { Product } from '../../interfaces/product/product';
 
 @Component({
   selector: 'app-product-list',
@@ -12,8 +13,9 @@ import { ProductCard } from '../product-card/product-card';
 })
 export class ProductList {
 
-  favoriteProducts: any[] = JSON.parse(localStorage.getItem('favProducts') || '[]');
-
-  viewdProcuts: any[] = JSON.parse(localStorage.getItem('viewProducts') || '[]');
+  @Input() icon: string = 'star';
+  @Input() title: string = 'Lista';
+  @Input() products: any[] = [];
+  @Input() emptyMessage: string = 'Nenhum produto encontrado :(';
 
 }

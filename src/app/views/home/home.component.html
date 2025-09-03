@@ -28,9 +28,9 @@
                 @for (product of products; track product.id) {
                     <app-product-card [product]="{
                       id: product.id,
-                      name: product.title,
+                      title: product.title,
                       price: product.price,
-                      imageUrl: product.image,
+                      image: product.image,
                     }"></app-product-card>
                 }
             </div>

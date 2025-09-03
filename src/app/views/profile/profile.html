@@ -176,7 +176,19 @@
 
                 
                 
-                <app-product-list></app-product-list>
+                <app-product-list 
+                    [icon]="'star'"
+                    [title]="'Seus favoritos'"
+                    [products]="favoriteProducts"
+                    [emptyMessage]="'Você não tem nenhum produto favoritado :('"
+                ></app-product-list>
+
+                <app-product-list 
+                    [icon]="'history'"
+                    [title]="'Vistos por você'"
+                    [products]="viewedProduct"
+                    [emptyMessage]="'Assim que você visualizar produtos, eles aparecerão aqui.'"
+                ></app-product-list>
 
             </div>
         </div>

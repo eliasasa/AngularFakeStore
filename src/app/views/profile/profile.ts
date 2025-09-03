@@ -5,6 +5,9 @@ import { User } from '../../services/user/user';
 import { FormsModule, NgModel } from '@angular/forms';
 import { ProductList } from '../../components/product-list/product-list';
 import { Load } from '../../components/load/load';
+import { Product } from '../../interfaces/product/product';
+import { ProductHistoryService } from '../../services/product/product-history-service';
+import { ProductService } from '../../services/product/product-service';
 
 @Component({
   selector: 'app-profile',
@@ -21,11 +24,14 @@ export class Profile {
   private idUser: string | null;
   dados: any = null;
   load: boolean = true;
+  public viewedProduct: any[] = [];
+  public favoriteProducts: any[] = [];
 
   constructor(
     private router: Router,
     private toastService: ToastService,
-    private userService: User
+    private userService: User,
+    private prodHist: ProductHistoryService
   ) {
     this.token = localStorage.getItem('token');
     this.idUser = localStorage.getItem('userId');
@@ -34,8 +40,13 @@ export class Profile {
       this.toastService.showToast('Você não está logado', 'aviso');
       this.router.navigate(['/login']);
     } else {
+      this.favoriteProducts = JSON.parse(localStorage.getItem('favProducts') || '[]');
+      this.viewedProduct = prodHist.getHistory();
       this.carregarDadosUsuario();
     }
+
+    
+    
   }
 
   formatZip(event: any) {

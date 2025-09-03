@@ -4,6 +4,8 @@ import { ProductService } from '../../services/product/product-service';
 import { ToastService } from '../../services/toast/toast-service';
 import { CommonModule } from '@angular/common';
 import { Load } from '../../components/load/load';
+import { ProductHistoryService } from '../../services/product/product-history-service';
+import { Product } from '../../interfaces/product/product';
 
 
 @Component({
@@ -26,7 +28,8 @@ export class Products implements OnInit {
     private route: ActivatedRoute,
     private productService: ProductService,
     private router: Router,
-    private toast: ToastService
+    private toast: ToastService,
+    private prodHis: ProductHistoryService
   ) {
     
   }
@@ -42,7 +45,7 @@ export class Products implements OnInit {
     const idNum = parseInt(id, 10);
 
     this.productService.getProductById(idNum).subscribe({
-      next: (product) => {
+      next: (product: Product) => {
         if (!product || Object.keys(product).length === 0) {
           this.load = false;
           this.success = false;
@@ -54,13 +57,15 @@ export class Products implements OnInit {
         this.produto = product;
         this.load = false;
         this.success = true;
-        console.log(this.produto);
 
         const stored = localStorage.getItem('favProducts');
         const favProducts: any[] = stored ? JSON.parse(stored) : [];
 
         this.isFavorited = favProducts.some((item) => item.id === this.produto.id);
 
+        if (localStorage.getItem('userId')) {
+          this.prodHis.addProduct(product)
+        } 
       },
       error: (err) => {
         this.load = false;
