@@ -27,7 +27,7 @@
 
 .card-grid {
     display: grid;
-    grid-template-columns: repeat(6, auto);
+    grid-template-columns: repeat(6, 1fr);
     justify-content: space-between;
     row-gap: 64px;
 }
@@ -47,4 +47,11 @@
   border-radius: 4px;
   cursor: pointer;
 }
+
+.home-load {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 

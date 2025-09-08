@@ -34,47 +34,55 @@ export class Products implements OnInit {
     
   }
 
+  returnHome() {
+    this.router.navigate(['/'])
+  }
+
   ngOnInit(): void {
-    let id = this.route.snapshot.paramMap.get('id');
+    this.route.paramMap.subscribe(params => {
+      const id = params.get('id');
 
-    if (!id || isNaN(Number(id))) {
-      this.router.navigate(['/']);
-      return;
-    }
+      if (!id || isNaN(Number(id))) {
+        this.toast.showToast('Parâmetro inválido.', 'erro')
+        this.router.navigate(['/']);
+        return;
+      }
 
-    const idNum = parseInt(id, 10);
+      const idNum = parseInt(id, 10);
+      this.load = true;
+      this.success = false;
 
-    this.productService.getProductById(idNum).subscribe({
-      next: (product: Product) => {
-        if (!product || Object.keys(product).length === 0) {
+      this.productService.getProductById(idNum).subscribe({
+        next: (product: Product) => {
+          if (!product || Object.keys(product).length === 0) {
+            this.load = false;
+            this.success = false;
+            this.toast.showToast('Produto não encontrado.', 'erro');
+            return;
+          }
+
+          this.produto = product;
+          this.load = false;
+          this.success = true;
+
+          const stored = localStorage.getItem('favProducts');
+          const favProducts: any[] = stored ? JSON.parse(stored) : [];
+
+          this.isFavorited = favProducts.some((item) => item.id === this.produto.id);
+
+          if (localStorage.getItem('userId')) {
+            this.prodHis.addProduct(product);
+          }
+        },
+        error: (err) => {
           this.load = false;
           this.success = false;
-          console.error('Produto não encontrado ou resposta vazia');
-          this.toast.showToast('Produto não encontrado.', 'erro');
-          return;
+          this.toast.showToast(`Erro ao encontrar produto: ${err}`, 'erro');
         }
-
-        this.produto = product;
-        this.load = false;
-        this.success = true;
-
-        const stored = localStorage.getItem('favProducts');
-        const favProducts: any[] = stored ? JSON.parse(stored) : [];
-
-        this.isFavorited = favProducts.some((item) => item.id === this.produto.id);
-
-        if (localStorage.getItem('userId')) {
-          this.prodHis.addProduct(product)
-        } 
-      },
-      error: (err) => {
-        this.load = false;
-        console.error('Erro ao buscar produto:', err);
-        this.toast.showToast(`Erro ao encontrar produto: ${err}`, 'erro');
-        this.success = false;
-      }
+      });
     });
   }
+
 
   getStarIcons(rate: number): ('full' | 'half' | 'empty')[] {
     const rounded = Math.floor(rate * 2) / 2;

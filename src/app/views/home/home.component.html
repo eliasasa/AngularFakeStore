@@ -12,7 +12,7 @@
     
     <!-- Estados de carregamento e erro -->
     @if (loading) {
-        <app-load [message]="{message: 'Carregando produtos...'}"></app-load>
+        <app-load class="home-load" [message]="{message: 'Carregando produtos...'}"></app-load>
     }
     
     @if (error && !loading) {
