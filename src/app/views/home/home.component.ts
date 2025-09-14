@@ -8,6 +8,7 @@ import { Filter } from '../../components/filter/filter';
 import { ProductCard } from '../../components/product-card/product-card';
 import { ToastService } from '../../services/toast/toast-service';
 import { Load } from '../../components/load/load';
+import { ProductList } from '../../components/product-list/product-list';
 
 @Component({
   selector: 'app-home',
@@ -17,11 +18,14 @@ import { Load } from '../../components/load/load';
     BannerComponent,
     Filter,
     ProductCard,
-    Load
+    Load,
+    ProductList,
   ]
 })
 export class HomeComponent implements OnInit, OnDestroy {
   products: Product[] = [];
+  productsByRate: Product[] = [];
+  productsByCount: Product[] = [];
   loading: boolean = false;
   error: boolean = false;
   filters: any[] = [
@@ -40,10 +44,6 @@ export class HomeComponent implements OnInit, OnDestroy {
   ) {}
 
   toastService = inject(ToastService);
-
-  showError() {
-    this.toastService.showToast('Ocorreu um erro!', 'erro');
-  }
 
   ngOnInit(): void {
     this.loadProducts(this.globalService.getSharedValue());
@@ -73,6 +73,8 @@ export class HomeComponent implements OnInit, OnDestroy {
       next: (products) => {
         this.products = products;
         this.loading = false;
+        this.productsByRate = [...products].sort((a, b) => b.rating.rate - a.rating.rate).splice(0, 12);
+        this.productsByCount = [...products].sort((a, b) => b.rating.count - a.rating.count).slice(0, 12)
       },
       error: (err) => {
         this.error = true;
@@ -81,4 +83,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       }
     });
   }
+
+  
+
 }

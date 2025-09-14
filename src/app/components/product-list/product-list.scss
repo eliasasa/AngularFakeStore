@@ -1,0 +1,45 @@
+.product-list {
+    position: relative;
+}
+
+.product-row {
+    overflow-x: hidden;
+    display: flex;
+    flex-wrap: inherit !important;
+    gap: 1rem;
+    scroll-behavior: smooth;
+}
+
+.product-list {
+  position: relative;
+
+  &:hover .button-row button {
+    opacity: 1;
+  }
+}
+
+
+.button-row {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    transform: translateY(-50%);
+    justify-content: space-between;
+    pointer-events: none;
+    display: flex;
+    z-index: 10;
+    height: 100%;
+    align-items: center;
+    padding: 0 8px;
+
+    button {
+        opacity: 0;
+        pointer-events: all !important;
+        color: white;
+        border: none;
+        padding: 0.5rem 1rem;
+        cursor: pointer;
+        transition: all .3s ease;    
+    }
+}

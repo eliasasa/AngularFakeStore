@@ -1,11 +1,21 @@
-<div class="col mt-5">
+<div class="col mt-5 product-list">
     <h2 class="d-flex gap-1 brand-color">
         <span class="material-icons fs-2">
             {{icon}}
         </span>
         {{title}}
     </h2>
-    <div class="w-100 d-flex flex-row flex-wrap gap-4 mt-3">
+    <div class="w-100 d-flex flex-row flex-wrap gap-4 mt-3" [ngClass]="{'product-row': rowClass}" #productRow>
+
+        @if (rowClass) {
+            @if (products.length > 6) {
+                <div class="button-row">
+                    <button class="btn-base btn-roxo" (click)="scrollLeft()">‹</button>
+                    <button class="btn-base btn-roxo" (click)="scrollRight()">›</button>
+                </div>
+            }
+        }
+
         @if (products.length > 0) {
             @for (p of products; track p.id) {
                 <app-product-card [product]="p"></app-product-card>
