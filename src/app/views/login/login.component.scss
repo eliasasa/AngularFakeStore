@@ -20,11 +20,12 @@
     background-color: transparent;
 
     .material-icons {
-      color: white !important;
+      color: #999999 !important;
     }
 
     &:hover .material-icons{
-      color: #999999 !important;
+      color: white !important;
+      
     }
   }
 }
