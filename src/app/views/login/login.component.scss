@@ -2,6 +2,33 @@
   position: relative;
 }
 
+.toggle-eye {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+
+  & > button {
+    width: 32px;
+    height: auto;
+    aspect-ratio: 1 / 1;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all .3s ease;
+    background-color: transparent;
+
+    .material-icons {
+      color: white !important;
+    }
+
+    &:hover .material-icons{
+      color: #999999 !important;
+    }
+  }
+}
+
 .form {
     display: -webkit-box;
     display: -ms-flexbox;

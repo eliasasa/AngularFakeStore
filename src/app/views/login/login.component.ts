@@ -19,6 +19,7 @@ export class LoginComponent {
   password: string = '';
   token: string | null = null;
   idUser: string | null = null;
+  eyeVisibility: boolean = false;
 
   constructor(
     private authService: AuthService,
@@ -34,6 +35,10 @@ export class LoginComponent {
       this.toastService.showToast('Você já está logado', 'aviso');
       this.router.navigate(['/perfil']);
     }
+  }
+
+  togglePassword() {
+    this.eyeVisibility = !this.eyeVisibility
   }
 
   async logar(event: Event) {
