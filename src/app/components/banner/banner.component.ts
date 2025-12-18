@@ -10,10 +10,18 @@ import { NgZone } from '@angular/core';
 })
 export class BannerComponent implements AfterViewInit {
   bannerImages = [
-    'assets/images/banner/banner-first.jpg',
-    'assets/images/banner/banner-second.jpg',
-    'assets/images/banner/banner-third.jpg'
+    'assets/images/banner/desktop/banner-first.jpg',
+    'assets/images/banner/desktop/banner-second.jpg',
+    'assets/images/banner/desktop/banner-third.jpg'
   ];
+
+  categories = [
+    'electronics',
+    'jewelery',
+    "women's clothing"
+  ]
+
+  currentCategory = '/categories/' + this.categories[0];
 
   currentSrc = this.bannerImages[0];
   protected currentIndex = 0;
@@ -31,6 +39,7 @@ export class BannerComponent implements AfterViewInit {
       this.interval = setInterval(() => {
         this.ngZone.run(() => {
           this.fadeToImage((this.currentIndex + 1) % this.bannerImages.length);
+          this.currentCategory = this.categories[(this.currentIndex + 1) % this.categories.length];
         });
       }, 6000);
     });
@@ -42,6 +51,7 @@ export class BannerComponent implements AfterViewInit {
     setTimeout(() => {
       this.currentIndex = index;
       this.currentSrc = this.bannerImages[this.currentIndex];
+      this.currentCategory = '/categories/' + encodeURIComponent(this.categories[this.currentIndex]);
       setTimeout(() => {
         this.isFading = false;
       }, this.fadeDuration);

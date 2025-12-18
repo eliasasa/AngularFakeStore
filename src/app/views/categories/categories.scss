@@ -1,0 +1,9 @@
+.categories-banner img {
+    width: 100%;
+    opacity: 0;
+    transition: opacity .5s ease;
+}
+
+.categories-banner img.fading {
+    opacity: 1;
+}

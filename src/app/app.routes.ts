@@ -5,6 +5,7 @@ import { RegisterComponent } from './views/register/register.component';
 import { Profile } from './views/profile/profile';
 import { Logout } from './components/logout/logout';
 import { Products } from './views/products/products';
+import { Categories } from './views/categories/categories';
 
 export const routes: Routes = [
     {
@@ -30,6 +31,14 @@ export const routes: Routes = [
     {
       path: 'produto/:id',
       component: Products
+    },
+    {
+      path: 'categories/:bind',
+      component: Categories
+    },
+    {
+      path: 'categories',
+      component: Categories
     }
     // {
     //   path: '**',
