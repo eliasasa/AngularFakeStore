@@ -1,5 +1,5 @@
-@import "bootstrap/scss/functions";
-@import "bootstrap/scss/variables";
+@use "bootstrap/scss/bootstrap";
+
 
 .main_body {
     display: flex;
@@ -8,7 +8,7 @@
     justify-content: center;
     min-height: 100vh;
     background-color: #121212;
-    color: $white;
+    color: #ffff;
 }
 
 .categorias-container {

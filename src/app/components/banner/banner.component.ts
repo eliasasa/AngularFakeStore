@@ -51,7 +51,7 @@ export class BannerComponent implements AfterViewInit {
     setTimeout(() => {
       this.currentIndex = index;
       this.currentSrc = this.bannerImages[this.currentIndex];
-      this.currentCategory = '/categories/' + encodeURIComponent(this.categories[this.currentIndex]);
+      this.currentCategory = '/categories?cat=' + encodeURIComponent(this.categories[this.currentIndex]);
       setTimeout(() => {
         this.isFading = false;
       }, this.fadeDuration);
