@@ -2,7 +2,28 @@
     <img [src]="bannerPath" alt="" #bannerImg (load)="onImageLoad()">
 </div>
 
-<h3> {{searchBind ? `Resultados para "${searchBind}"` : 'Produtos'  }} </h3>
+<div class="w-100 categories-title">
+    
+
+    @if (searchBind) {
+
+        <h3>Resultados para
+            <span class="highlight">{{searchBind}}</span>
+        </h3>
+
+        <button (click)="clearBind()" class="btn-base btn-roxo-sec">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 8 8">
+                <path fill="currentColor" d="M5 4v3h1V4M2 4v3h1V4M0 2V1h2V0h4v1h2v1M7 8H1V3h6"/>
+            </svg>
+            Limpar pesquisa
+        </button>
+    } 
+
+    @else {
+        <h3>Todos os Produtos</h3>
+    }
+
+</div>
 
 <div class="categories-container">
     <div class="product-filter">
@@ -20,10 +41,36 @@
                 </div>
             }
         </div>
+        <div class="categories-box">
+            <h3>Preço</h3>
+            <div class="price-filter">
+                <input
+                    class="input-base"
+                    type="number"
+                    placeholder="Min"
+                    #minPrice
+                    (change)="updateUrl()"
+                    value="{{minPrice}}"
+                />
+
+                <span>–</span>
+
+                <input
+                    class="input-base"
+                    type="number"
+                    placeholder="Max"
+                    #maxPrice
+                    (change)="updateUrl()"
+                    value="{{maxPrice}}"
+                />    
+            </div>
+            
+
+        </div>
     </div>
     <div class="product-result">
         @if (loading) {
-            <app-load class="grid-load" [message]="{message: 'Carregando produtos...'}"></app-load>
+            <app-load class="grid-center-row" [message]="{message: 'Carregando produtos...'}"></app-load>
         } 
 
         @if (error && !loading) {
@@ -35,13 +82,17 @@
 
          @if (!loading && !error) {
 
-            @for (product of productList; track product.id) {
+            @if (productList.length > 0) {
+                @for (product of productList; track product.id) {
                     <app-product-card [product]="{
-                      id: product.id,
-                      title: product.title,
-                      price: product.price,
-                      image: product.image,
+                    id: product.id,
+                    title: product.title,
+                    price: product.price,
+                    image: product.image,
                     }"></app-product-card>
+                }
+            } @else {
+                <h4 class="grid-center">Nenhum produto encontrado :/</h4>
             }
         }
 

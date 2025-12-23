@@ -167,6 +167,13 @@ a {
   }
 }
 
+.input-base {
+  background-color: transparent;
+  border: 2px var(--brand-color) solid;    
+  color: var(--hover-color);
+  border-radius: 5px;
+}
+
 // INPUT PASSWORD EYE-STOCK
 
 input[type="password"]::-ms-reveal,

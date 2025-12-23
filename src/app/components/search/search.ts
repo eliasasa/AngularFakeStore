@@ -1,7 +1,6 @@
-import { AfterViewInit, Component, NgZone, OnDestroy } from '@angular/core';
+import { AfterViewInit, Component, NgZone, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 import { ProductService } from '../../services/product/product-service';
 import { Product } from '../../interfaces/product/product';
-import { filter } from 'rxjs';
 import { Load } from '../load/load';
 import { Router } from '@angular/router';
 
@@ -34,6 +33,7 @@ export class Search implements AfterViewInit, OnDestroy {
     }
   }
 
+  @ViewChild('searchInput') searchInput!: ElementRef<HTMLInputElement>;
   
   constructor (
     private ngZone: NgZone,
@@ -77,7 +77,7 @@ export class Search implements AfterViewInit, OnDestroy {
           this.load = false;
         },
         error: (err) => {
-          console.error('Erro ao buscar produtos', err);
+          console.error('Erro ao buscar produtos: ', err);
           this.searchProducts = [];
           this.encontrado = false;
           this.load = false;
@@ -85,6 +85,25 @@ export class Search implements AfterViewInit, OnDestroy {
         });
       }, 300);
 
+  }
+
+  onEnter() {
+    const input = this.searchInput.nativeElement;
+    const value = input.value.trim();
+
+    this.searchProducts = [];
+    this.encontrado = true;
+    this.load = false;
+
+    clearTimeout(this.searchTimer);
+
+    input.value = '';
+
+    if (value) {
+      this.router.navigate(['/categories'], {
+        queryParams: { q: value }
+      });
+    }
   }
 
   

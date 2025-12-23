@@ -23,6 +23,7 @@ export class Categories implements OnInit, AfterViewInit{
   private viewInitialized = false;
 
   productList!: Product[];
+  allProducts!: Product[];
   loading: boolean = false;
   error: boolean = false;
 
@@ -39,6 +40,9 @@ export class Categories implements OnInit, AfterViewInit{
     { title: 'Masculino', value: "men's clothing", materialIcon: 'man' },
     { title: 'Feminino', value: "women's clothing", materialIcon: 'woman' }
   ];
+
+  minPrice: number = 0;
+  maxPrice: number = 0;
 
   selectedCategories: string[] = [];
 
@@ -78,9 +82,18 @@ export class Categories implements OnInit, AfterViewInit{
       } else {
         this.loadAllProducts();
       }
+
     });
   }
 
+  clearBind() {
+    this.searchBind = '';
+    this.selectedCategories = [];
+
+    this.router.navigate(['/categories'], {
+      queryParams: {}    
+    });
+  }
 
   updateUrl() {
     const queryParams: any = {};
@@ -94,6 +107,24 @@ export class Categories implements OnInit, AfterViewInit{
     }
 
     this.router.navigate(['/categories'], { queryParams });
+  }
+
+  applyFilters() {
+    let filtered = [...this.allProducts];
+
+    if (this.selectedCategories.length > 0) {
+      filtered = filtered.filter(p =>
+        this.selectedCategories.includes(p.category)
+      );
+    }
+
+    if (this.searchBind) {
+      filtered = filtered.filter(p =>
+        p.title.toLowerCase().includes(this.searchBind.toLowerCase())
+      );
+    }
+
+    this.productList = filtered;
   }
 
   isChecked(value: string): boolean {
@@ -124,7 +155,6 @@ export class Categories implements OnInit, AfterViewInit{
   loadProductsByFilter(categories: string[]): void {
     this.loading = true;
     this.error = false;
-    this.productList = [];
 
     const requests = categories.map(c =>
       this.productService.getProductsByCategory(c)
@@ -132,7 +162,8 @@ export class Categories implements OnInit, AfterViewInit{
 
     forkJoin(requests).subscribe({
       next: (results) => {
-        this.productList = results.flat();
+        this.allProducts = results.flat();
+        this.applyFilters();
         this.loading = false;
       },
       error: (err) => {
@@ -143,22 +174,23 @@ export class Categories implements OnInit, AfterViewInit{
     });
   }
 
+
   loadAllProducts() {
     this.loading = true;
     this.error = false;
 
     this.productService.getAllProducts().subscribe({
       next: (products) => {
-        this.productList = products;
+        this.allProducts = products;
+        this.applyFilters();
         this.loading = false;
       },
       error: (err) => {
         this.error = true;
         this.loading = false;
-        console.error('Error ao carregar produtos: ', err)
+        console.error('Erro ao carregar produtos: ', err);
       }
-    })
-
+    });
   }
 
   getProductValue() {
