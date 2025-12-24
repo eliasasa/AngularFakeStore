@@ -106,11 +106,11 @@ export class Categories implements OnInit, AfterViewInit{
       queryParams.cat = this.selectedCategories.join(',');
     }
 
-    if (this.minPrice !== null) {
+    if (this.minPrice !== null && this.minPrice > 0) {
       queryParams.min = this.minPrice;
     }
 
-    if (this.maxPrice !== null) {
+    if (this.maxPrice !== null && this.maxPrice > 0) {
       queryParams.max = this.maxPrice;
     }
 
