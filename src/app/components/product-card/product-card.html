@@ -18,11 +18,11 @@
     </label>
     <div class="main-card">
         <div class="img-product" (click)="viewProductDetails(product.id)">
-            <img class="product-image" [src]="product.imageUrl" alt="Imagem do Produto">
+            <img class="product-image" [src]="product.image" alt="Imagem do Produto">
         </div>
         <div class="title-price">
             <div class="title-product">
-                {{ product.name }}
+                {{ product.title }}
             </div>
             <div class="price-product">
                 <b>R$</b>{{ product.price }}

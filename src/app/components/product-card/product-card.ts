@@ -12,9 +12,9 @@ import { Router } from '@angular/router';
 export class ProductCard implements OnInit{
     @Input() product!: {
     id: number;
-    name: string;
+    title: string;
     price: number;
-    imageUrl: string;
+    image: string;
     inList?: boolean;
   };
 

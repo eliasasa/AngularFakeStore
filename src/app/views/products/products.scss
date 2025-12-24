@@ -18,6 +18,14 @@
     text-align: start;
 }
 
+.load-div {
+  grid-column: span 2;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .product-img {
     background-color: #F5F5F5;
     aspect-ratio: 1 / 1;
@@ -31,7 +39,6 @@
     img {
         max-height: 100%;
         max-width: 100%;
-        z-index: 1001;
     }
 }
 
@@ -126,16 +133,28 @@ input[type="number"]::-webkit-outer-spin-button {
   margin: 0;
 }
 
-/* Firefox */
 input[type="number"] {
-  -moz-appearance: textfield;
+  appearance: textfield;         // padrão moderno
+  -moz-appearance: textfield;    // firefox
+  -webkit-appearance: none;      // chrome, safari
 }
-
 
 
 .product-qtt-inp {
     display: flex;
     flex-direction: row;
+}
+
+.error-div {
+  grid-column: span 2;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  h2 {
+    margin-bottom: 24px;
+  }
 }
 
 /* From Uiverse.io by vinodjangid07 */ 

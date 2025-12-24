@@ -4,6 +4,8 @@ import { ProductService } from '../../services/product/product-service';
 import { ToastService } from '../../services/toast/toast-service';
 import { CommonModule } from '@angular/common';
 import { Load } from '../../components/load/load';
+import { ProductHistoryService } from '../../services/product/product-history-service';
+import { Product } from '../../interfaces/product/product';
 
 
 @Component({
@@ -26,50 +28,61 @@ export class Products implements OnInit {
     private route: ActivatedRoute,
     private productService: ProductService,
     private router: Router,
-    private toast: ToastService
+    private toast: ToastService,
+    private prodHis: ProductHistoryService
   ) {
     
   }
 
+  returnHome() {
+    this.router.navigate(['/'])
+  }
+
   ngOnInit(): void {
-    let id = this.route.snapshot.paramMap.get('id');
+    this.route.paramMap.subscribe(params => {
+      const id = params.get('id');
 
-    if (!id || isNaN(Number(id))) {
-      this.router.navigate(['/']);
-      return;
-    }
+      if (!id || isNaN(Number(id))) {
+        this.toast.showToast('Parâmetro inválido.', 'erro')
+        this.router.navigate(['/']);
+        return;
+      }
 
-    const idNum = parseInt(id, 10);
+      const idNum = parseInt(id, 10);
+      this.load = true;
+      this.success = false;
 
-    this.productService.getProductById(idNum).subscribe({
-      next: (product) => {
-        if (!product || Object.keys(product).length === 0) {
+      this.productService.getProductById(idNum).subscribe({
+        next: (product: Product) => {
+          if (!product || Object.keys(product).length === 0) {
+            this.load = false;
+            this.success = false;
+            this.toast.showToast('Produto não encontrado.', 'erro');
+            return;
+          }
+
+          this.produto = product;
+          this.load = false;
+          this.success = true;
+
+          const stored = localStorage.getItem('favProducts');
+          const favProducts: any[] = stored ? JSON.parse(stored) : [];
+
+          this.isFavorited = favProducts.some((item) => item.id === this.produto.id);
+
+          if (localStorage.getItem('userId')) {
+            this.prodHis.addProduct(product);
+          }
+        },
+        error: (err) => {
           this.load = false;
           this.success = false;
-          console.error('Produto não encontrado ou resposta vazia');
-          this.toast.showToast('Produto não encontrado.', 'erro');
-          return;
+          this.toast.showToast(`Erro ao encontrar produto: ${err}`, 'erro');
         }
-
-        this.produto = product;
-        this.load = false;
-        this.success = true;
-        console.log(this.produto);
-
-        const stored = localStorage.getItem('favProducts');
-        const favProducts: any[] = stored ? JSON.parse(stored) : [];
-
-        this.isFavorited = favProducts.some((item) => item.id === this.produto.id);
-
-      },
-      error: (err) => {
-        this.load = false;
-        console.error('Erro ao buscar produto:', err);
-        this.toast.showToast(`Erro ao encontrar produto: ${err}`, 'erro');
-        this.success = false;
-      }
+      });
     });
   }
+
 
   getStarIcons(rate: number): ('full' | 'half' | 'empty')[] {
     const rounded = Math.floor(rate * 2) / 2;

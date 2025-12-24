@@ -1,9 +1,7 @@
 import {
   Component,
   OnInit,
-  AfterViewInit,
   OnDestroy,
-  NgZone,
   ViewChild
 } from '@angular/core';
 import { Subscription } from 'rxjs';
@@ -12,19 +10,18 @@ import { SidebarComponent } from '../sidebar/sidebar.component';
 import { ToastService } from '../../services/toast/toast-service';
 import { User } from '../../services/user/user';
 import { AuthService } from '../../services/auth/auth-service';
+import { Search } from '../search/search';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [SidebarComponent, RouterModule],
+  imports: [SidebarComponent, RouterModule, Search],
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent
-  implements OnInit, AfterViewInit, OnDestroy
+  implements OnInit, OnDestroy
 {
-  finalPlaceholder = 'Pesquisar produtos';
-  placeHolderText = '';
   userPhoto =
     'https://cdn-icons-png.flaticon.com/512/149/149071.png';
   isLoggedIn = false;
@@ -35,14 +32,12 @@ export class NavbarComponent
 
   sidebarItems: any[] = [];
 
-  private placeholderInterval: any;
   private authSub = new Subscription();
 
   constructor(
     private auth: AuthService,
     private userService: User,
     private toastService: ToastService,
-    private ngZone: NgZone
   ) {}
 
   ngOnInit(): void {
@@ -72,14 +67,7 @@ export class NavbarComponent
     );
   }
 
-  ngAfterViewInit(): void {
-    this.animatePlaceholder();
-  }
-
   ngOnDestroy(): void {
-    if (this.placeholderInterval) {
-      clearInterval(this.placeholderInterval);
-    }
 
     this.authSub.unsubscribe();
   }
@@ -121,40 +109,5 @@ export class NavbarComponent
     this.sidebarItems = baseItems;
   }
 
-  private animatePlaceholder(): void {
-    this.placeHolderText = '';
-    if (this.placeholderInterval) {
-      clearInterval(this.placeholderInterval);
-      this.placeholderInterval = null;
-    }
-
-    for (let i = 0; i <= this.finalPlaceholder.length; i++) {
-      setTimeout(() => {
-        this.placeHolderText = this.finalPlaceholder.slice(
-          0,
-          i
-        );
-
-        if (i === this.finalPlaceholder.length) {
-          let dotCount = 0;
-          let direction = 1;
-          const base = this.finalPlaceholder;
-
-          this.ngZone.runOutsideAngular(() => {
-            this.placeholderInterval = setInterval(() => {
-              const dots = '.'.repeat(dotCount);
-              this.ngZone.run(() => {
-                this.placeHolderText = base + dots;
-              });
-
-              if (dotCount === 3) direction = -1;
-              else if (dotCount === 0) direction = 1;
-
-              dotCount += direction;
-            }, 500);
-          });
-        }
-      }, i * 100);
-    }
-  }
+  
 }

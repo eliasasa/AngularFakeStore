@@ -12,7 +12,7 @@
     
     <!-- Estados de carregamento e erro -->
     @if (loading) {
-        <app-load [message]="{message: 'Carregando produtos...'}"></app-load>
+        <app-load class="home-load" [message]="{message: 'Carregando produtos...'}"></app-load>
     }
     
     @if (error && !loading) {
@@ -28,13 +28,35 @@
                 @for (product of products; track product.id) {
                     <app-product-card [product]="{
                       id: product.id,
-                      name: product.title,
+                      title: product.title,
                       price: product.price,
-                      imageUrl: product.image,
+                      image: product.image,
                     }"></app-product-card>
                 }
             </div>
         </div>
+
+        <app-product-list
+            [icon]="'hotel_class'"
+            [title]="'Mais avaliados'"
+            [products]="productsByRate"
+            emptyMessage="'Alguma coisa deu errado :/'"
+            [rowClass]="true"
+        ></app-product-list>
+
+        <app-product-list
+            [icon]="'trending_up'"
+            [title]="'Mais vendidos'"
+            [products]="productsByCount"
+            emptyMessage="'Alguma coisa deu errado :/'"
+            [rowClass]="true"
+        ></app-product-list>
+        <!-- <app-product-list 
+            [icon]="'history'"
+            [title]="'Vistos por você'"
+            [products]="viewedProduct"
+            [emptyMessage]="'Assim que você visualizar produtos, eles aparecerão aqui.'"
+        ></app-product-list> -->
     }
 
 </div>

@@ -35,9 +35,16 @@
         </div>
         <div class="container-1">
             <div class="group">
-            <input required="true" required [(ngModel)]="password" class="main-input" type="password" name="password">
-            <span class="highlight-span"></span>
-            <label class="lebal-email">Senha</label>
+                <input required="true" required [(ngModel)]="password" class="main-input" type="{{eyeVisibility ? 'text' : 'password'}}" name="password" >
+                <span class="highlight-span"></span>
+                <label class="lebal-email">Senha</label>
+                <div class="toggle-eye">
+                    <button type="button" (click)="togglePassword()">
+                        <span class="material-icons">
+                            {{eyeVisibility ? "visibility_off" : "visibility"}}
+                        </span>
+                    </button>
+                </div>
             </div>
         </div>
         <button type="submit" class="submit">

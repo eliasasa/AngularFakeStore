@@ -1,6 +1,8 @@
 <div class="product-body container" [ngStyle]="load ? {'grid-template-columns': '1fr'} : {}">
     @if (load) {
-        <app-load [message]="{message: 'Carregando produto...'}"></app-load>
+        <div class="load-div">
+            <app-load [message]="{message: 'Carregando produto...'}"></app-load>
+        </div>
     } @else if (success) {
 
         <div class="left-body">
@@ -119,6 +121,10 @@
 
 
     } @else {
-        erro
+        <div class="error-div">
+            <img src="assets/icons/geral/produto-nao-encontrado.svg" alt="">
+            <h2>Produto não encontrado</h2>
+            <button type="button" (click)="returnHome()" class="CartBtn btn-base btn-roxo">VOLTAR AO INÍCIO</button>
+        </div>
     }
 </div>

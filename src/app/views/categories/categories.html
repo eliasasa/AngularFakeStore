@@ -1,0 +1,109 @@
+<div class="categories-banner">
+    <img [src]="bannerPath" alt="" #bannerImg (load)="onImageLoad()">
+</div>
+
+<div class="w-100 categories-title">
+    
+
+    
+
+    @if (searchBind || maxPrice || minPrice) {
+
+        @if (searchBind) {
+            <h3>Resultados para
+                <span class="highlight">{{searchBind}}</span>
+            </h3>
+        } @else {
+            <h3>Todos os produtos</h3>
+        }
+
+        <button (click)="clearBind()" class="btn-base btn-roxo-sec">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 8 8">
+                <path fill="currentColor" d="M5 4v3h1V4M2 4v3h1V4M0 2V1h2V0h4v1h2v1M7 8H1V3h6"/>
+            </svg>
+            Limpar pesquisa
+        </button>
+    } 
+
+    @else {
+        <h3>Todos os produtos</h3>
+    }
+
+</div>
+
+<div class="categories-container">
+    <div class="product-filter">
+        <div class="categories-box">
+            <h3>Categoria</h3>
+            @for (c of filters; track c.title) {
+                <div class="checkbox-wrapper-46">
+                    <input type="checkbox" id="cbx-46-{{c.value}}" class="inp-cbx" [value]="c.value" [checked]="isChecked(c.value)" (change)="onCheckboxChange(c.value, $event)"/>
+                    <label for="cbx-46-{{c.value}}" class="cbx"
+                        ><span>
+                        <svg viewBox="0 0 12 10" height="10px" width="12px">
+                            <polyline points="1.5 6 4.5 9 10.5 1"></polyline></svg></span
+                        ><span> {{c.title}} </span>
+                    </label>
+                </div>
+            }
+        </div>
+        <div class="categories-box">
+            <h3>Preço</h3>
+            <div class="price-filter">
+                <input
+                    class="input-base"
+                    type="number"
+                    placeholder="Minímo"
+                    min="0"
+                    [(ngModel)]="minPrice"
+                />
+
+                <span>–</span>
+
+                <input
+                    class="input-base"
+                    type="number"
+                    placeholder="Máximo"
+                    min="0"
+                    [(ngModel)]="maxPrice"
+                />
+
+                <button class="btn-base btn-roxo" type="button" (click)="onPriceChange()">
+                    >
+                </button>
+            </div>
+
+            
+
+        </div>
+    </div>
+    <div class="product-result">
+        @if (loading) {
+            <app-load class="grid-center-row" [message]="{message: 'Carregando produtos...'}"></app-load>
+        } 
+
+        @if (error && !loading) {
+            <div class="error-state">
+                <p>Não foi possível carregar os produtos</p>
+                <button mat-button>Tentar novamente</button>
+            </div>
+        }
+
+         @if (!loading && !error) {
+
+            @if (productList.length > 0) {
+                @for (product of productList; track product.id) {
+                    <app-product-card [product]="{
+                    id: product.id,
+                    title: product.title,
+                    price: product.price,
+                    image: product.image,
+                    }"></app-product-card>
+                }
+            } @else {
+                <h4 class="grid-center">Nenhum produto encontrado :/</h4>
+            }
+        }
+
+    </div>
+</div>

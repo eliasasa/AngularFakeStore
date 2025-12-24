@@ -123,7 +123,7 @@
 /* Info */
 
 .info {
-  background-color: #cbb4ff;
+  background-color: var(--background-color);
   color: white;
 }
 
@@ -132,15 +132,15 @@
 }
 
 .info .notification-progress-bar {
-  background-color: #7a3dd5;
+  background-color: white;
 }
 
 .info:hover {
-  background-color: #ddb8ff;
+  background-color: var(--dark-gray);
 }
 
 .notification-item.info .notification-close:hover {
-  background-color: #ff71b3;
+  background-color: var(--light-gray);
 }
 
 /* Alerta */

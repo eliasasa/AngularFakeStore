@@ -1,3 +1,5 @@
+@use "bootstrap/scss/bootstrap";
+
 * {
     margin: 0;
     padding: 0;
@@ -16,7 +18,8 @@ html, body {
   --brand-color: #BB86FC;
   --hover-color: #944fe4;
   --body-area: calc(100vh - 55px);
-  --dark-gray: rgb(36, 36, 36)
+  --dark-gray: rgb(36, 36, 36);
+  --light-gray: rgb(107, 107, 107);
 }
 
 // --rgb-brand-color: rgb(187, 134, 252);
@@ -71,6 +74,7 @@ hr {
   color: var(--text-brand-color) !important;
   transition: color 0.2s;
   user-select: none;
+  align-self: center;
 }
 
 .material-icons.fs-2 {
@@ -139,6 +143,7 @@ a {
   font-weight: 600;
   justify-content: center;
   gap: 4px;
+  padding: 0 8px;
 }
 
 .btn-roxo {
@@ -166,3 +171,22 @@ a {
   }
 }
 
+.input-base {
+  background-color: transparent;
+  border: 2px var(--brand-color) solid;    
+  color: var(--hover-color);
+  border-radius: 5px;
+  width: 100%;
+  padding: 0 8px;
+}
+
+// INPUT PASSWORD EYE-STOCK
+
+input[type="password"]::-ms-reveal,
+input[type="password"]::-ms-clear {
+  display: none;
+}
+
+input[type="password"]::-webkit-textfield-decoration-container {
+  display: none;
+}
