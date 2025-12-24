@@ -104,21 +104,29 @@ export class Categories implements OnInit, AfterViewInit{
 
     if (this.selectedCategories.length > 0) {
       queryParams.cat = this.selectedCategories.join(',');
+    } else {
+      queryParams.cat = null; // 👈 remove da URL
     }
 
     if (this.minPrice !== null && this.minPrice > 0) {
       queryParams.min = this.minPrice;
+    } else {
+      queryParams.min = null;
     }
 
     if (this.maxPrice !== null && this.maxPrice > 0) {
       queryParams.max = this.maxPrice;
+    } else {
+      queryParams.max = null;
     }
 
     this.router.navigate(['/categories'], {
-      queryParams,
-      queryParamsHandling: 'merge'
+      queryParams
     });
+
+    this.setBanner();
   }
+
 
   applyFilters() {
     let filtered = [...this.allProducts];
