@@ -44,10 +44,16 @@
 }
 
 .product-filter {
-    background-color: transparent;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
+  background-color: transparent;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.price-filter > .btn-base {
+  aspect-ratio: 1 / 1 !important;
+  width: 10%;
+  margin-left: 8px;
 }
 
 .categories-box {
@@ -61,10 +67,9 @@
 .price-filter {
   display: flex;
   flex-direction: row;
-}
-
-.btn-base {
-  padding: 0 8px;
+  span {
+    margin: 0 4px;
+  }
 }
 
 .categories-title {

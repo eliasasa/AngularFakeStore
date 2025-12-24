@@ -5,12 +5,14 @@ import { ProductCard } from '../../components/product-card/product-card';
 import { Load } from '../../components/load/load';
 import { Product } from '../../interfaces/product/product';
 import { forkJoin } from 'rxjs';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-categories',
   imports: [
     ProductCard,
     Load,
+    FormsModule 
   ],
   templateUrl: './categories.html',
   styleUrl: './categories.scss'
@@ -41,8 +43,9 @@ export class Categories implements OnInit, AfterViewInit{
     { title: 'Feminino', value: "women's clothing", materialIcon: 'woman' }
   ];
 
-  minPrice: number = 0;
-  maxPrice: number = 0;
+  minPrice: number | null = null;
+  maxPrice: number | null = null;
+
 
   selectedCategories: string[] = [];
 
@@ -64,25 +67,22 @@ export class Categories implements OnInit, AfterViewInit{
 
     this.route.queryParamMap.subscribe(params => {
       this.searchBind = params.get('q') || '';
-      const catParam = params.get('cat');
 
+      const catParam = params.get('cat');
       this.selectedCategories = catParam ? catParam.split(',') : [];
 
-      const filter = this.filters.find(f => f.value === this.searchBind);
-      if (filter && this.selectedCategories.length === 0) {
-        this.selectedCategories = [filter.value];
-      }
+      const minParam = params.get('min');
+      const maxParam = params.get('max');
 
-      if (this.viewInitialized) {
-        this.setBanner();
-      }
+      this.minPrice = minParam !== null ? Number(minParam) : null;
+      this.maxPrice = maxParam !== null ? Number(maxParam) : null;
+
 
       if (this.selectedCategories.length > 0) {
         this.loadProductsByFilter(this.selectedCategories);
       } else {
         this.loadAllProducts();
       }
-
     });
   }
 
@@ -106,7 +106,18 @@ export class Categories implements OnInit, AfterViewInit{
       queryParams.cat = this.selectedCategories.join(',');
     }
 
-    this.router.navigate(['/categories'], { queryParams });
+    if (this.minPrice !== null) {
+      queryParams.min = this.minPrice;
+    }
+
+    if (this.maxPrice !== null) {
+      queryParams.max = this.maxPrice;
+    }
+
+    this.router.navigate(['/categories'], {
+      queryParams,
+      queryParamsHandling: 'merge'
+    });
   }
 
   applyFilters() {
@@ -124,8 +135,20 @@ export class Categories implements OnInit, AfterViewInit{
       );
     }
 
+    const minPrice = this.minPrice;
+    const maxPrice = this.maxPrice;
+
+    if (minPrice !== null) {
+      filtered = filtered.filter(p => p.price >= minPrice);
+    }
+
+    if (maxPrice !== null) {
+      filtered = filtered.filter(p => p.price <= maxPrice);
+    }
+
     this.productList = filtered;
   }
+
 
   isChecked(value: string): boolean {
     if (value === 'all') {
@@ -174,7 +197,6 @@ export class Categories implements OnInit, AfterViewInit{
     });
   }
 
-
   loadAllProducts() {
     this.loading = true;
     this.error = false;
@@ -193,8 +215,45 @@ export class Categories implements OnInit, AfterViewInit{
     });
   }
 
-  getProductValue() {
+  getProductValue(products: Product[]) {
+    if (products.length === 0) return;
 
+    let maxPrice = products[0].price;
+    let minPrice = products[0].price;
+
+    for (let i = 1; i < products.length; i++) {
+      if (products[i].price > maxPrice) {
+        maxPrice = products[i].price;
+      }
+
+      if (products[i].price < minPrice) {
+        minPrice = products[i].price;
+      }
+    }
+
+    this.maxPrice = maxPrice;
+    this.minPrice = minPrice;
+  }
+
+  onPriceChange() {
+    if (this.minPrice !== null && this.minPrice < 0) {
+      this.minPrice = null;
+    }
+
+    if (this.maxPrice !== null && this.maxPrice < 0) {
+      this.maxPrice = null;
+    }
+
+    if (
+      this.minPrice !== null &&
+      this.maxPrice !== null &&
+      this.minPrice > this.maxPrice
+    ) {
+      this.maxPrice = this.minPrice;
+    }
+
+    this.updateUrl();
+    this.applyFilters();
   }
 
   // BANNER LOGIC

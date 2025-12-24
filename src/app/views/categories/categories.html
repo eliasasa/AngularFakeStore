@@ -5,11 +5,17 @@
 <div class="w-100 categories-title">
     
 
-    @if (searchBind) {
+    
 
-        <h3>Resultados para
-            <span class="highlight">{{searchBind}}</span>
-        </h3>
+    @if (searchBind || maxPrice || minPrice) {
+
+        @if (searchBind) {
+            <h3>Resultados para
+                <span class="highlight">{{searchBind}}</span>
+            </h3>
+        } @else {
+            <h3>Todos os produtos</h3>
+        }
 
         <button (click)="clearBind()" class="btn-base btn-roxo-sec">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 8 8">
@@ -20,7 +26,7 @@
     } 
 
     @else {
-        <h3>Todos os Produtos</h3>
+        <h3>Todos os produtos</h3>
     }
 
 </div>
@@ -47,10 +53,9 @@
                 <input
                     class="input-base"
                     type="number"
-                    placeholder="Min"
-                    #minPrice
-                    (change)="updateUrl()"
-                    value="{{minPrice}}"
+                    placeholder="Minímo"
+                    min="0"
+                    [(ngModel)]="minPrice"
                 />
 
                 <span>–</span>
@@ -58,12 +63,16 @@
                 <input
                     class="input-base"
                     type="number"
-                    placeholder="Max"
-                    #maxPrice
-                    (change)="updateUrl()"
-                    value="{{maxPrice}}"
-                />    
+                    placeholder="Máximo"
+                    min="0"
+                    [(ngModel)]="maxPrice"
+                />
+
+                <button class="btn-base btn-roxo" type="button" (click)="onPriceChange()">
+                    >
+                </button>
             </div>
+
             
 
         </div>
