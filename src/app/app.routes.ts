@@ -34,15 +34,15 @@ export const routes: Routes = [
       component: Products
     },
     {
-      path: 'categories/:bind',
+      path: 'categorias/:bind',
       component: Categories
     },
     {
-      path: 'categories',
+      path: 'categorias',
       component: Categories
     },
     {
-      path: 'cart',
+      path: 'carrinho',
       component: Cart
     }
     // {

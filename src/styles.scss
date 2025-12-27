@@ -20,6 +20,8 @@ html, body {
   --body-area: calc(100vh - 55px);
   --dark-gray: rgb(36, 36, 36);
   --light-gray: rgb(107, 107, 107);
+  --red-base: rgb(255, 95, 95);
+  --red-hover: rgb(255, 0, 0);
 }
 
 // --rgb-brand-color: rgb(187, 134, 252);
@@ -168,6 +170,14 @@ a {
   }
   & .material-icons {
     color: var(--hover-color) !important;
+  }
+}
+
+.btn-red {
+  background-color: var(--red-base);
+  color: white;
+  &:hover {
+    background-color: var(--red-hover);
   }
 }
 

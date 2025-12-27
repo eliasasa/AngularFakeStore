@@ -100,7 +100,7 @@ export class Search implements AfterViewInit, OnDestroy {
     input.value = '';
 
     if (value) {
-      this.router.navigate(['/categories'], {
+      this.router.navigate(['/categorias'], {
         queryParams: { q: value }
       });
     }

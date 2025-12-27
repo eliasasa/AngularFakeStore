@@ -90,7 +90,7 @@ export class Categories implements OnInit, AfterViewInit{
     this.searchBind = '';
     this.selectedCategories = [];
 
-    this.router.navigate(['/categories'], {
+    this.router.navigate(['/categorias'], {
       queryParams: {}    
     });
   }
@@ -120,7 +120,7 @@ export class Categories implements OnInit, AfterViewInit{
       queryParams.max = null;
     }
 
-    this.router.navigate(['/categories'], {
+    this.router.navigate(['/categorias'], {
       queryParams
     });
 
