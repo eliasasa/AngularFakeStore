@@ -3,10 +3,13 @@ import { ProductService } from '../../services/product/product-service';
 import { Product } from '../../interfaces/product/product';
 import { Load } from '../load/load';
 import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-search',
-  imports: [Load],
+  imports: [Load,
+    CommonModule
+  ],
   templateUrl: './search.html',
   styleUrl: './search.scss',
   standalone: true,

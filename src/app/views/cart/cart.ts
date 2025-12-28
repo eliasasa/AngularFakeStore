@@ -4,10 +4,13 @@ import { ToastService } from '../../services/toast/toast-service';
 import { CartItem } from '../../interfaces/cart/cart-itens';
 import { ProductService } from '../../services/product/product-service';
 import { RouterLink } from "@angular/router";
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-cart',
-  imports: [RouterLink],
+  imports: [RouterLink,
+    CommonModule
+  ],
   templateUrl: './cart.html',
   styleUrl: './cart.scss'
 })

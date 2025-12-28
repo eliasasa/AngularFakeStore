@@ -5,11 +5,12 @@ import { CartService } from '../../services/cart/cart-service';
 import { Product } from '../../interfaces/product/product';
 import { ProductListItem } from '../../interfaces/product-list/product-list-item';
 import { ProductService } from '../../services/product/product-service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-product-card',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './product-card.html',
   styleUrl: './product-card.scss'
 })

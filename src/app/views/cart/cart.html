@@ -13,7 +13,7 @@
                 <div class="secundary-info">
                     <div class="item-price">
                         <h4>Preço:</h4>
-                        <p>R${{item.product.price}}</p>
+                        <p>R${{item.product.price | number: '1.2-2'}}</p>
                         <p>x{{item.quantity}}</p>
                     </div>
                     <button class="btn-base btn-red">
@@ -35,7 +35,7 @@
                         </button>
                     </div>
                     <div class="total-quantity">
-                        <h5>Total: R${{item.product.price * item.quantity}}</h5>
+                        <h5>Total: R${{item.product.price * item.quantity | number: '1.2-2'}}</h5>
                     </div>
                 </div>
             </div>
@@ -44,7 +44,7 @@
     <hr class="w-100">
     <div class="cart-checkout">
         <div class="cart-data">
-            <h3>Total: R${{cartTotal}}</h3>
+            <h3>Total: R${{cartTotal | number: '1.2-2'}}</h3>
         </div>
         <div class="cart-buttons">
             

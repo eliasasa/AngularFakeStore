@@ -25,7 +25,7 @@
                 {{ product.title }}
             </div>
             <div class="price-product">
-                <b>R$</b>{{ product.price }}
+                <b>R$</b>{{ product.price | number:'1.2-2'}}
             </div>
         </div>
         <button class="buy-button" type="button" (click)="addToCart(product)">
