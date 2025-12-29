@@ -200,3 +200,18 @@ input[type="password"]::-ms-clear {
 input[type="password"]::-webkit-textfield-decoration-container {
   display: none;
 }
+
+// INPUT NUMBER
+
+/* Chrome, Safari, Edge */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  appearance: textfield;         // padrão moderno
+  -moz-appearance: textfield;    // firefox
+  -webkit-appearance: none;      // chrome, safari
+}
