@@ -14,6 +14,29 @@
   justify-content: center;
 }
 
+.logged {
+  align-items: normal;
+  justify-content: start;
+  .cart-items {
+    margin-bottom: 24px;
+  }
+  hr {
+    margin-top: auto;
+  }
+}
+
+.not-logged {
+  justify-content: center;
+  align-items: center !important;
+}
+
+.empty {
+  justify-content: center !important;
+  .cart-data {
+    align-items: center;
+  }
+}
+
 .total-quantity, .item-price {
     flex-direction: row;
     align-self: end;
@@ -174,7 +197,7 @@ hr {
   display: flex;
   width: 100%;
   height: 100%;
-  align-items: center;
+  align-items: flex-start;
   flex-direction: column;
   gap: 24px;
 

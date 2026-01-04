@@ -1,6 +1,6 @@
-<div class="cart-body min-h">
+<div class="cart-body min-h" [class.logged]="isLogged" [class.empty]="cartItems.length === 0 && isLogged">
     @if (isLogged) {
-            @if (cartItems.length > 0 && isLogged) {
+        @if (cartItems.length > 0 && isLogged) {
             <h4>Seu carrinho</h4>
             <div class="cart-items">
                 @for (item of cartItems; track item) {
@@ -113,7 +113,7 @@
     }
     
     @else {
-        <div class="cart-data">
+        <div class="cart-data" [class.not-logged]="!isLogged">
             <h2>Você não está logado.</h2>
             <button class="btn-base btn-roxo" [routerLink]="['/login']" type="button">
                 <span class="material-icons">
