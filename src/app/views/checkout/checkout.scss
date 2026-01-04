@@ -1,0 +1,31 @@
+.checkout-steps {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    width: 100%;
+    gap: 8px;
+    justify-content: center;
+    justify-items: center;
+    align-items: center;
+    padding: 24px 30%;
+
+    hr {
+        max-width: 100%;
+        min-width: 100%;
+        background-color: var(--dark-gray);
+        border-radius: 5px;
+        height: 4px;
+    }
+
+    .material-icons.step {
+        scale: 1.666;
+        width: auto;
+        aspect-ratio: 1 / 1;
+        color: var(--brand-color) !important;
+        transition: all .4s ease;
+    }
+
+    .material-icons {
+        color: var(--light-gray) !important;
+    }
+
+}
