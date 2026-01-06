@@ -44,7 +44,6 @@ export class CartService {
     this.cartSubject.next([]);
   }
 
-
   getCart(): CartItem[] {
     return this.cartSubject.value;
   }

@@ -1,6 +1,7 @@
 import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { isPlatformBrowser } from '@angular/common';
+import { CartService } from '../cart/cart-service';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -10,7 +11,8 @@ export class AuthService {
   isLoggedIn$!: Observable<boolean>;
 
   constructor(
-    @Inject(PLATFORM_ID) private platformId: Object
+    @Inject(PLATFORM_ID) private platformId: Object,
+    private cart: CartService,
   ) {
     const isBrowser = isPlatformBrowser(this.platformId);
 
@@ -62,6 +64,8 @@ export class AuthService {
     if (isPlatformBrowser(this.platformId)) {
       localStorage.clear();
     }
+    this.cart.cleanCart()
+    
     this.loggedIn.next(false);
   }
 }

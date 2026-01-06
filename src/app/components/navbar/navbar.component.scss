@@ -57,11 +57,12 @@
   font-weight: 600;
   &:hover > :not(.cart-counter) {
     color: var(--text-brand-color);
+    
   }
 }
 
 .navbar .nav-link > * {
-  transition: color 0.2s;
+  transition: all 0.2s;
 }
 
 .navbar-brand {
@@ -92,6 +93,7 @@
   list-style: none;
   padding: 0;
   margin: 0;
+  transition: all .3s ease;
   &:hover, &:hover.material-icons {
       cursor: pointer;
       transform: scale(1.1);
@@ -119,8 +121,9 @@
   gap: 8px;
   color: white;
   text-decoration: none;
+  transition: all 0.3s ease;
   &:hover {
-    color: var(--text-brand-color);
-    transition: color 0.2s, transform 0.2s;
+    transform: translateY(-2px);
+    color: var(--text-brand-color) !important;
   }
 } 
