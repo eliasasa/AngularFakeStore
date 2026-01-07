@@ -23,40 +23,59 @@
         <div class="checkout-form">
             @if (currentStep === 0) {
                 <h2>Dados pessoais</h2>
-                <div class="checkout-input-area">
+                <form [formGroup]="personalForm" class="checkout-input-area">
                     <div class="textInputWrapper">
-                        <label for="fname">Nome completo</label>
-                        <input placeholder="Nome completo" type="text" id="fname" class="textInput">
+                        <label for="name">Nome completo</label>
+                        <input placeholder="Nome completo" type="text" id="name" formControlName="name" class="textInput"
+                        [class.input-error]="
+                            personalForm.get('name')?.invalid &&
+                            personalForm.get('name')?.touched
+                        ">
                     </div>
+
+                    <div class="textInputWrapper">
+                        <label for="email">E-mail</label>
+                        <input placeholder="exemplo@dominio.com" type="email" formControlName="email" id="email" class="textInput"
+                        [class.input-error]="
+                            personalForm.get('email')?.invalid &&
+                            personalForm.get('email')?.touched
+                        ">
+                    </div>
+
                     <div class="duo-input">
                         <div class="textInputWrapper">
-                            <label for="fname">CPF</label>
-                            <input placeholder="E-mail" type="text" id="fname" class="textInput">
+                            <label for="cpf">CPF</label>
+                            <input placeholder="XXX.XXX.XXX-XX" formControlName="cpf" type="text" id="cpf" class="textInput"
+                            [class.input-error]="
+                                personalForm.get('cpf')?.invalid &&
+                                personalForm.get('cpf')?.touched
+                            ">
                         </div>
                         <div class="textInputWrapper">
-                            <label for="fname">RG</label>
-                            <input placeholder="E-mail" type="text" id="fname" class="textInput">
+                            <label for="phone">Celular</label>
+                            <input placeholder="(XX) 9XXXX-XXXX" type="text" id="phone" formControlName="phone" class="textInput"
+                            [class.input-error]="
+                                personalForm.get('phone')?.invalid &&
+                                personalForm.get('phone')?.touched
+                            ">
                         </div>
                     </div> 
                     <div class="duo-input">
-                        <div class="textInputWrapper">
-                            <label for="fname">Celular</label>
-                            <input placeholder="E-mail" type="text" id="fname" class="textInput">
-                        </div>
+                        
                         <div class="textInputWrapper">
                             <label for="fname">Telefone fixo*</label>
-                            <input placeholder="E-mail" type="text" id="fname" class="textInput">
+                            <input placeholder="X-XXX-XXX-XXXX" [value]="userData.phone" type="text" id="fname" class="textInput">
                         </div>
                     </div>               
-                </div>
+                </form>
             }
 
             @if (currentStep === 1) {
                 <h2>Forma de envio</h2>
                 <div class="checkout-input-area">
                     <div class="textInputWrapper">
-                        <label for="fname">CEP</label>
-                        <input placeholder="E-mail" type="text" id="fname" class="textInput">
+                        <label for="cep">CEP</label>
+                        <input placeholder="XXXXX-XXXX" [value]="userData.address.zipcode" type="text" id="cep" class="textInput">
                     </div>
                     <div class="frete-options">
 
@@ -104,14 +123,36 @@
                          
                     </div>
 
-                    <div class="duo-input">
+                    <div class="duo-input address">
                         <div class="textInputWrapper">
-                            <label for="fname">Celular</label>
-                            <input placeholder="E-mail" type="text" id="fname" class="textInput">
+                            <label for="address">Endereço</label>
+                            <input placeholder="Endereço" [value]="`Rua ${userData.address.street}`" type="text" id="address" class="textInput">
                         </div>
                         <div class="textInputWrapper">
-                            <label for="fname">Telefone fixo*</label>
-                            <input placeholder="E-mail" type="text" id="fname" class="textInput">
+                            <label for="number">Número</label>
+                            <input placeholder="Número" [value]="userData.address.number" type="text" id="number" class="textInput">
+                        </div>
+                    </div> 
+
+                    <div class="duo-input">
+                        <div class="textInputWrapper">
+                            <label for="complement">Complemento*</label>
+                            <input placeholder="Complemento" type="text" id="complement" class="textInput">
+                        </div>
+                        <div class="textInputWrapper">
+                            <label for="bairro">Bairro</label>
+                            <input placeholder="Bairro" type="text" id="bairro" class="textInput">
+                        </div>
+                    </div> 
+
+                    <div class="duo-input">
+                        <div class="textInputWrapper">
+                            <label for="city">Cidade</label>
+                            <input placeholder="Cidade" [value]="userData.address.city" type="text" id="city" class="textInput">
+                        </div>
+                        <div class="textInputWrapper">
+                            <label for="state">Estado</label>
+                            <input placeholder="Estado" type="text" id="state" class="textInput">
                         </div>
                     </div> 
                 </div>
@@ -128,9 +169,9 @@
                     <button type="button" (click)="decreaseStep()" class="btn-base btn-roxo-sec">VOLTAR</button>
                 }
                 @if (currentStep < 2) {
-                    <button class="btn-base btn-roxo" type="button" (click)="addStep()">AVANÇAR</button>
+                    <button class="btn-base btn-roxo" type="button" (click)="onNextStep()" >AVANÇAR</button>
                 } @else {
-                    <button class="btn-base submit" type="button">FINALIZAR COMPRA</button>
+                    <button class="btn-base submit" type="button" >FINALIZAR COMPRA</button>
                 }
             </div>
 

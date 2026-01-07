@@ -86,9 +86,16 @@
 }
 
 .duo-input {
-    display: flex;
-    flex-direction: row;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     gap: 24px;
+}
+
+.duo-input.address{
+  display: grid;
+  grid-template-columns: 1.5fr .5fr;
+  width: 100%;
+  gap: 24px;
 }
 
 .textInputWrapper {
@@ -98,10 +105,6 @@
         margin: 0;
         left: 12px;
         color: var(--brand-color);
-    }
-
-    #username {
-        padding-left: 28px;
     }
 }
 
@@ -190,6 +193,11 @@
 }
 
 
+.input-error {
+  border-color: var(--red-hover);
+  background-color: var(--red-base) !important;
+}
+
 /* From Uiverse.io by WhiteNervosa */ 
 .textInputWrapper {
   position: relative;
@@ -250,7 +258,7 @@
 }
 
 .textInputWrapper .textInput {
-  border-radius: 5px 0 0px 0px;
+  border-radius: 5px ;
   box-shadow: 0px 2px 5px rgb(35 35 35 / 30%);
   max-height: 36px;
   background-color: #252525;
