@@ -35,6 +35,42 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    padding-bottom: 32px;
+  }
+
+.checkout-total {
+  hr {
+        max-width: 100%;
+        min-width: 100%;
+        background-color: var(--light-gray);
+        margin-top: 0;
+        border-radius: 5px;
+        height: 4px;
+    }
+    h4 {
+      color: var(--brand-color);
+      margin: 0 !important;
+      align-items: flex-end;
+    }
+
+    h2 {
+      color: white !important;
+      margin: 0;
+      margin-top: 8px;
+    }
+
+    .checkout-title {
+      color: var(--brand-color) !important;
+      }
+
+    .linha {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      span {
+        color: white;
+      }
+    }
 }
 
 .has-item {
@@ -112,7 +148,7 @@
     display: flex;
     flex-direction: row;
     align-self: flex-end;
-    width: 50%;
+    width: 100%;
     gap: 16px;
     .btn-base {
         padding: 8px 32px;
@@ -122,12 +158,39 @@
     }
 }
 
+.disclaimer {
+  color: var(--light-gray)
+}
+
+.boleto-result {
+  .btn-base {
+    padding: 8px 32px;
+    max-width: 60%;
+    margin: 0 auto;
+    max-height: 44px;
+    width: 100%;
+    .material-icons {
+      color: white !important;
+    }
+  }
+}
+
 .lastStep {
-    width: 80% !important;
     align-items: center;
     .submit {
         margin: 0;
     }
+}
+
+.checkout-qrcode {
+  width: fit-content;
+  padding: 32px;
+  margin: 16px 0;
+  border-radius: 4px;
+  background-color: white;
+  img {
+    margin: 0 !important;
+  }
 }
 
 .submit {
@@ -596,4 +659,10 @@
   box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 2px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -1px 0px inset;
   background-color: var(--hover-color);
   transform: rotateY(180deg);
+}
+
+.card-debit {
+  .flip-card-front, .flip-card-back {
+    background-color: var(--dark-gray) !important;
+  }
 }

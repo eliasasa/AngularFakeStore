@@ -18,8 +18,6 @@
             </svg>
         </div>
 
-        {{total | number: '1.2-2'}}
-
         <div class="checkout-form">
             @if (currentStep === 0) {
                 <h2>Dados pessoais</h2>
@@ -210,10 +208,28 @@
                         <label class="payment-option">
                         <input
                             type="radio"
-                            value="CARD"
+                            value="CREDIT"
                             formControlName="paymentMethod"
                         />
                         <strong>Cartão de crédito</strong>
+                        </label>
+
+                        <label class="payment-option">
+                        <input
+                            type="radio"
+                            value="DEBIT"
+                            formControlName="paymentMethod"
+                        />
+                        <strong>Cartão de débito</strong>
+                        </label>
+
+                        <label class="payment-option">
+                        <input
+                            type="radio"
+                            value="TICKET"
+                            formControlName="paymentMethod"
+                        />
+                        <strong>Boleto</strong>
                         </label>
                     </div>
 
@@ -232,21 +248,26 @@
                         </button>
 
                         @if (pixQrCode) {
-                            <img [src]="pixQrCode" alt="QR Code Pix" />
+                            <div class="checkout-qrcode">
+                                <img [src]="pixQrCode" alt="QR Code Pix" />
+                            </div>
+                            
                         }
 
                         </div>
                     }
 
                     <!-- CARTÃO -->
-                    @else if (paymentMethod === 'CARD') {
+                    @else if (paymentMethod === 'CREDIT' || paymentMethod === 'DEBIT') {
                         <div class="payment-content card">
 
                             <!-- From Uiverse.io by Praashoo7 --> 
-                            <div class="flip-card">
+                            <div class="flip-card" [class.card-debit]="paymentMethod === 'DEBIT'">
                                 <div class="flip-card-inner" [class.flip-active]="isCvvFocused">
                                     <div class="flip-card-front">
-                                        <p class="heading_8264">CARTÃO DE CRÉDITO</p>
+                                        <p class="heading_8264">
+                                            {{ paymentMethod === 'CREDIT' ? 'CARTÃO DE CRÉDITO' : 'CARTÃO DE DÉBITO' }}
+                                        </p>
                                         
                                         <svg version="1.1" class="chip" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="30px" height="30px" viewBox="0 0 50 50" xml:space="preserve">  <image id="image0" width="50" height="50" x="0" y="0" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAMAAAAp4XiDAAAABGdBTUEAALGPC/xhBQAAACBjSFJN
                                         AAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAB6VBMVEUAAACNcTiVeUKVeUOY
@@ -298,7 +319,7 @@
                                         </svg>
                                         <p class="number"> {{ formatCard(paymentForm.get('cardNumber')?.value) }} </p>
                                         <p class="date_8264" mask="00/00"> {{ paymentForm.get('cardExpiry')?.value}} </p>
-                                        <p class="name"> {{ paymentForm.get('cardName')?.value.toUpperCase() }} </p>
+                                        <p class="name"> {{ paymentForm.get('cardName')?.value?.toUpperCase() }} </p>
                                     </div>
                                     <div class="flip-card-back">
                                         <div class="strip"></div>
@@ -349,31 +370,126 @@
                                     ">
                                 </div>
                             </div>
-        
-                            <div class="input">
-                                <label>Parcelas</label>
-                                <select formControlName="installments">
-                                <option value="1">1x sem juros</option>
-                                <option value="2">2x sem juros</option>
-                                <option value="3">3x sem juros</option>
-                                </select>
-                            </div>
+
+                            @if (paymentMethod === 'CREDIT') {
+                                <div class="input">
+                                    <label>Parcelas</label>
+
+                                    <select formControlName="installments">
+                                        <option [value]="1">
+                                        1x de R$ {{ valorFinal | number:'1.2-2' }} sem juros
+                                        </option>
+
+                                        <option [value]="2">
+                                        2x de R$ {{ (valorFinal / 2) | number:'1.2-2' }} sem juros
+                                        </option>
+
+                                        <option [value]="3">
+                                        3x de R$ {{ (valorFinal / 3) | number:'1.2-2' }} sem juros
+                                        </option>
+
+                                        <option [value]="4">
+                                        4x de R$ {{ valorParcelaComJuros(4) | number:'1.2-2' }} com juros
+                                        </option>
+
+                                        <option [value]="5">
+                                        5x de R$ {{ valorParcelaComJuros(5) | number:'1.2-2' }} com juros
+                                        </option>
+
+                                        <option [value]="6">
+                                        6x de R$ {{ valorParcelaComJuros(6) | number:'1.2-2' }} com juros
+                                        </option>
+
+                                        <option [value]="7">
+                                        7x de R$ {{ valorParcelaComJuros(7) | number:'1.2-2' }} com juros
+                                        </option>
+
+                                        <option [value]="8">
+                                        8x de R$ {{ valorParcelaComJuros(8) | number:'1.2-2' }} com juros
+                                        </option>
+
+                                        <option [value]="9">
+                                        9x de R$ {{ valorParcelaComJuros(9) | number:'1.2-2' }} com juros
+                                        </option>
+
+                                        <option [value]="10">
+                                        10x de R$ {{ valorParcelaComJuros(10) | number:'1.2-2' }} com juros
+                                        </option>
+
+                                        <option [value]="11">
+                                        11x de R$ {{ valorParcelaComJuros(11) | number:'1.2-2' }} com juros
+                                        </option>
+
+                                        <option [value]="12">
+                                        12x de R$ {{ valorParcelaComJuros(12) | number:'1.2-2' }} com juros
+                                        </option>
+                                    </select>
+                                </div>
+
+                            }
+                            
 
                         </div>
                     }
+
+                    @else if (paymentMethod === 'TICKET') {
+                        <h4 class="text-center">O pedido será confirmado após o pagamento do boleto.</h4>
+                        @if (boletoGerado) {
+                            <div class="boleto-result">
+                                <button type="button" (click)="openFakeBoleto()" class="btn-base btn-roxo">
+                                    <span class="material-icons">download</span>
+                                    BAIXAR BOLETO
+                                </button>
+                            </div>
+                        }
+                    }
+                        <small class="disclaimer">
+                            * Checkout demonstrativo. Nenhum pagamento real será processado.
+                        </small>
+
+
+                        <div class="checkout-total">
+                            <hr>
+
+                            <div class="linha">
+                                <span>Subtotal </span>
+                                <span>R$ {{ total | number:'1.2-2' }}</span>
+                            </div>
+
+                            <div class="linha">
+                                <span>Frete </span>
+                                <span>R$ {{ freteValor | number:'1.2-2' }}</span>
+                            </div>
+
+                            <div class="linha">
+                                <h2 class="checkout-title">TOTAL</h2>
+                                <h4 class="d-flex flex-row">
+                                R$
+                                <h2>{{ valorFinal | number:'1.2-2' }}</h2>
+                            </h4>
+                            </div>
+
+                            
+
+                            @if (paymentMethod === 'PIX') {
+                                <span>5% de desconto no PIX!</span>
+                            }
+
+                            </div>
 
                     </form>
 
             }
 
             <div class="checkout-btn" [class.lastStep]="currentStep === 2">
-                @if (currentStep > 0) {
+                @if (currentStep > 0 && !compraEfetuada) {
                     <button type="button" (click)="decreaseStep()" class="btn-base btn-roxo-sec">VOLTAR</button>
                 }
                 @if (currentStep < 2) {
                     <button class="btn-base btn-roxo" type="button" (click)="onNextStep()" >AVANÇAR</button>
                 } @else {
-                    <button class="btn-base submit" type="button" >FINALIZAR COMPRA</button>
+                    <button class="btn-base submit" type="button" (click)="finalizarCompra()">FINALIZAR COMPRA</button>
+
                 }
             </div>
 
