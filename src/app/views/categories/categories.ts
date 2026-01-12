@@ -62,9 +62,19 @@ export class Categories implements OnInit, AfterViewInit{
     this.isMobileView = window.innerWidth <= 768;
   }
 
-  ngOnInit(): void {
-    this.detectScreen();
+  private mediaQuery!: MediaQueryList;
+  private mediaListener!: (event: MediaQueryListEvent) => void;
 
+  ngOnInit(): void {
+    this.mediaQuery = window.matchMedia('(max-width: 768px)');
+    this.isMobileView = this.mediaQuery.matches;
+
+    this.mediaListener = (event: MediaQueryListEvent) => {
+      this.isMobileView = event.matches;
+      this.setBanner();
+    };
+
+  this.mediaQuery.addEventListener('change', this.mediaListener);
     this.route.queryParamMap.subscribe(params => {
       this.searchBind = params.get('q') || '';
 
@@ -77,6 +87,7 @@ export class Categories implements OnInit, AfterViewInit{
       this.minPrice = minParam !== null ? Number(minParam) : null;
       this.maxPrice = maxParam !== null ? Number(maxParam) : null;
 
+      this.setBanner();
 
       if (this.selectedCategories.length > 0) {
         this.loadProductsByFilter(this.selectedCategories);
@@ -90,7 +101,7 @@ export class Categories implements OnInit, AfterViewInit{
     this.searchBind = '';
     this.selectedCategories = [];
 
-    this.router.navigate(['/categories'], {
+    this.router.navigate(['/categorias'], {
       queryParams: {}    
     });
   }
@@ -120,13 +131,11 @@ export class Categories implements OnInit, AfterViewInit{
       queryParams.max = null;
     }
 
-    this.router.navigate(['/categories'], {
+    this.router.navigate(['/categorias'], {
       queryParams
     });
 
-    this.setBanner();
   }
-
 
   applyFilters() {
     let filtered = [...this.allProducts];
@@ -271,26 +280,27 @@ export class Categories implements OnInit, AfterViewInit{
     this.setBanner();
   }
 
-  @HostListener('window:resize')
-    checkScreen() {
-      this.detectScreen();
-      this.setBanner();
-    }
-
   setBanner() {
     const device = this.isMobileView ? 'mobile' : 'desktop';
-    this.bannerPath = `assets/images/banner/${device}/banner-first.jpg`;
+    let newPath = `assets/images/banner/${device}/banner-first.jpg`;
 
     if (this.selectedCategories.length === 1) {
       const category = this.selectedCategories[0];
       if (this.bannerMap[category]) {
-        this.bannerPath = `${this.bannerMap[category]}/${device}.png`;
+        newPath = `${this.bannerMap[category]}/${device}.png`;
       }
     }
 
+    if (this.bannerPath === newPath) return;
+
+    this.bannerPath = newPath;
+
     requestAnimationFrame(() => {
       if (this.bannerImg) {
-        this.renderer.addClass(this.bannerImg.nativeElement, 'fading');
+        this.renderer.removeClass(this.bannerImg.nativeElement, 'fading');
+        requestAnimationFrame(() => {
+          this.renderer.addClass(this.bannerImg.nativeElement, 'fading');
+        });
       }
     });
   }
@@ -301,4 +311,9 @@ export class Categories implements OnInit, AfterViewInit{
     }
   }
 
+  ngOnDestroy() {
+    if (this.mediaQuery && this.mediaListener) {
+      this.mediaQuery.removeEventListener('change', this.mediaListener);
+    }
+  }
 }

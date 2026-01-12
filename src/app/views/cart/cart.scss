@@ -1,0 +1,366 @@
+.cart-body, .cart-items, .cart-item, .total-quantity, .item-price {
+  display: flex;
+  flex-direction: column;
+  padding: 24px;
+}
+
+.cart-items, .cart-item, .total-quantity, .item-price {
+  padding: 0;
+}
+
+.cart-body {
+  gap: 16px;
+  align-items: center;
+  justify-content: center;
+}
+
+.logged {
+  align-items: normal;
+  justify-content: start;
+  .cart-items {
+    margin-bottom: 24px;
+  }
+  hr {
+    margin-top: auto;
+  }
+}
+
+.not-logged {
+  justify-content: center;
+  align-items: center !important;
+}
+
+.empty {
+  justify-content: center !important;
+  .cart-data {
+    align-items: center;
+  }
+}
+
+.total-quantity, .item-price {
+    flex-direction: row;
+    align-self: end;
+}
+
+.product-qtt-inp {
+    align-self: end;
+}
+
+.item-price {
+  align-items: center;
+  width: 100%;
+  align-content: center;
+  column-gap: 24px;
+  justify-content: space-between;
+  & > * {
+      margin: 0   ;
+  }
+}
+
+.cart-item {
+  flex-direction: row;
+  height: 100%;
+  width: 100%;
+  justify-content: space-around;
+  padding: 8px;
+  border: solid var(--dark-gray) 2px;
+  border-radius: 13px;
+  column-gap: 24px;
+}
+
+.cart-items {
+    gap: 24px;
+}
+
+.item-image{
+  width: 176px;
+  height: 176px;
+  aspect-ratio: 1 / 1;
+  background-color: #F5F5F5;
+  display: flex;
+  align-items: center;
+  justify-items: center;
+  justify-content: center;
+  padding: 8px;
+  border-radius: 10px;
+  transition: all .3s ease;
+  outline: 2px solid transparent;
+
+  &:hover {
+      outline: 2px var(--brand-color) ridge;
+  }
+
+  img {
+      max-width: 100%;
+      max-height: 100%;
+  }
+}
+
+.btn-red {
+  padding: 4px;
+  grid-column: 2;
+  width: 48px;
+  height: auto;
+  aspect-ratio: 1 / 1;
+}
+
+.primary-info {
+  width: 60%;
+  span {
+      color: var(--light-gray);
+      width: 50%;
+      display: -webkit-box;       
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+  }
+}
+
+.secundary-info {
+    width: 40%;
+}
+
+.secundary-info {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto;
+  justify-items: end;
+}
+
+.product-qtt-inp {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+.btn-minus, .btn-plus {
+  aspect-ratio: 1 / 1 !important;
+  height: 48px;
+  width: auto;
+  & .material-icons {
+      color: #fff !important;
+  }
+}
+
+.product-qtt {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  * {
+      margin: 0;
+  }
+}
+
+.btn-minus {
+  border-radius: 5px 0 0 5px;
+}
+
+.btn-plus {
+  border-radius: 0 5px 5px 0;
+}
+
+.inp-qtt {
+  all: unset;
+  background-color: var(--dark-gray);
+  color: white;
+  text-align: center;
+  width: 100%;
+  border-radius: 5px;
+  font-size: 16px;
+  height: 48px;
+}
+
+hr {
+  height: 4px;
+  background-color: var(--light-gray);
+  border-radius: 10px;
+  border: none;
+  margin: 24px 0;
+}
+
+.cart-checkout {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.cart-buttons {
+  display: flex;
+  flex-direction: row;
+  width: 50%;
+  gap: 24px;
+  align-self: end;
+}
+
+.cart-data {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 24px;
+
+  .material-icons {
+    color: #F5F5F5 !important;
+  }
+
+  .btn-base {
+    padding: 8px 32px;
+  }
+
+  h2 {
+    color: var(--light-gray);
+  }
+
+  svg {
+    height: auto;
+    width: 420px;
+  }
+}
+
+.cart-buttons {
+  & > .btn-roxo-sec {
+      width: 100% !important;
+      gap: 8px;
+  }
+}
+
+/* From Uiverse.io by fthisilak */ 
+.pay-btn {
+  position: relative;
+  padding: 12px 24px;
+  font-size: 16px;
+  background: var(--hover-color);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: all 0.3s ease;
+  width: 100%;
+  justify-content: center;
+}
+
+.pay-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+}
+
+.icon-container {
+  position: relative;
+  width: 24px;
+  height: 24px;
+}
+
+.icon {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 24px;
+  height: 24px;
+  color: #F5F5F5;
+  opacity: 0;
+  visibility: hidden;
+}
+
+.default-icon {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Hover animations */
+.pay-btn:hover .icon {
+  animation: none;
+}
+
+.pay-btn:hover .wallet-icon {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.pay-btn:hover .card-icon {
+  animation: iconRotate 2.5s infinite;
+  animation-delay: 0s;
+}
+
+.pay-btn:hover .payment-icon {
+  animation: iconRotate 2.5s infinite;
+  animation-delay: 0.5s;
+}
+
+.pay-btn:hover .dollar-icon {
+  animation: iconRotate 2.5s infinite;
+  animation-delay: 1s;
+}
+
+.pay-btn:hover .check-icon {
+  animation: iconRotate 2.5s infinite;
+  animation-delay: 1.5s;
+}
+
+/* Active state - show only checkmark */
+.pay-btn:active .icon {
+  animation: none;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
+
+.pay-btn:active .check-icon {
+  animation: checkmarkAppear 0.6s ease forwards;
+  visibility: visible;
+}
+
+.btn-text {
+  font-weight: 600;
+  font-family:
+    system-ui,
+    -apple-system,
+    sans-serif;
+}
+
+@keyframes iconRotate {
+  0% {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px) scale(0.5);
+  }
+  5% {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0) scale(1);
+  }
+  15% {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0) scale(1);
+  }
+  20% {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px) scale(0.5);
+  }
+  100% {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px) scale(0.5);
+  }
+}
+
+@keyframes checkmarkAppear {
+  0% {
+    opacity: 0;
+    transform: scale(0.5) rotate(-45deg);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(1.2) rotate(0deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+}

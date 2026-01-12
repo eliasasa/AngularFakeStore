@@ -1,4 +1,5 @@
 import { Component, Input, ElementRef, HostListener } from '@angular/core';
+import { Router } from '@angular/router';
 
 interface SidebarItem {
     icon?: string;
@@ -15,7 +16,9 @@ interface SidebarItem {
 })
 export class SidebarComponent {
     isOpen = false;
-    constructor(private elRef: ElementRef) {}
+    constructor(private elRef: ElementRef,
+        private router: Router
+    ) {}
 
     toggleSidebar(open: boolean) {
         const sidebar = document.querySelector('.sidebar');
@@ -43,8 +46,11 @@ export class SidebarComponent {
                     item.classList.add('sidebar-item');
                     item.style.cursor = 'pointer';
                     item.onclick = () => {
-                        window.location.href = conteudo[i].route;
+                        this.router.navigate([conteudo[i].route]);
+                        this.toggleSidebar(false);
                     };
+
+
 
                     if (conteudo[i].icon) {
                         const icon = document.createElement('img');

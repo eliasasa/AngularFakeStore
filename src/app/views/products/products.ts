@@ -6,12 +6,15 @@ import { CommonModule } from '@angular/common';
 import { Load } from '../../components/load/load';
 import { ProductHistoryService } from '../../services/product/product-history-service';
 import { Product } from '../../interfaces/product/product';
+import { CartService } from '../../services/cart/cart-service';
+import { FormsModule } from '@angular/forms';
 
 
 @Component({
   selector: 'app-products',
   imports: [CommonModule,
     Load,    
+    FormsModule
   ],
   standalone: true,
   templateUrl: './products.html',
@@ -29,7 +32,8 @@ export class Products implements OnInit {
     private productService: ProductService,
     private router: Router,
     private toast: ToastService,
-    private prodHis: ProductHistoryService
+    private prodHis: ProductHistoryService,
+    private cart: CartService
   ) {
     
   }
@@ -37,6 +41,8 @@ export class Products implements OnInit {
   returnHome() {
     this.router.navigate(['/'])
   }
+
+  itemQuantity: number = 1;
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
@@ -83,6 +89,19 @@ export class Products implements OnInit {
     });
   }
 
+  addQuantity() {
+    this.itemQuantity += 1;
+  }
+
+  decreaseQuantity(){
+    if (this.itemQuantity === 1) return;
+    this.itemQuantity -= 1;
+  }
+
+  addToCart() {
+    this.cart.addToCart(this.produto, this.itemQuantity);
+    this.toast.showToast('Produto adicionado ao carrinho!', 'sucesso');
+  }
 
   getStarIcons(rate: number): ('full' | 'half' | 'empty')[] {
     const rounded = Math.floor(rate * 2) / 2;

@@ -1,25 +1,28 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ToastService } from '../../services/toast/toast-service';
 import { Router } from '@angular/router';
+import { CartService } from '../../services/cart/cart-service';
+import { Product } from '../../interfaces/product/product';
+import { ProductListItem } from '../../interfaces/product-list/product-list-item';
+import { ProductService } from '../../services/product/product-service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-product-card',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './product-card.html',
   styleUrl: './product-card.scss'
 })
+
 export class ProductCard implements OnInit{
-    @Input() product!: {
-    id: number;
-    title: string;
-    price: number;
-    image: string;
-    inList?: boolean;
-  };
+  @Input() product!: ProductListItem;
 
   constructor(private toast: ToastService,
-    private router: Router
+    private router: Router,
+    private cart: CartService,
+    private productService: ProductService
+
   ) {
 
   }
@@ -38,9 +41,18 @@ export class ProductCard implements OnInit{
     this.router.navigate(['/produto', id])
   }
 
-  addToCart(id: number) {
-    window.alert(`Produto carrinho: ${id}`)
+  addToCart(product: ProductListItem) {
+    this.productService.getProductById(product.id).subscribe({
+      next: (fullProduct: Product) => {
+        this.cart.addToCart(fullProduct);
+        this.toast.showToast('Produto adicionado ao carrinho!', 'sucesso');
+      },
+      error: () => {
+        this.toast.showToast('Erro ao adicionar ao carrinho', 'erro');
+      }
+    });
   }
+
 
   toggleFavorite(product: any) {
     const stored = localStorage.getItem('favProducts');

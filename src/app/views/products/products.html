@@ -44,7 +44,7 @@
 
             <div class="product-value">
                 <h2>R$</h2>
-                <h1> {{produto.price}} </h1>
+                <h1> {{produto.price | number:'1.2-2'}} </h1>
             </div>
 
             <div class="product-desc">
@@ -59,13 +59,13 @@
                         Quantidade: 
                     </h4>
                     <div class="product-qtt-inp">
-                        <button class="btn-minus btn-base btn-roxo" type="button">
+                        <button class="btn-minus btn-base btn-roxo" type="button" (click)="decreaseQuantity()">
                             <span class="material-icons">
                                 remove
                             </span>
                         </button>
-                        <input class="inp-qtt" type="number" value="1">
-                        <button class="btn-plus btn-base btn-roxo" type="button">
+                        <input class="inp-qtt" type="number" [value]="itemQuantity" min="1" [(ngModel)]="itemQuantity">
+                        <button class="btn-plus btn-base btn-roxo" type="button" (click)="addQuantity()">
                             <span class="material-icons">
                                 add
                             </span>
@@ -74,7 +74,7 @@
                 </div>
                 <div class="product-actions">
                     
-                    <button type="button" class="btn-base btn-roxo-sec">
+                    <button type="button" class="btn-base btn-roxo-sec" (click)="addToCart()">
                         <span class="material-icons">
                             add_shopping_cart
                         </span>

@@ -6,6 +6,8 @@ import { Profile } from './views/profile/profile';
 import { Logout } from './components/logout/logout';
 import { Products } from './views/products/products';
 import { Categories } from './views/categories/categories';
+import { Cart } from './views/cart/cart';
+import { Checkout } from './views/checkout/checkout';
 
 export const routes: Routes = [
     {
@@ -33,12 +35,20 @@ export const routes: Routes = [
       component: Products
     },
     {
-      path: 'categories/:bind',
+      path: 'categorias/:bind',
       component: Categories
     },
     {
-      path: 'categories',
+      path: 'categorias',
       component: Categories
+    },
+    {
+      path: 'carrinho',
+      component: Cart
+    },
+    {
+      path: 'checkout',
+      component: Checkout
     }
     // {
     //   path: '**',

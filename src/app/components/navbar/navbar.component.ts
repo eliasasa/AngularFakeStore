@@ -11,6 +11,8 @@ import { ToastService } from '../../services/toast/toast-service';
 import { User } from '../../services/user/user';
 import { AuthService } from '../../services/auth/auth-service';
 import { Search } from '../search/search';
+import { CartItem } from '../../interfaces/cart/cart-itens';
+import { CartService } from '../../services/cart/cart-service';
 
 @Component({
   selector: 'app-navbar',
@@ -34,10 +36,14 @@ export class NavbarComponent
 
   private authSub = new Subscription();
 
+  cartItens: CartItem[] = [];
+  private cartSub = new Subscription();
+
   constructor(
     private auth: AuthService,
     private userService: User,
     private toastService: ToastService,
+    private cartService: CartService
   ) {}
 
   ngOnInit(): void {
@@ -49,6 +55,11 @@ export class NavbarComponent
 
         if (logged) {
           const id = localStorage.getItem('userId')!;
+          
+          this.cartSub = this.cartService.cart$.subscribe(cart => {
+            this.cartItens = cart;
+          });
+
           try {
             const dados = await this.userService.getInfoUser(
               +id
@@ -68,9 +79,17 @@ export class NavbarComponent
   }
 
   ngOnDestroy(): void {
-
+    this.cartSub.unsubscribe();
     this.authSub.unsubscribe();
   }
+
+  get cartTotalItems(): number {
+    return this.cartItens.reduce(
+      (total, item) => total + item.quantity,
+      0
+    );
+  }
+
 
   toggleSidebarNavbar(): void {
     this.sidebarComponent.toggleSidebar(true);
