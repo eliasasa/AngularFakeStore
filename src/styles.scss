@@ -247,3 +247,15 @@ input[type="number"] {
   -moz-appearance: textfield;    // firefox
   -webkit-appearance: none;      // chrome, safari
 }
+
+@media (max-width: 768px) {
+  body {
+    margin-top: 165px;
+  }
+}
+
+@media (max-width: 454px) {
+  body {
+    margin-top: 165px;
+  }
+}

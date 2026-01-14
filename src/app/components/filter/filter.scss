@@ -2,7 +2,8 @@
     display: flex;
     flex-direction: row;
     width: 100%;
-    justify-content: space-between;
+    justify-content: center;
+    padding: 0;
 }
 
 .material-icons,
@@ -23,6 +24,7 @@
   gap: 8px;
   font-weight: bold;
   border-radius: 20px;
+  margin: 0 auto;
   &:hover, &.active {
       background-color: var(--text-brand-color);
       color: #3d3d3d;
@@ -30,6 +32,14 @@
       & > .icon-filter {
           color: #3d3d3d !important;
       }
+  }
+
+  &:first-child {
+    margin-left: 0;
+  }
+
+  &:last-child {
+    margin-right: 0;
   }
 
   &.active::before {
@@ -42,6 +52,7 @@
       animation: ping 1s linear infinite;
   }
 }
+
 @keyframes ping {
   0% {
     transform: scale(1);
@@ -50,5 +61,17 @@
   100% {
     transform: scale(1.5);
     opacity: 0;
+  }
+}
+
+@media (max-width: 576px) {
+  .filter-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .filter-item {
+    margin: auto !important;
   }
 }

@@ -1,5 +1,6 @@
 .product-list {
     position: relative;
+    max-width: 100%;
 }
 
 .product-row {
@@ -46,5 +47,36 @@
         padding: 0.5rem 1rem;
         cursor: pointer;
         transition: all .3s ease;    
+    }
+}
+
+
+@media (max-width: 1400px) {
+    .card-grid {
+        grid-template-columns: repeat(5, 1fr);
+    }
+}
+
+@media (max-width: 1200px) {
+    .card-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+@media (max-width: 992px) {
+    .card-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .container  {
+        max-width: none;
+        width: 100%;
+        margin: 0;
+    }
+
+    .product-row {
+        padding: 0 4px;
     }
 }

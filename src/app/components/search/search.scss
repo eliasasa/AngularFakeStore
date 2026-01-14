@@ -61,11 +61,10 @@
     flex-direction: column;
     position: absolute;
     display: flex;
-    padding: 4px;
     top: calc(100% + 16px);
     width: 100%;
     min-height: 48px;
-    background-color: #222222;
+    background-color: #333333;
     border-radius: 5px;
     z-index: 10;
     gap: 12px;
@@ -140,4 +139,32 @@
     font-size: 20px;
     font-weight: 500;
     color:var(--text-brand-color);
+}
+
+@media (max-width: 768px) {
+    .search-container {
+        width: 100%;
+    }
+
+    .product-price {
+        font-size: 16px;
+        width: 100%;
+    }
+
+    .product-info {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        width: 100%;
+    }
+
+    .product-data > .product-title {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;  
+        overflow: hidden;
+    }
+
+    .search-content {
+        padding: 8px;
+    }
 }

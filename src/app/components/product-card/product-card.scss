@@ -254,3 +254,24 @@ input.like-checkbox {
     display: none;
   }
 }
+
+@media (max-width: 576px) {
+  .main-card {
+    width: 160px;
+    height: 200px;
+  }
+
+  .img-product {
+    min-height: 0 !important;
+    height: 100% !important;
+  }
+
+  .title-price {
+    height: 44px;
+  }
+
+  .price-product {
+    font-size: medium;
+  }
+
+}

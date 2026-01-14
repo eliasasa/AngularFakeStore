@@ -11,7 +11,10 @@
                             <div class="image-div">
                                 <img class="search-product" src="{{p.image}}" alt="">
                             </div>
-                            {{p.title}}
+                            <div class="product-title">
+                                {{p.title}}
+                            </div>
+                            
                         </div>
                         <div class="product-price">
                             R$ {{p.price | number: '1.2-2'}} 
