@@ -351,3 +351,29 @@
     transform-origin: -3vw 6vh;
     box-shadow: 40vmin 0 5.810457375840354vmin currentColor;
 }
+
+@media (max-width: 576px) {
+  .form {
+    padding: 24px;
+    width: 90vw;
+    height: auto;
+    margin: 8px;
+    aspect-ratio: 3 / 5;
+    p {
+        margin: 0;
+    }
+  }
+
+  .submit-btn {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 375px) {
+  .form {
+    padding: 16px;
+    width: 95vw;
+  }
+
+}
