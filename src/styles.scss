@@ -190,6 +190,23 @@ a {
   padding: 0 8px;
 }
 
+.input-error {
+  border-color: #e53935 !important;
+  color: #e53935 !important;
+  background-color: rgba(229, 57, 53, 0.05) !important;
+  animation: shake 0.3s ease !important;
+}
+
+
+@keyframes shake {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-4px); }
+  50% { transform: translateX(4px); }
+  75% { transform: translateX(-4px); }
+  100% { transform: translateX(0); }
+}
+
+
 .submit {
   margin-top: 32px;
   padding: 10px 20px;

@@ -10,15 +10,22 @@ import {
   PLATFORM_ID 
 } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
-import { RouterLink } from '@angular/router';
-import { FormsModule } from '@angular/forms';
+import { Router, RouterLink } from '@angular/router';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ToastService } from '../../services/toast/toast-service';
+import { AuthService } from '../../services/auth/auth-service';
+import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   imports: [
-    RouterLink, 
-    FormsModule
+    RouterLink,
+    ReactiveFormsModule,
+    NgxMaskDirective,
+],
+ providers: [
+    provideNgxMask()
   ],
   styleUrls: ['./register.component.scss', '../login/login.component.scss']
 })
@@ -29,11 +36,104 @@ export class RegisterComponent implements AfterViewInit, OnInit {
   private ctx!: CanvasRenderingContext2D;
   private particlesArray: Particle[] = [];
   private numParticles = 100;
+  formCadUser!: FormGroup;
   
-  constructor(private ngZone: NgZone, @Inject(PLATFORM_ID) private platformId: Object) {}
+  constructor(
+    private fb : FormBuilder,
+    private ngZone: NgZone, 
+    @Inject(PLATFORM_ID) private platformId: Object,
+    private toast: ToastService,
+    private auth: AuthService,
+    private router: Router
+  ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.formCadUser = this.fb.group({
+      step1: this.fb.group({
+        email: ['', [Validators.required, Validators.email]],
+        username: ['', Validators.required],
+        password: ['', Validators.required]
+      }),
+      step2: this.fb.group({
+        firstName: ['', Validators.required],
+        lastName: ['', Validators.required],
+        phone: ['', Validators.required]
+      })
+    });
+  }
+
+  currentStep = 0;
+  stepTitles = ['Informações de Login', 'Dados Pessoais', 'Endereço'];
   
+
+  isStepValid(step: number): boolean {
+    if (step === 0) {
+      return this.formCadUser.get('step1')!.valid;
+    }
+
+    if (step === 1) {
+      return this.formCadUser.get('step2')!.valid;
+    }
+
+    return false;
+  }
+
+  nextStep() {
+    if (!this.isStepValid(this.currentStep)) {
+      this.markStepAsTouched(this.currentStep);
+      this.toast.showToast('Preencha todos os dados!', 'aviso')
+      return;
+    }
+
+    if (this.currentStep < 1) {
+      this.currentStep++;
+    }
+  }
+
+
+  prevStep() {
+    if (this.currentStep > 0) this.currentStep--;
+  }
+
+  markStepAsTouched(step: number) {
+    const group =
+      step === 0
+        ? this.formCadUser.get('step1')
+        : this.formCadUser.get('step2');
+
+    group?.markAllAsTouched();
+  }
+
+  onSubmit() {
+    if (this.formCadUser.invalid) {
+      this.formCadUser.markAllAsTouched();
+      this.toast.showToast('Preencha todos os dados!', 'aviso')
+      return;
+    }
+
+    const { step1, step2 } = this.formCadUser.value;
+
+    const userData = {
+      email: step1.email,
+      username: step1.username,
+      password: step1.password,
+      name: {
+        firstname: step2.firstName,
+        lastname: step2.lastName
+      },  
+      phone: step2.phone
+    };
+
+    this.auth.register(userData).then(success => {
+      if (success) {
+        this.toast.showToast('Cadastro realizado com sucesso!', 'sucesso');
+        this.toast.showToast('Cadastro apenas para fins de demonstração. Os dados não são armazenados.', 'info');
+        this.router.navigate(['/login']);
+      } else {
+        this.toast.showToast('Erro ao cadastrar usuário', 'erro');
+      }
+    });
+  }
 
   ngAfterViewInit(): void {
     setTimeout(() => {
@@ -58,39 +158,6 @@ export class RegisterComponent implements AfterViewInit, OnInit {
         this.animate();
       });
     }, 50); 
-  }
-
-  currentStep = 0;
-  stepTitles = ['Informações de Login', 'Dados Pessoais', 'Endereço'];
-  
-  userData: any = {
-    email: '',
-    username: '',
-    password: '',
-    name: {
-      firstname: '',
-      lastname: ''
-    },
-    address: {
-      city: '',
-      street: '',
-      number: '',
-      zipcode: ''
-    },
-    phone: ''
-  };
-
-  nextStep() {
-    if (this.currentStep < 1) this.currentStep++;
-  }
-
-  prevStep() {
-    if (this.currentStep > 0) this.currentStep--;
-  }
-
-  onSubmit() {
-    console.log('Dados enviados:', this.userData);
-    // this.authService.register(this.userData).subscribe(...)
   }
 
   @HostListener('window:resize')

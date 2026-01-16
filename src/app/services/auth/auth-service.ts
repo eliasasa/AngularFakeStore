@@ -1,27 +1,22 @@
 import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
 import { isPlatformBrowser } from '@angular/common';
+import { BehaviorSubject } from 'rxjs';
 import { CartService } from '../cart/cart-service';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   private readonly API_URL = 'https://fakestoreapi.com';
 
-  private loggedIn!: BehaviorSubject<boolean>;
-  isLoggedIn$!: Observable<boolean>;
+  private loggedIn = new BehaviorSubject<boolean>(false);
+  isLoggedIn$ = this.loggedIn.asObservable();
 
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
-    private cart: CartService,
+    private cart: CartService
   ) {
-    const isBrowser = isPlatformBrowser(this.platformId);
-
-    const token = isBrowser
-      ? localStorage.getItem('token')
-      : null;
-
-    this.loggedIn = new BehaviorSubject<boolean>(!!token);
-    this.isLoggedIn$ = this.loggedIn.asObservable();
+    if (isPlatformBrowser(this.platformId)) {
+      this.loggedIn.next(!!localStorage.getItem('token'));
+    }
   }
 
   async signIn(username: string, password: string): Promise<boolean> {
@@ -29,31 +24,39 @@ export class AuthService {
       const res = await fetch(`${this.API_URL}/auth/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          username: username.trim(),
-          password: password.trim()
-        })
+        body: JSON.stringify({ username, password })
       });
+
       const data = await res.json();
-      if (!data.token) {
-        return false;
-      }
+      if (!data.token) return false;
 
       if (isPlatformBrowser(this.platformId)) {
         localStorage.setItem('token', data.token);
       }
 
-      const usersRes = await fetch(`${this.API_URL}/users`);
-      const users = await usersRes.json();
-      const user = users.find((u: any) => u.username === username);
-      if (user && isPlatformBrowser(this.platformId)) {
-        localStorage.setItem('userId', String(user.id));
-        localStorage.setItem('favProducts', JSON.stringify([]));
-        localStorage.setItem('cartProducts', JSON.stringify([]));
-        localStorage.setItem('viewProducts', JSON.stringify([]));
-      }
-
       this.loggedIn.next(true);
+      return true;
+    } catch {
+      return false;
+    }
+  }
+
+  async register(user: {
+    email: string;
+    username: string;
+    password: string;
+    name: { firstname: string; lastname: string };
+    phone: string;
+  }): Promise<boolean> {
+    try {
+      const res = await fetch(`${this.API_URL}/users`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(user)
+      });
+
+      if (!res.ok) return false;
+
       return true;
     } catch {
       return false;
@@ -64,8 +67,7 @@ export class AuthService {
     if (isPlatformBrowser(this.platformId)) {
       localStorage.clear();
     }
-    this.cart.cleanCart()
-    
+    this.cart.cleanCart();
     this.loggedIn.next(false);
   }
 }
