@@ -75,7 +75,7 @@
     }
 }
 
-@media (max-width: 576px) {
+@media (max-width: 620px) {
   .card-grid {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -84,7 +84,10 @@
   }
 }
 
-@media (max-width: 375px) {
+// @media (max-width: 375px) {
+// }
+
+@media (max-width: 340px) {
   .card-grid {
     grid-template-columns: repeat(1, 1fr);
   }

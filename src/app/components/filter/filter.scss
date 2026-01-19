@@ -64,7 +64,7 @@
   }
 }
 
-@media (max-width: 576px) {
+@media (max-width: 768px) {
   .filter-row {
     display: flex;
     flex-wrap: wrap;
@@ -72,6 +72,6 @@
   }
 
   .filter-item {
-    margin: auto !important;
+    margin: 0 !important;
   }
 }
