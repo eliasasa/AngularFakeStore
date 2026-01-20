@@ -40,7 +40,7 @@ export class Checkout implements OnInit {
   JUROS_MENSAL = 0.029;
   PARCELAS_SEM_JUROS = 3;
 
-  currentStep: number = 2;
+  currentStep: number = 0;
   isLogged: boolean = false
   private authSub!: Subscription;
   userData: any = null;
