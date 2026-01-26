@@ -1,6 +1,6 @@
 <nav class="navbar navbar-dark bg-dark">
   <div class="container">
-    <div class="navbar-left" style="display: flex; align-items: center; gap: 16px; flex: 1;">
+    <div class="navbar-left">
       <a class="navbar-brand" routerLink="/">
         <div class="logo-container">
           <img class="icon" src="assets/icons/logo.svg" style="--icon-size: 24px" alt="Logo">
@@ -10,7 +10,7 @@
       </a>
       <app-search></app-search>
     </div>
-    <div class="navbar-right" style="display: flex; align-items: center; gap: 16px;">
+    <div class="navbar-right">
       @if (!isLoggedIn) {
         <a class="nav-link text-white" routerLink="/login">
             <img src="assets/icons/navbar/login-icon.svg" class="icon" style="--icon-size: 24px" alt="">

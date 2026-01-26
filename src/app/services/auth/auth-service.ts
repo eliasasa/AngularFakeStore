@@ -1,6 +1,6 @@
 import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
 import { isPlatformBrowser } from '@angular/common';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { CartService } from '../cart/cart-service';
 
 @Injectable({ providedIn: 'root' })
@@ -60,12 +60,33 @@ export class AuthService {
     }
   }
 
+  async register(user: {
+    email: string;
+    username: string;
+    password: string;
+    name: { firstname: string; lastname: string };
+    phone: string;
+  }): Promise<boolean> {
+    try {
+      const res = await fetch(`${this.API_URL}/users`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(user)
+      });
+
+      if (!res.ok) return false;
+
+      return true;
+    } catch {
+      return false;
+    }
+  }
+
   logout(): void {
     if (isPlatformBrowser(this.platformId)) {
       localStorage.clear();
     }
-    this.cart.cleanCart()
-    
+    this.cart.cleanCart();
     this.loggedIn.next(false);
   }
 }

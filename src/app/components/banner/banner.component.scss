@@ -16,6 +16,9 @@
     justify-content: center;
 }
 
+.banner-content {
+    width: 100%;
+}
 
 .indicators {
     display: flex;
@@ -60,5 +63,18 @@
     &.fade-in {
         opacity: 1;
         filter: blur(0px);
+    }
+}
+
+@media (max-width: 576px) {
+    .indicators {
+        flex-direction: row;
+        align-items: center;
+        gap: 8px;
+        width: 100%;
+    }
+
+    .indicator {
+        margin: 0;
     }
 }

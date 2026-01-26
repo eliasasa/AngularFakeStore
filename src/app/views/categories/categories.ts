@@ -116,7 +116,7 @@ export class Categories implements OnInit, AfterViewInit{
     if (this.selectedCategories.length > 0) {
       queryParams.cat = this.selectedCategories.join(',');
     } else {
-      queryParams.cat = null; // 👈 remove da URL
+      queryParams.cat = null;
     }
 
     if (this.minPrice !== null && this.minPrice > 0) {

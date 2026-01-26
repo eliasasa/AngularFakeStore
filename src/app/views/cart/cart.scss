@@ -226,6 +226,85 @@ hr {
   }
 }
 
+@media (max-width: 1200px) {
+  .primary-info {
+    width: 50%;
+  }
+
+  .secundary-info {
+    gap: 16px;
+  }
+
+  .total-quantity h5 {
+    text-align: center;
+  }
+
+  .cart-item {
+    column-gap: 16px;
+  }
+}
+
+@media (max-width: 830px) {
+
+  .item-image {
+    width: 128px;
+    height: 128px;
+  }
+
+  .cart-data svg {
+    width: 100%;
+  }
+
+  .secundary-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+
+  .cart-checkout {
+    gap: 24px;
+  }
+
+  .cart-buttons {
+    width: 100%;
+  }
+
+  .cart-body {
+    padding: 16px;
+  }
+}
+
+@media (max-width: 557px) {
+  .cart-buttons {
+    flex-direction: column;
+    .btn-base {
+      height: 48px;
+    }
+  }
+
+  .item-price {
+    flex-wrap: wrap;
+  }
+
+  .cart-item {
+    gap: 24px;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .secundary-info, .primary-info {
+    width: 100%;
+  }
+  
+}
+
+@media (max-width: 476px) {
+  .cart-data svg {
+    width: 100%;
+  }
+}
+
+
 /* From Uiverse.io by fthisilak */ 
 .pay-btn {
   position: relative;

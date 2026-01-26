@@ -7,7 +7,7 @@
 /* From Uiverse.io by Pradeepsaranbishnoi */ 
 .social-links,.flex-center {
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
   align-items: center;
 }
 
@@ -28,6 +28,10 @@
 .social-btn svg {
   height: 24px;
   width: 24px;
+}
+
+.mobile-info {
+  width: 50%;
 }
 
 .social-btn span {
@@ -63,3 +67,22 @@
   fill: #333;
 }
 
+@media (max-width: 768px) {
+  .footer-mobile > div{
+    display: flex;
+    flex-direction: column !important;
+    width: 100%;
+    align-items: flex-start !important;
+    gap: 24px;  
+    .mobile-info {
+      align-items: center !important;
+      margin: 16px 0;
+    }
+  }
+  .social-links {
+    justify-content: center;
+    width: 100%;
+  }
+
+  
+}

@@ -90,14 +90,41 @@
   }
 }
 
+@media (max-width: 1700px) {
+    .product-result {
+      grid-template-columns: repeat(5, 1fr );
+      grid-template-rows: min-content;
+    }
+}
+
+@media (max-width: 1400px) {
+    .product-result {
+      grid-template-columns: repeat(4, 1fr );
+      padding: 16px;
+    }
+}
+
+@media (max-width: 1200px) {
+    .product-result {
+      grid-template-columns: repeat(3, 1fr );
+    }
+}
+
+@media (max-width: 900px) {
+    .product-result {
+      grid-template-columns: repeat(2, 1fr );
+    }
+}
+
 @media (max-width: 768px) {
     .categories-container {
       display: flex;
       flex-direction: column;
+      padding: 16px;
     }
 
     .product-result {
-      display: flex;
+      grid-template-columns: repeat(3, 1fr);
       width: 100%;
     }
 
@@ -105,6 +132,35 @@
       width: 100%;
     }
 }
+
+@media (max-width: 665px) {
+  .categories-container {
+    padding: 8px;
+  }
+
+  .categories-title {
+    padding: 0 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    .btn-base {
+      width: 100%;
+    }
+  }
+
+  .product-result {
+    padding: 8px;
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 340px) {
+  .product-result {
+    grid-template-columns: 1fr;
+  }
+}
+
 
 /* From Uiverse.io by vishnupprajapat */ 
 .checkbox-wrapper-46 input[type="checkbox"] {

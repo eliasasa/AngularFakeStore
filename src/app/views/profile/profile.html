@@ -18,8 +18,8 @@
                 
             </div>
             
-            <div class="container-fluid py-5">
-                <div class="row column-gap-5 align-items-start">
+            <div class="container-fluid">
+                <div class="row column-gap-5 align-items-start container-info">
                     <div class="col info-container" (click)="mostrar1 = !mostrar1">
                         <div>
                             <p class="info-title m-0">
@@ -180,14 +180,18 @@
                     [icon]="'star'"
                     [title]="'Seus favoritos'"
                     [products]="favoriteProducts"
+                    [rowClass]="true"
                     [emptyMessage]="'Você não tem nenhum produto favoritado :('"
+                    class="align-self-start"
                 ></app-product-list>
 
                 <app-product-list 
                     [icon]="'history'"
                     [title]="'Vistos por você'"
                     [products]="viewedProduct"
+                    [rowClass]="true"
                     [emptyMessage]="'Assim que você visualizar produtos, eles aparecerão aqui.'"
+                    class="align-self-start"
                 ></app-product-list>
 
             </div>

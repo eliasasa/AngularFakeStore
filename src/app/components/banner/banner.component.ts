@@ -13,10 +13,10 @@ import { RouterModule } from '@angular/router';
   ],
 })
 export class BannerComponent implements AfterViewInit, OnDestroy {
-  bannerImages = [
-    'assets/images/banner/desktop/banner-first.jpg',
-    'assets/images/banner/desktop/banner-second.jpg',
-    'assets/images/banner/desktop/banner-third.jpg'
+  bannerBasePaths = [
+    'assets/images/categories/electronics',
+    'assets/images/categories/jewelery',
+    'assets/images/categories/women'
   ];
 
   categories = [
@@ -27,13 +27,41 @@ export class BannerComponent implements AfterViewInit, OnDestroy {
 
   currentCategory!: string;
 
-  currentSrc = this.bannerImages[0];
+  isMobileView = false;
+
+  private mediaQuery!: MediaQueryList;
+  private mediaListener!: (event: MediaQueryListEvent) => void;
+
+  currentSrc!: string;
   protected currentIndex = 0;
   private interval: any;
   isFading = false;
   private fadeDuration = 300;
   
   constructor(@Inject(PLATFORM_ID) private platformId: Object, private ngZone: NgZone) {}
+
+  private initMediaQuery() {
+    if (!isPlatformBrowser(this.platformId)) return;
+
+    this.mediaQuery = window.matchMedia('(max-width: 768px)');
+    this.isMobileView = this.mediaQuery.matches;
+
+    this.mediaListener = (event: MediaQueryListEvent) => {
+      this.isMobileView = event.matches;
+      this.updateBannerSrc();
+    };
+
+    this.mediaQuery.addEventListener('change', this.mediaListener);
+  }
+
+  private getDevice(): 'mobile' | 'desktop' {
+    return this.isMobileView ? 'mobile' : 'desktop';
+  }
+
+  private updateBannerSrc() {
+    const device = this.getDevice();
+    this.currentSrc = `${this.bannerBasePaths[this.currentIndex]}/${device}.png`;
+  }
 
   startBannerRotation() {
     if (!isPlatformBrowser(this.platformId)) return;
@@ -43,7 +71,7 @@ export class BannerComponent implements AfterViewInit, OnDestroy {
       this.interval = setInterval(() => {
         this.ngZone.run(() => {
           this.fadeToImage(
-            (this.currentIndex + 1) % this.bannerImages.length
+            (this.currentIndex + 1) % this.bannerBasePaths.length
           );
         });
       }, 6000);
@@ -58,8 +86,8 @@ export class BannerComponent implements AfterViewInit, OnDestroy {
 
     setTimeout(() => {
       this.currentIndex = index;
-      this.currentSrc = this.bannerImages[index];
       this.currentCategory = this.categories[index];
+      this.updateBannerSrc();
 
       setTimeout(() => {
         this.isFading = false;
@@ -73,13 +101,21 @@ export class BannerComponent implements AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit() {
-    this.startBannerRotation();
+    this.initMediaQuery();
     this.currentCategory = this.categories[0];
+    this.currentIndex = 0;
+    this.updateBannerSrc();
+    this.startBannerRotation();
   }
 
   ngOnDestroy() {
     if (this.interval) {
       clearInterval(this.interval);
     }
+
+    if (this.mediaQuery && this.mediaListener) {
+      this.mediaQuery.removeEventListener('change', this.mediaListener);
+    }
   }
+
 }

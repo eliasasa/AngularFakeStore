@@ -333,7 +333,7 @@
 
                             <div class="textInputWrapper">
                                 <label for="cardNumber">Número do cartão</label>
-                                <input formControlName="cardNumber" type="text" id="cardNumber" class="textInput" placeholder="0000 0000 0000 0000" mask="0000 0000 0000 0000"
+                                <input formControlName="cardNumber" type="text" id="cardNumber" class="textInput" placeholder="0000 0000 0000 0000" [dropSpecialCharacters]="true" mask="0000 0000 0000 0000"
                                 [class.input-error]="
                                     paymentForm.get('cardNumber')?.invalid &&
                                     paymentForm.get('cardNumber')?.touched

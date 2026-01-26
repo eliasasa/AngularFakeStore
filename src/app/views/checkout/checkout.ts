@@ -40,7 +40,7 @@ export class Checkout implements OnInit {
   JUROS_MENSAL = 0.029;
   PARCELAS_SEM_JUROS = 3;
 
-  currentStep: number = 2;
+  currentStep: number = 0;
   isLogged: boolean = false
   private authSub!: Subscription;
   userData: any = null;
@@ -184,7 +184,8 @@ export class Checkout implements OnInit {
     if (method === 'CREDIT' || method === 'DEBIT') {
       this.paymentForm.get('cardNumber')?.setValidators([
         Validators.required,
-        Validators.minLength(19)
+        Validators.minLength(13),
+        Validators.maxLength(19)
       ]);
 
       this.paymentForm.get('cardName')?.setValidators([
@@ -198,7 +199,8 @@ export class Checkout implements OnInit {
 
       this.paymentForm.get('cardCvv')?.setValidators([
         Validators.required,
-        Validators.minLength(3)
+        Validators.minLength(3),
+        Validators.maxLength(4)
       ]);
     }
 

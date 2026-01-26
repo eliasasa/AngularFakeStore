@@ -1,6 +1,6 @@
 <div class="min-h flex-column m-0 p-0 d-flex w-100 align-items-center justify-content-center form-bg">
     <canvas #particleCanvas></canvas>
-    <form class="form" (ngSubmit)="onSubmit()">
+    <form class="form" [formGroup]="formCadUser" (ngSubmit)="onSubmit()">
         <div class="w-100 text-center m-3">
             <img class="icon" src="assets/icons/logo.svg" style="--icon-size: 80px" alt="Logo">
             <p class="m-0 fw-bold fs-1">FakeStore</p>
@@ -9,19 +9,31 @@
         
         <!-- Passo 1: Informações de Login -->
         @if (currentStep === 0) {
-            <div class="div-step">
+            <div class="div-step" formGroupName="step1">
                 <div class="group">
-                    <input required="true" class="main-input" type="text">
+                    <input required="true" class="main-input" type="email" formControlName="email"
+                    [class.input-error]="
+                        formCadUser.get('step1.email')?.invalid &&
+                        formCadUser.get('step1.email')?.touched
+                    ">
                     <span class="highlight-span"></span>
                     <label class="lebal-email">E-mail</label>
                 </div>
                 <div class="group">
-                    <input required="true" class="main-input" type="text">
+                    <input required="true" class="main-input" type="text" formControlName="username"
+                    [class.input-error]="
+                        formCadUser.get('step1.username')?.invalid &&
+                        formCadUser.get('step1.username')?.touched
+                    ">
                     <span class="highlight-span"></span>
                     <label class="lebal-email">Username</label>
                 </div>
                 <div class="group">
-                    <input required="true" class="main-input" type="text">
+                    <input required="true" class="main-input" type="text" formControlName="password"
+                    [class.input-error]="
+                        formCadUser.get('step1.password')?.invalid &&
+                        formCadUser.get('step1.password')?.touched
+                    ">
                     <span class="highlight-span"></span>
                     <label class="lebal-email">Senha</label>
                 </div>
@@ -30,27 +42,40 @@
 
         <!-- Passo 2: Informações Pessoais -->
         @if (currentStep === 1) {
-        <div class="div-step">
+        <div class="div-step" formGroupName="step2">
             <div class="group">
-                <input required="true" class="main-input" type="text">
+                <input required="true" class="main-input" type="text" formControlName="firstName"
+                [class.input-error]="
+                    formCadUser.get('step2.firstName')?.invalid &&
+                    formCadUser.get('step2.firstName')?.touched
+                    ">
                 <span class="highlight-span"></span>
                 <label class="lebal-email">Primeiro nome</label>
             </div>
             <div class="group">
-                <input required="true" class="main-input" type="text">
+                <input required="true" class="main-input" type="text" formControlName="lastName"
+                [class.input-error]="
+                    formCadUser.get('step2.lastName')?.invalid &&
+                    formCadUser.get('step2.lastName')?.touched
+                ">
                 <span class="highlight-span"></span>
                 <label class="lebal-email">Sobrenome</label>
             </div>
             <div class="group">
-                <input required="true" class="main-input" type="text">
+                <input required="true" class="main-input" type="text" formControlName="phone" mask="(00) 00000-0000"
+                [class.input-error]="
+                    formCadUser.get('step2.phone')?.invalid &&
+                    formCadUser.get('step2.phone')?.touched
+                ">
                 <span class="highlight-span"></span>
                 <label class="lebal-email">Telefone</label>
+                
             </div>
         </div>
         }
 
         <!-- Botões de navegação -->
-        <div class="d-flex justify-content-between mt-4 w-100 gap-4">
+        <div class="d-flex justify-content-between mt-4 w-100 gap-4 submit-btn">
             @if (currentStep > 0) {
             <button type="button" class="btn btn-secondary" (click)="prevStep()">
                 Voltar
