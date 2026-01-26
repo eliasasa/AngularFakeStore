@@ -291,3 +291,43 @@ hr.row {
     display: none;
   }
 }
+
+@media (max-width: 768px) {
+    .product-body {
+      display: flex;
+      flex-direction: column !important;
+      gap: 24px;
+      align-items: center;
+      align-content: center;
+      justify-content: center;
+    }
+}
+
+@media (max-width: 575px) {
+    .product-body {
+      padding: 16px;
+    }
+
+    .product-actions {
+      grid-template-columns: 1fr;
+      grid-template-rows: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .heart-container {
+      grid-row: 1;
+      justify-self: flex-end;
+    }
+
+    .product-qtt {
+      gap: 8px;
+    }
+}
+
+@media (max-width: 319px) {
+    .product-qtt {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+}
