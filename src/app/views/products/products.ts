@@ -141,4 +141,9 @@ export class Products implements OnInit {
     localStorage.setItem('favProducts', JSON.stringify(favProducts));
   }
 
+  toBuy() {
+    this.addToCart();
+    this.router.navigate(['/carrinho']);
+  }
+
 }
