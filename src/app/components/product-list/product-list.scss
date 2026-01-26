@@ -4,11 +4,17 @@
 }
 
 .product-row {
-    overflow-x: hidden;
+    overflow-x: auto;
+    overflow-y: hidden;
     display: flex;
-    flex-wrap: inherit !important;
+    flex-wrap: nowrap !important;
     gap: 1rem;
     scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch; 
+}
+
+.product-row::-webkit-scrollbar {
+  display: none;
 }
 
 .product-list {
