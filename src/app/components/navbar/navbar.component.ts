@@ -103,17 +103,17 @@ export class NavbarComponent
       {
         icon: 'assets/icons/navbar/search-icon.svg',
         text: 'Buscar',
-        route: '/buscar'
+        route: '/categorias'
       },
       {
-        materialIcon: 'analytics',
-        text: 'Análise',
-        route: '/analise'
+        materialIcon: 'shopping_cart',
+        text: 'Carrinho',
+        route: '/carrinho'
       },
       {
-        icon: 'assets/icons/navbar/search-icon.svg',
-        text: 'Produtos',
-        route: '/produtos'
+        materialIcon: 'local_mall',
+        text: 'Pagamento',
+        route: '/checkout'
       }
     ];
 
