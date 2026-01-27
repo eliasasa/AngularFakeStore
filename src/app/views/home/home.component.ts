@@ -9,6 +9,7 @@ import { ProductCard } from '../../components/product-card/product-card';
 import { ToastService } from '../../services/toast/toast-service';
 import { Load } from '../../components/load/load';
 import { ProductList } from '../../components/product-list/product-list';
+import { AdBannerComponent } from '../../components/ad-banner/ad-banner';
 
 @Component({
   selector: 'app-home',
@@ -20,6 +21,7 @@ import { ProductList } from '../../components/product-list/product-list';
     ProductCard,
     Load,
     ProductList,
+    AdBannerComponent
   ]
 })
 export class HomeComponent implements OnInit, OnDestroy {
@@ -35,6 +37,21 @@ export class HomeComponent implements OnInit, OnDestroy {
     { title: 'Masculino', value: "men's clothing", materialIcon: 'man' },
     { title: 'Feminino', value: "women's clothing", materialIcon: 'woman' }
   ];
+
+  adBannerData = [
+    {
+      desktopImageUrl: '/assets/images/ad-banner/10588236.png',
+      mobileImageUrl: '/assets/images/ad-banner/10588387.png',
+      linkUrl: '/categorias',
+    },
+    {
+      desktopImageUrl: '/assets/images/ad-banner/10564971.png',
+      mobileImageUrl: '/assets/images/ad-banner/10564972.png',
+      queryParams: { cat: 'jewelery' },
+      linkUrl: '/categorias',
+    }
+  ];
+
   
   private categorySubscription!: Subscription;
 

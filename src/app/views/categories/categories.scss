@@ -90,6 +90,10 @@
   }
 }
 
+.btn-roxo-sec {
+  height: 32px;
+}
+
 @media (max-width: 1700px) {
     .product-result {
       grid-template-columns: repeat(5, 1fr );
@@ -160,7 +164,6 @@
     grid-template-columns: 1fr;
   }
 }
-
 
 /* From Uiverse.io by vishnupprajapat */ 
 .checkbox-wrapper-46 input[type="checkbox"] {

@@ -36,6 +36,8 @@
             </div>
         </div>
 
+        <app-ad-banner [ad]="adBannerData[1]"></app-ad-banner>
+
         <app-product-list
             [icon]="'hotel_class'"
             [title]="'Mais avaliados'"
@@ -44,6 +46,8 @@
             [rowClass]="true"
         ></app-product-list>
 
+        
+
         <app-product-list
             [icon]="'trending_up'"
             [title]="'Mais vendidos'"
@@ -51,6 +55,9 @@
             emptyMessage="'Alguma coisa deu errado :/'"
             [rowClass]="true"
         ></app-product-list>
+
+        <app-ad-banner [ad]="adBannerData[0]"></app-ad-banner>
+
         <!-- <app-product-list 
             [icon]="'history'"
             [title]="'Vistos por você'"
