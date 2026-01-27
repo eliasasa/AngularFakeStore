@@ -1,0 +1,24 @@
+@if (ad.linkUrl) {
+  <a
+    class="ad-banner"
+    [routerLink]="ad.linkUrl"
+    [queryParams]="ad.queryParams"
+  >
+    <img
+      class="ad-banner__image"
+      [src]="currentImageUrl"
+      alt=""
+      loading="lazy"
+    />
+  </a>
+
+} @else {
+  <div class="ad-banner">
+    <img
+      class="ad-banner__image"
+      [src]="currentImageUrl"
+      alt=""
+      loading="lazy"
+    />
+  </div>
+}
